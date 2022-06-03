@@ -1,0 +1,47 @@
+<script lang="ts">
+import { StageActionTypes } from '@/store/stages/enums';
+import { Component, Vue } from 'vue-property-decorator';
+import { BindingHelpers } from 'vuex-class/lib/bindings';
+import { namespace } from 'vuex-class'
+import { IStageDetails } from '@/interfaces/IStage';
+
+const ns: BindingHelpers = namespace('stages')
+
+@Component
+export default class StagesList extends Vue {
+
+  @ns.State('stage') stage!: IStageDetails;
+  @ns.Action(StageActionTypes.FETCH_ONE) fetchOne: any;
+
+  public mounted() {
+    this.fetchOne(this.$route.params.id);
+  }
+}
+</script>
+
+<template>
+  <div class="fit-screen">
+    <div class="stage-name">{{ stage.name }}</div>
+    <svg height="100%" width="100%">
+      <g :transform="`translate(${stage.x} ${stage.y})`"></g>
+    </svg>
+  </div>
+</template>
+
+<style scoped>
+.fit-screen {
+  height: 100vh;
+  width: 100vw;
+}
+
+svg {
+  background-color: silver;
+}
+
+.stage-name {
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 0; left: 5px;
+}
+</style>

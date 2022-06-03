@@ -3,6 +3,9 @@ import IStage from '@/interfaces/IStage';
 import { StageActionTypes } from '@/store/stages/enums';
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class'
+import { BindingHelpers } from 'vuex-class/lib/bindings';
+
+const ns: BindingHelpers = namespace('stages')
 
 @Component
 export default class StagesList extends Vue {
@@ -15,9 +18,9 @@ export default class StagesList extends Vue {
     {text: 'Actions', value: 'actions'},
   ]
 
-  @namespace('stages').State('list') stages!: IStage[];
+  @ns.State('list') stages!: IStage[];
 
-  @namespace('stages').Action(StageActionTypes.FETCH_LIST) fetchlist: any;
+  @ns.Action(StageActionTypes.FETCH_LIST) fetchlist: any;
 
   public mounted() {
     this.fetchlist();

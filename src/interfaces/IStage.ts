@@ -7,3 +7,10 @@ export default interface IStage {
   links: number;
   nodes: number;
 }
+
+export interface IStageDetails {
+  id: string;
+  name: string;
+  x: number;
+  y: number;
+}
