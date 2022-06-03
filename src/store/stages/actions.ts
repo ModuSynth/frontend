@@ -20,7 +20,8 @@ const actions: ActionTree<IStageState, MainState> & StageActions = {
         id: stageId.toString(),
         name: 'My awesome stage',
         x: 0,
-        y: 0
+        y: 0,
+        nodes: [ {x: 10, y: 20}, {x: 200, y: 20} ]
       };
       commit(StageMutationTypes.SET_DETAILS, details);
       resolve(details);

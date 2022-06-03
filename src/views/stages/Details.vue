@@ -4,10 +4,13 @@ import { Component, Vue } from 'vue-property-decorator';
 import { BindingHelpers } from 'vuex-class/lib/bindings';
 import { namespace } from 'vuex-class'
 import { IStageDetails } from '@/interfaces/IStage';
+import NodeWrapper from '@/components/stages/NodeWrapper.vue'
 
 const ns: BindingHelpers = namespace('stages')
 
-@Component
+@Component({
+  components: { NodeWrapper }
+})
 export default class StagesList extends Vue {
 
   @ns.State('stage') stage!: IStageDetails;
@@ -23,7 +26,9 @@ export default class StagesList extends Vue {
   <div class="fit-screen">
     <div class="stage-name">{{ stage.name }}</div>
     <svg height="100%" width="100%">
-      <g :transform="`translate(${stage.x} ${stage.y})`"></g>
+      <g :transform="`translate(${stage.x} ${stage.y})`">
+        <NodeWrapper v-for="node in stage.nodes" :node="node" />
+      </g>
     </svg>
   </div>
 </template>
