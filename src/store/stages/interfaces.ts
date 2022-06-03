@@ -1,0 +1,23 @@
+import IStage from "@/interfaces/IStage";
+import { ActionContext } from "vuex"
+import MainState from "../utils/MainState"
+import { StageActionTypes as ActionTypes, StageMutationTypes as MutationTypes } from "./enums";
+
+export interface IStageState {
+  list: IStage[];
+}
+
+export type StageMutations<S = IStageState> = {
+  [MutationTypes.SET_LIST](state: S, payload: IStage[]): void;
+}
+
+export type StageContext = {
+  commit<K extends keyof StageMutations>(
+    key: K,
+    payload: Parameters<StageMutations[K]>[1]
+  ): ReturnType<StageMutations[K]>
+} & Omit<ActionContext<IStageState, MainState>, 'commit'>;
+
+export interface StageActions {
+  [ActionTypes.FETCH_LIST](context: StageContext): Promise<IStage[]>
+}
