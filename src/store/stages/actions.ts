@@ -3,6 +3,7 @@ import { ActionTree } from "vuex";
 import MainState from "../utils/MainState";
 import { StageActionTypes, StageMutationTypes } from "./enums";
 import { IStageState, StageActions } from "./interfaces";
+import { v4 as uuid } from 'uuid';
 
 const actions: ActionTree<IStageState, MainState> & StageActions = {
   [StageActionTypes.FETCH_LIST]({ commit }) {
@@ -23,8 +24,13 @@ const actions: ActionTree<IStageState, MainState> & StageActions = {
         y: 0,
         nodes: []
       };
-      for (let i = 0; i < 1000; i++) {
-        details.nodes.push({x: Math.random() * 3000, y: Math.random() * 2000})
+      for (let i = 0; i < 200; i++) {
+        details.nodes.push({
+          x: Math.random() * 3000,
+          y: Math.random() * 2000,
+          id: uuid(),
+          name: uuid()
+        })
       }
       commit(StageMutationTypes.SET_DETAILS, details);
       resolve(details);

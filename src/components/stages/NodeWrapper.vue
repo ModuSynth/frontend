@@ -9,5 +9,8 @@ export default class NodeWrapper extends Vue {
 </script>
 
 <template>
-  <rect :x="node.x" :y="node.y" height="100" width="100" fill="black" />
+  <g height="100" width="100">
+    <rect fill="black" height="100" width="100" :x="node.x" :y="node.y" />
+    <text fill="white" :x="node.x + 5" :y="node.y + 22" width="100" font-size="16">{{ node.id }}</text>
+  </g>
 </template>
