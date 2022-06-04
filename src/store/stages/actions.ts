@@ -4,6 +4,7 @@ import MainState from "../utils/MainState";
 import { StageActionTypes, StageMutationTypes } from "./enums";
 import { IStageState, StageActions } from "./interfaces";
 import { v4 as uuid } from 'uuid';
+import { NodeType } from "@/interfaces/enums/NodeType";
 
 const actions: ActionTree<IStageState, MainState> & StageActions = {
   [StageActionTypes.FETCH_LIST]({ commit }) {
@@ -29,7 +30,8 @@ const actions: ActionTree<IStageState, MainState> & StageActions = {
           x: Math.random() * 3000,
           y: Math.random() * 2000,
           id: uuid(),
-          name: uuid()
+          name: uuid(),
+          type: NodeType.GAIN
         })
       }
       commit(StageMutationTypes.SET_DETAILS, details);
