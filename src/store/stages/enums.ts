@@ -3,7 +3,8 @@ export enum StageMutationTypes {
   SET_DETAILS = 'SET_DETAILS',
   START_DRAG = 'START_DRAG',
   MOVE_DRAG = 'MOVE_DRAG',
-  END_DRAG = 'END_DRAG'
+  END_DRAG = 'END_DRAG',
+  SET_SCALE = 'SET_SCALE'
 }
 
 export enum StageActionTypes {

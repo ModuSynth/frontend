@@ -13,6 +13,8 @@ export interface IStageState {
   dragging: boolean;
   // The coordinates where the user started to drag the stage.
   dragOrigin: ICoordinates;
+  // The zoom level of the whole canva.
+  scale: number;
 }
 
 export type StageMutations<S = IStageState> = {

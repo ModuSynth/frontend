@@ -15,6 +15,8 @@ export default class StagesList extends Vue {
 
   @ns.State('stage') stage!: IStageDetails;
 
+  @ns.State('scale') scale!: number;
+
   @ns.Action(StageActionTypes.FETCH_ONE) fetchOne: any;
 
   @ns.Mutation(StageMutationTypes.START_DRAG) startDrag: any;
@@ -22,6 +24,8 @@ export default class StagesList extends Vue {
   @ns.Mutation(StageMutationTypes.END_DRAG) endDrag: any;
 
   @ns.Mutation(StageMutationTypes.MOVE_DRAG) moveDrag: any;
+
+  @ns.Mutation(StageMutationTypes.SET_SCALE) setScale: any;
 
   public mounted() {
     this.fetchOne(this.$route.params.id);
@@ -39,8 +43,9 @@ export default class StagesList extends Vue {
       @mousemove="moveDrag({x: $event.clientX, y: $event.clientY})"
       @mouseleave="endDrag()"
       @mouseup="endDrag()"
+      @wheel.prevent="setScale($event.deltaY)"
     >
-      <g :transform="`translate(${stage.x} ${stage.y})`">
+      <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
         <NodeWrapper v-for="node in stage.nodes" :node="node" />
       </g>
     </svg>

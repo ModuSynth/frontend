@@ -1,7 +1,7 @@
 import IStage, { IStageDetails } from "@/interfaces/IStage";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
+import { MAX_ZOOM_IN, MAX_ZOOM_OUT, ZOOM_RATIO } from "@/utils/constants";
 import { MutationTree } from "vuex";
-import { StateTransformer } from "vuex-class/lib/bindings";
 import { StageMutationTypes } from "./enums";
 import { IStageState, StageMutations } from "./interfaces";
 
@@ -30,6 +30,10 @@ const mutations : MutationTree<IStageState> & StageMutations = {
   },
   [StageMutationTypes.END_DRAG](state) {
     state.dragging = false;
+  },
+  [StageMutationTypes.SET_SCALE](state, delta) {
+    state.scale += delta * -ZOOM_RATIO;
+    state.scale = Math.min(Math.max(MAX_ZOOM_OUT, Math.abs(state.scale)), MAX_ZOOM_IN);
   }
 }
 
