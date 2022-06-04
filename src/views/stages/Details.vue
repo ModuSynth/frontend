@@ -30,6 +30,10 @@ export default class StagesList extends Vue {
   public mounted() {
     this.fetchOne(this.$route.params.id);
   }
+
+  public displayMenu() {
+    console.log("patate");
+  }
 }
 </script>
 
@@ -39,11 +43,12 @@ export default class StagesList extends Vue {
     <svg
       height="100%"
       width="100%"
-      @mousedown="startDrag({x: $event.clientX, y: $event.clientY})"
+      @mousedown.left="startDrag({x: $event.clientX, y: $event.clientY})"
       @mousemove="moveDrag({x: $event.clientX, y: $event.clientY})"
       @mouseleave="endDrag()"
       @mouseup="endDrag()"
       @wheel.prevent="setScale($event.deltaY)"
+      @contextmenu="displayMenu()"
     >
       <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
         <NodeWrapper v-for="node in stage.nodes" :node="node" />

@@ -23,8 +23,8 @@ const actions: ActionTree<IStageState, MainState> & StageActions = {
         y: 0,
         nodes: []
       };
-      for (let i = 0; i < 100; i++) {
-        details.nodes.push({x: Math.random() * 1500, y: Math.random() * 800})
+      for (let i = 0; i < 1000; i++) {
+        details.nodes.push({x: Math.random() * 3000, y: Math.random() * 2000})
       }
       commit(StageMutationTypes.SET_DETAILS, details);
       resolve(details);
