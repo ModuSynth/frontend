@@ -13,7 +13,7 @@ export default class NodeWrapper extends Vue {
 
 <template>
   <g :transform="`translate(${node.x} ${node.y})`">
-    <component :is="node.type"></component>
+    <component :is="node.type" :node="node"></component>
   </g>
 </template>
 

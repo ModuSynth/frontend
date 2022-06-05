@@ -65,7 +65,7 @@ export default class StagesList extends Vue {
 }
 
 svg {
-  background-color: silver;
+  background-color: black;
 }
 
 .stage-name {

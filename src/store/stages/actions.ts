@@ -5,6 +5,7 @@ import { StageActionTypes, StageMutationTypes } from "./enums";
 import { IStageState, StageActions } from "./interfaces";
 import { v4 as uuid } from 'uuid';
 import { NodeType } from "@/interfaces/enums/NodeType";
+import IParameter from "@/interfaces/IParameter";
 
 const actions: ActionTree<IStageState, MainState> & StageActions = {
   [StageActionTypes.FETCH_LIST]({ commit }) {
@@ -25,15 +26,16 @@ const actions: ActionTree<IStageState, MainState> & StageActions = {
         y: 0,
         nodes: []
       };
-      for (let i = 0; i < 200; i++) {
-        details.nodes.push({
-          x: Math.random() * 3000,
-          y: Math.random() * 2000,
-          id: uuid(),
-          name: uuid(),
-          type: NodeType.GAIN
-        })
-      }
+      details.nodes.push({
+        x: 100,
+        y: 100,
+        id: uuid(),
+        name: uuid(),
+        type: NodeType.GAIN,
+        parameters: [
+          { name: 'gain', type: "NumberParameter", value: 1} as IParameter
+        ]
+      });
       commit(StageMutationTypes.SET_DETAILS, details);
       resolve(details);
     });
