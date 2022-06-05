@@ -51,7 +51,7 @@ export default class StagesList extends Vue {
       @contextmenu="displayMenu()"
     >
       <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
-        <NodeWrapper v-for="node in stage.nodes" :node="node" />
+        <NodeWrapper :node="node" v-for="node in stage.nodes" :key="node.id" />
       </g>
     </svg>
   </div>
