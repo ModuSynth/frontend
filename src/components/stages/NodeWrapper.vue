@@ -16,11 +16,3 @@ export default class NodeWrapper extends Vue {
     <component :is="node.type" :node="node"></component>
   </g>
 </template>
-
-<style scoped>
-  .fit-foreign-object {
-    height: 100%;
-    width: 100%;
-    background-color: red;
-  }
-</style>
