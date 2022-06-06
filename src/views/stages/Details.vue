@@ -5,27 +5,29 @@ import { BindingHelpers } from 'vuex-class/lib/bindings';
 import { namespace } from 'vuex-class'
 import { IStageDetails } from '@/interfaces/IStage';
 import NodeWrapper from '@/components/stages/NodeWrapper.vue'
-
-const ns: BindingHelpers = namespace('stages')
+import ns from '@/utils/ns';
+import INode from '@/interfaces/INode'
 
 @Component({
   components: { NodeWrapper }
 })
 export default class StagesList extends Vue {
 
-  @ns.State('stage') stage!: IStageDetails;
+  @ns.stages.State('stage') stage!: IStageDetails;
 
-  @ns.State('scale') scale!: number;
+  @ns.stages.State('scale') scale!: number;
 
-  @ns.Action(StageActionTypes.FETCH_ONE) fetchOne: any;
+  @ns.nodes.State('nodes') nodes!: INode[];
 
-  @ns.Mutation(StageMutationTypes.START_DRAG) startDrag: any;
+  @ns.stages.Action(StageActionTypes.FETCH_ONE) fetchOne: any;
 
-  @ns.Mutation(StageMutationTypes.END_DRAG) endDrag: any;
+  @ns.stages.Mutation(StageMutationTypes.START_DRAG) startDrag: any;
 
-  @ns.Mutation(StageMutationTypes.MOVE_DRAG) moveDrag: any;
+  @ns.stages.Mutation(StageMutationTypes.END_DRAG) endDrag: any;
 
-  @ns.Mutation(StageMutationTypes.SET_SCALE) setScale: any;
+  @ns.stages.Mutation(StageMutationTypes.MOVE_DRAG) moveDrag: any;
+
+  @ns.stages.Mutation(StageMutationTypes.SET_SCALE) setScale: any;
 
   public mounted() {
     this.fetchOne(this.$route.params.id);
@@ -51,7 +53,7 @@ export default class StagesList extends Vue {
       @contextmenu="displayMenu()"
     >
       <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
-        <NodeWrapper :node="node" v-for="node in stage.nodes" :key="node.id" />
+        <NodeWrapper :node="node" v-for="node in nodes" :key="node.id" />
       </g>
     </svg>
   </div>

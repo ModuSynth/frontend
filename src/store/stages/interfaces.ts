@@ -1,7 +1,5 @@
 import IStage, { IStageDetails } from "@/interfaces/IStage";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
-import { ActionContext } from "vuex"
-import MainState from "../utils/MainState"
 import { StageActionTypes as ActionTypes, StageMutationTypes as MutationTypes } from "./enums";
 
 export interface IStageState {
@@ -25,14 +23,7 @@ export type StageMutations<S = IStageState> = {
   [MutationTypes.END_DRAG](state: S): void;
 }
 
-export type StageContext = {
-  commit<K extends keyof StageMutations>(
-    key: K,
-    payload: Parameters<StageMutations[K]>[1]
-  ): ReturnType<StageMutations[K]>
-} & Omit<ActionContext<IStageState, MainState>, 'commit'>;
-
 export interface StageActions {
-  [ActionTypes.FETCH_LIST](context: StageContext): Promise<any>;
-  [ActionTypes.FETCH_ONE](content: StageContext, stageId: number): Promise<any>;
+  [ActionTypes.FETCH_LIST](context: any): Promise<any>;
+  [ActionTypes.FETCH_ONE](content: any, stageId: number): Promise<any>;
 }
