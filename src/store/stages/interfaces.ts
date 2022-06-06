@@ -33,6 +33,6 @@ export type StageContext = {
 } & Omit<ActionContext<IStageState, MainState>, 'commit'>;
 
 export interface StageActions {
-  [ActionTypes.FETCH_LIST](context: StageContext): Promise<IStage[]>;
-  [ActionTypes.FETCH_ONE](content: StageContext, stageId: number): Promise<IStageDetails>;
+  [ActionTypes.FETCH_LIST](context: StageContext): Promise<any>;
+  [ActionTypes.FETCH_ONE](content: StageContext, stageId: number): Promise<any>;
 }

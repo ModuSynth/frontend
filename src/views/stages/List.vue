@@ -13,8 +13,8 @@ export default class StagesList extends Vue {
   private headers = [
     {text: 'ID', value: 'id'},
     {text: 'Name', value: 'name'},
-    {text: 'Nodes', value: 'nodes'},
-    {text: 'Links', value: 'links'},
+    {text: 'Nodes', value: 'nodes_count'},
+    {text: 'Links', value: 'links_count'},
     {text: 'Actions', value: 'actions'},
   ]
 

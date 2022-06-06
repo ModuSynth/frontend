@@ -6,8 +6,8 @@ import INode from "./INode";
 export default interface IStage {
   id: string;
   name: string;
-  links: number;
-  nodes: number;
+  links_count: number;
+  nodes_count: number;
 }
 
 export interface IStageDetails {
