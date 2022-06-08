@@ -11,6 +11,6 @@ export default class GainNode extends Vue {
 <template>
   <g>
     <rect fill="black" stroke="#00FF00" stroke-width="2 " width="160" height="160" x="0" y="O" />
-    <text x="5" y="20" fill="#00FF00">Oscillator Node</text>
+    <text x="5" y="20" fill="#00FF00">{{ $t('nodes.types.OscillatorNode') }}</text>
   </g>
 </template>
