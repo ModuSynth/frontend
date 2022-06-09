@@ -13,4 +13,7 @@ export interface INodeState {
 
 export type NodeMutations<S = INodeState> = {
   [NodeMutationTypes.SET_NODES_LIST](state: INodeState, payload: INode[]): void;
+  [NodeMutationTypes.START_DRAG](state: INodeState, payload: any): void;
+  [NodeMutationTypes.MOVE_DRAG](state: INodeState, payload: MouseEvent): void;
+  [NodeMutationTypes.END_DRAG](state: INodeState): void;
 }
