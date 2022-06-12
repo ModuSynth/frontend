@@ -10,7 +10,7 @@ const ns: BindingHelpers = namespace('stages')
 @Component
 export default class StagesList extends Vue {
 
-  private headers = [
+  public headers = [
     {text: 'ID', value: 'id'},
     {text: 'Name', value: 'name'},
     {text: 'Nodes', value: 'nodes_count'},
@@ -18,9 +18,13 @@ export default class StagesList extends Vue {
     {text: 'Actions', value: 'actions'},
   ]
 
+  public creation = { name: '', nodes_count: 0, links_count: 0 }
+
   @ns.State('list') stages!: IStage[];
 
   @ns.Action(StageActionTypes.FETCH_LIST) fetchlist: any;
+
+  @ns.Action(StageActionTypes.CREATE) createStage: any;
 
   public mounted() {
     this.fetchlist();
@@ -36,6 +40,16 @@ export default class StagesList extends Vue {
           <v-btn icon :to="`/${item.id}`">
             <v-icon>mdi-eye</v-icon>
           </v-btn>
+        </template>
+        <template v-slot:top>
+          <v-container>
+            <v-row>
+              <v-col col="6">
+                <v-text-field outlined dense :label="$t('stages.creation.fields.name')" v-model="creation.name" />
+                </v-col>
+              <v-col col="6"><v-btn @click="createStage(creation)">Create</v-btn></v-col>
+            </v-row>
+          </v-container>
         </template>
       </v-data-table>
     </v-layout>

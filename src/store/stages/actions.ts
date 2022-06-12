@@ -16,6 +16,12 @@ const actions: ActionTree<IStageState, MainState> & StageActions = {
       commit(StageMutationTypes.SET_DETAILS, data);
       commit(`nodes/${NodeMutationTypes.SET_NODES_LIST}`, data.nodes, { root: true });
     });
+  },
+  [StageActionTypes.CREATE]({ commit }, payload) {
+    return axios.post('http://localhost:3000/stages', payload).then((response) => {
+      payload.id = response.data.id;
+      commit(StageMutationTypes.ADD_STAGE, payload);
+    })
   }
 }
 

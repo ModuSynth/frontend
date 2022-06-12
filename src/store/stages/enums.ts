@@ -4,10 +4,12 @@ export enum StageMutationTypes {
   START_DRAG = 'START_DRAG',
   MOVE_DRAG = 'MOVE_DRAG',
   END_DRAG = 'END_DRAG',
-  SET_SCALE = 'SET_SCALE'
+  SET_SCALE = 'SET_SCALE',
+  ADD_STAGE = 'ADD_STAGE'
 }
 
 export enum StageActionTypes {
   FETCH_LIST = 'FETCH_LIST',
-  FETCH_ONE = 'FETCH_ONE'
+  FETCH_ONE = 'FETCH_ONE',
+  CREATE = 'CREATE'
 }

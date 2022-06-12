@@ -4,7 +4,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { BindingHelpers } from 'vuex-class/lib/bindings';
 import { namespace } from 'vuex-class'
 import { IStageDetails } from '@/interfaces/IStage';
-import NodeWrapper from '@/components/stages/NodeWrapper.vue'
+import NodeWrapper from '@/components/NodeWrapper.vue'
 import ns from '@/utils/ns';
 import INode from '@/interfaces/INode'
 
