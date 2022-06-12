@@ -3,8 +3,8 @@ import INode from '@/interfaces/INode';
 import { NodeMutationTypes } from '@/store/nodes/enums';
 import ns from '@/utils/ns';
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import GainNode from '../nodes/GainNode.vue'
-import OscillatorNode from '../nodes/OscillatorNode.vue'
+import GainNode from './nodes/GainNode.vue'
+import OscillatorNode from './nodes/OscillatorNode.vue'
 import dimensionsFactory from '@/factories/DimensionsFactory'
 
 @Component({

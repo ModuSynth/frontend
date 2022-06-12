@@ -4,5 +4,12 @@
       "GainNode": "Volume",
       "OscillatorNode": "Oscillator"
     }
+  },
+  "stages": {
+    "creation": {
+      "fields": {
+        "name": "Entrez un nom pour la nouvelle scène"
+      }
+    }
   }
 }
