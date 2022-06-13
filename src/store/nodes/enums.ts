@@ -4,3 +4,7 @@ export enum NodeMutationTypes {
   MOVE_DRAG = 'MOVE_DRAG',
   END_DRAG = 'END_DRAG'
 };
+
+export enum NodeActionTypes {
+  FETCH_LIST = 'FETCH_LIST'
+}

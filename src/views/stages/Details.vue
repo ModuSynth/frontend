@@ -1,15 +1,15 @@
 <script lang="ts">
 import { StageActionTypes, StageMutationTypes } from '@/store/stages/enums';
 import { Component, Vue } from 'vue-property-decorator';
-import { BindingHelpers } from 'vuex-class/lib/bindings';
-import { namespace } from 'vuex-class'
+import Toolbar from '@/components/Toolbar.vue'
 import { IStageDetails } from '@/interfaces/IStage';
 import NodeWrapper from '@/components/NodeWrapper.vue'
 import ns from '@/utils/ns';
 import INode from '@/interfaces/INode'
+import { NodeActionTypes } from '@/store/nodes/enums';
 
 @Component({
-  components: { NodeWrapper }
+  components: { NodeWrapper, Toolbar }
 })
 export default class StagesList extends Vue {
 
@@ -18,6 +18,8 @@ export default class StagesList extends Vue {
   @ns.stages.State('scale') scale!: number;
 
   @ns.nodes.State('nodes') nodes!: INode[];
+
+  @ns.nodes.Action(NodeActionTypes.FETCH_LIST) fetchNodes: any;
 
   @ns.stages.Action(StageActionTypes.FETCH_ONE) fetchOne: any;
 
@@ -31,6 +33,7 @@ export default class StagesList extends Vue {
 
   public mounted() {
     this.fetchOne(this.$route.params.id);
+    this.fetchNodes(this.$route.params.id);
   }
 
   public displayMenu() {
@@ -41,7 +44,7 @@ export default class StagesList extends Vue {
 
 <template>
   <div class="fit-screen">
-    <div class="stage-name">{{ stage.name }}</div>
+    <Toolbar />
     <svg
       height="100%"
       width="100%"
@@ -67,13 +70,8 @@ export default class StagesList extends Vue {
 }
 
 svg {
+  height: calc(100vh - 30px);
+  overflow: hidden;
   background-color: black;
-}
-
-.stage-name {
-  color: white;
-  font-weight: bold;
-  position: absolute;
-  top: 0; left: 5px;
 }
 </style>
