@@ -35,10 +35,6 @@ export default class StagesList extends Vue {
     this.fetchOne(this.$route.params.id);
     this.fetchNodes(this.$route.params.id);
   }
-
-  public displayMenu() {
-    console.log("patate");
-  }
 }
 </script>
 
@@ -53,7 +49,6 @@ export default class StagesList extends Vue {
       @mouseleave="endDrag({x: $event.clientX, y: $event.clientY})"
       @mouseup="endDrag({x: $event.clientX, y: $event.clientY})"
       @wheel.prevent="setScale($event.deltaY)"
-      @contextmenu="displayMenu()"
     >
       <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
         <NodeWrapper :node="node" v-for="node in nodes" :key="node.id" />

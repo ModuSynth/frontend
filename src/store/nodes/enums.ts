@@ -9,5 +9,6 @@ export enum NodeMutationTypes {
 
 export enum NodeActionTypes {
   FETCH_LIST = 'FETCH_LIST',
-  CREATE = "CREATE"
+  CREATE = 'CREATE',
+  SAVE_POSITION = 'SAVE_POSITION'
 }

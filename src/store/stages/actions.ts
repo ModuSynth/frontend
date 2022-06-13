@@ -24,15 +24,8 @@ const actions: ActionTree<IStageState, MainState> & StageActions = {
       commit(StageMutationTypes.ADD_STAGE, payload);
     })
   },
-  [StageActionTypes.SAVE_POSITION]({ commit, state }, position: ICoordinates) {
-    if (!state.dragging) return;
-    const coordinates: ICoordinates = {
-      x: state.stage.x + position.x - state.dragOrigin.x,
-      y: state.stage.y + position.y - state.dragOrigin.y,
-    }
-    return axios.patch(`http://localhost:3000/stages/${state.stage.id}`, coordinates).then(() => {
-      state.stage.x = coordinates.x;
-      state.stage.y = coordinates.y;
+  [StageActionTypes.SAVE_POSITION]({ commit, state }) {
+    return axios.patch(`http://localhost:3000/stages/${state.stage.id}`, state.stage).then(() => {
       state.dragging = false;
     })
   }
