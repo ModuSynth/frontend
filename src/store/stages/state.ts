@@ -6,7 +6,8 @@ const state: IStageState = {
   stage: StagesFactory.empty(),
   dragging: false,
   dragOrigin: { x: 0, y: 0 },
-  scale: 1
+  scale: 1,
+  context: new AudioContext()
 }
 
 export default state;

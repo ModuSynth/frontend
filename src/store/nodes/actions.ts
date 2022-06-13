@@ -18,7 +18,8 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
       stage_id: rootState.stages.stage.id
     }
     return axios.post('http://localhost:3000/nodes', node).then(({ data }) => {
-      commit(NodeMutationTypes.ADD_NODE, {...node, id: data.id});
+      node.id = data.id;
+      commit(NodeMutationTypes.ADD_NODE, node);
     });
   },
   [NodeActionTypes.SAVE_POSITION]({ commit, state }, event) {

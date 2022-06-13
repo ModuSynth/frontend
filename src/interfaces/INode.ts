@@ -5,4 +5,6 @@ export default interface INode {
   y: number;
   id: string;
   type: NodeType;
+  // The Web Audio Api (WAA) node linked to this node wrapper
+  waaNode: AudioNode;
 }

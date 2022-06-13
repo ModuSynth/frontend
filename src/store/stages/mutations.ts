@@ -11,6 +11,7 @@ const mutations : MutationTree<IStageState> & StageMutations = {
   },
   [StageMutationTypes.SET_DETAILS](state, payload: IStageDetails) {
     state.stage = payload;
+    state.context = new AudioContext();
   },
   [StageMutationTypes.START_DRAG](state, payload: ICoordinates) {
     state.dragging = true;

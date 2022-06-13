@@ -1,11 +1,18 @@
+import INode from "@/interfaces/INode";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
 import { MutationTree } from "vuex";
+import MainState from "../utils/MainState";
 import { NodeMutationTypes } from "./enums";
 import { INodeState, NodeMutations } from "./interfaces";
 
+function addNode(state: INodeState, globalState: MainState, node: INode) {
+  node.waaNode = eval(`new ${node.type}(globalState.stages.context)`);
+  state.nodes.push(node);
+}
+
 const mutations: MutationTree<INodeState> & NodeMutations = {
   [NodeMutationTypes.SET_NODES_LIST](state, payload) {
-    state.nodes = payload;
+    payload.forEach((node: INode) => addNode(state, this.state, node));
   },
   [NodeMutationTypes.START_DRAG](state, {node, $event}) {
     state.dragged = node;
@@ -30,7 +37,7 @@ const mutations: MutationTree<INodeState> & NodeMutations = {
     state.dragOrigin = { x: 0, y: 0 };
   },
   [NodeMutationTypes.ADD_NODE](state, node) {
-    state.nodes.push(node);
+    addNode(state, this.state, node);
   }
 }
 
