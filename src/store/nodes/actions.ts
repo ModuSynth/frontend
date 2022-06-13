@@ -12,8 +12,8 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
   },
   [NodeActionTypes.CREATE]({ commit, rootState }, type) {
     const node: any = {
-      x: rootState.stages.dragOrigin.x + 50,
-      y: rootState.stages.dragOrigin.y + 50,
+      x: 50 - rootState.stages.stage.x,
+      y: 50 - rootState.stages.stage.y,
       type: type,
       stage_id: rootState.stages.stage.id
     }
