@@ -28,6 +28,9 @@ const mutations: MutationTree<INodeState> & NodeMutations = {
   [NodeMutationTypes.END_DRAG](state) {
     state.dragged = undefined;
     state.dragOrigin = { x: 0, y: 0 };
+  },
+  [NodeMutationTypes.ADD_NODE](state, node) {
+    state.nodes.push(node);
   }
 }
 

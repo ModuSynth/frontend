@@ -16,8 +16,10 @@ export type NodeMutations<S = INodeState> = {
   [NodeMutationTypes.START_DRAG](state: INodeState, payload: any): void;
   [NodeMutationTypes.MOVE_DRAG](state: INodeState, payload: MouseEvent): void;
   [NodeMutationTypes.END_DRAG](state: INodeState): void;
+  [NodeMutationTypes.ADD_NODE](state: INodeState, payload: any): void;
 }
 
 export type NodeActions = {
   [NodeActionTypes.FETCH_LIST](context: any, payload: number): Promise<any>;
+  [NodeActionTypes.CREATE](context: any, type: string): Promise<any>;
 }
