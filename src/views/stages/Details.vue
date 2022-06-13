@@ -25,7 +25,7 @@ export default class StagesList extends Vue {
 
   @ns.stages.Mutation(StageMutationTypes.START_DRAG) startDrag: any;
 
-  @ns.stages.Mutation(StageMutationTypes.END_DRAG) endDrag: any;
+  @ns.stages.Action(StageActionTypes.SAVE_POSITION) endDrag: any;
 
   @ns.stages.Mutation(StageMutationTypes.MOVE_DRAG) moveDrag: any;
 
@@ -50,8 +50,8 @@ export default class StagesList extends Vue {
       width="100%"
       @mousedown.left="startDrag({x: $event.clientX, y: $event.clientY})"
       @mousemove="moveDrag({x: $event.clientX, y: $event.clientY})"
-      @mouseleave="endDrag()"
-      @mouseup="endDrag()"
+      @mouseleave="endDrag({x: $event.clientX, y: $event.clientY})"
+      @mouseup="endDrag({x: $event.clientX, y: $event.clientY})"
       @wheel.prevent="setScale($event.deltaY)"
       @contextmenu="displayMenu()"
     >

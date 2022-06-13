@@ -27,5 +27,6 @@ export type StageMutations<S = IStageState> = {
 export interface StageActions {
   [ActionTypes.FETCH_LIST](context: any): Promise<any>;
   [ActionTypes.FETCH_ONE](context: any, stageId: number): Promise<any>;
-  [ActionTypes.CREATE](context: any, payload: any): Promise<any>
+  [ActionTypes.CREATE](context: any, payload: any): Promise<any>;
+  [ActionTypes.SAVE_POSITION](context: any, payload: any): any
 }
