@@ -11,5 +11,6 @@ export enum StageMutationTypes {
 export enum StageActionTypes {
   FETCH_LIST = 'FETCH_LIST',
   FETCH_ONE = 'FETCH_ONE',
-  CREATE = 'CREATE'
+  CREATE = 'CREATE',
+  SAVE_POSITION = 'SAVE_POSITION'
 }

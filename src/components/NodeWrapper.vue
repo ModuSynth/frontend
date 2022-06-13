@@ -1,6 +1,6 @@
 <script lang="ts">
 import INode from '@/interfaces/INode';
-import { NodeMutationTypes } from '@/store/nodes/enums';
+import { NodeActionTypes, NodeMutationTypes } from '@/store/nodes/enums';
 import ns from '@/utils/ns';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import GainNode from './nodes/GainNode.vue'
@@ -15,7 +15,7 @@ export default class NodeWrapper extends Vue {
 
   @ns.nodes.Mutation(NodeMutationTypes.START_DRAG) startDrag: any;
 
-  @ns.nodes.Mutation(NodeMutationTypes.END_DRAG) endDrag: any;
+  @ns.nodes.Action(NodeActionTypes.SAVE_POSITION) endDrag: any;
 
   @ns.nodes.Mutation(NodeMutationTypes.MOVE_DRAG) moveDrag: any;
 

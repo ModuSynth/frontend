@@ -22,4 +22,5 @@ export type NodeMutations<S = INodeState> = {
 export type NodeActions = {
   [NodeActionTypes.FETCH_LIST](context: any, payload: number): Promise<any>;
   [NodeActionTypes.CREATE](context: any, type: string): Promise<any>;
+  [NodeActionTypes.SAVE_POSITION](context: any, payload: MouseEvent): any
 }

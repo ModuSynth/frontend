@@ -20,6 +20,14 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
     return axios.post('http://localhost:3000/nodes', node).then(({ data }) => {
       commit(NodeMutationTypes.ADD_NODE, {...node, id: data.id});
     });
+  },
+  [NodeActionTypes.SAVE_POSITION]({ commit, state }, event) {
+    if (state.dragged === undefined) return;
+
+    const uri: string = `http://localhost:3000/nodes/${state.dragged.id}`;
+    return axios.patch(uri, { x: state.dragged.x, y: state.dragged.y }).then(() => {
+      state.dragged = undefined;
+    })
   }
 }
 
