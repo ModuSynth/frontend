@@ -18,7 +18,7 @@ export default class StagesList extends Vue {
     {text: 'Actions', value: 'actions'},
   ]
 
-  public creation = { name: '', nodes_count: 0, links_count: 0 }
+  public creation = { name: '', nodes_count: 0, links_count: 0, x: 0, y: 0 }
 
   @ns.State('list') stages!: IStage[];
 
