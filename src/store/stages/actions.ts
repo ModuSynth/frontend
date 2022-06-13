@@ -14,7 +14,6 @@ const actions: ActionTree<IStageState, MainState> & StageActions = {
   [StageActionTypes.FETCH_ONE]({ commit }, stageId) {
     return axios.get(`http://localhost:3000/stages/${stageId}`).then(({ data }) => {
       commit(StageMutationTypes.SET_DETAILS, data);
-      commit(`nodes/${NodeMutationTypes.SET_NODES_LIST}`, data.nodes, { root: true });
     });
   },
   [StageActionTypes.CREATE]({ commit }, payload) {
