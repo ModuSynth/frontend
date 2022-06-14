@@ -14,7 +14,7 @@ export interface IStageState {
   // The zoom level of the whole canva.
   scale: number;
   // The audio context from which all nodes of the web audio API will be created.
-  context: AudioContext;
+  context?: AudioContext;
 }
 
 export type StageMutations<S = IStageState> = {
@@ -24,6 +24,7 @@ export type StageMutations<S = IStageState> = {
   [MutationTypes.MOVE_DRAG](state: S, payload: ICoordinates): void;
   [MutationTypes.END_DRAG](state: S): void;
   [MutationTypes.ADD_STAGE](state: S, payload: IStage): void;
+  [MutationTypes.CREATE_CONTEXT](state: S): void;
 }
 
 export interface StageActions {

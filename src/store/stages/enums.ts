@@ -5,7 +5,8 @@ export enum StageMutationTypes {
   MOVE_DRAG = 'MOVE_DRAG',
   END_DRAG = 'END_DRAG',
   SET_SCALE = 'SET_SCALE',
-  ADD_STAGE = 'ADD_STAGE'
+  ADD_STAGE = 'ADD_STAGE',
+  CREATE_CONTEXT = 'CREATE_CONTEXT'
 }
 
 export enum StageActionTypes {

@@ -11,7 +11,6 @@ const mutations : MutationTree<IStageState> & StageMutations = {
   },
   [StageMutationTypes.SET_DETAILS](state, payload: IStageDetails) {
     state.stage = payload;
-    state.context = new AudioContext();
   },
   [StageMutationTypes.START_DRAG](state, payload: ICoordinates) {
     state.dragging = true;
@@ -38,6 +37,11 @@ const mutations : MutationTree<IStageState> & StageMutations = {
   },
   [StageMutationTypes.ADD_STAGE](state, stage) {
     state.list.push(stage);
+  },
+  [StageMutationTypes.CREATE_CONTEXT](state) {
+    console.log('passage')
+    state.context = new AudioContext();
+    console.log((this.state as any).nodes)
   }
 }
 

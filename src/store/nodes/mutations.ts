@@ -13,6 +13,7 @@ function addNode(state: INodeState, globalState: MainState, node: INode) {
 const mutations: MutationTree<INodeState> & NodeMutations = {
   [NodeMutationTypes.SET_NODES_LIST](state, payload) {
     payload.forEach((node: INode) => addNode(state, this.state, node));
+    state.loaded = true;
   },
   [NodeMutationTypes.START_DRAG](state, {node, $event}) {
     state.dragged = node;
