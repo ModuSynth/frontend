@@ -19,6 +19,8 @@ export default class StagesList extends Vue {
 
   @ns.nodes.State('nodes') nodes!: INode[];
 
+  @ns.nodes.State('loaded') loaded!: boolean;
+
   @ns.nodes.Action(NodeActionTypes.FETCH_LIST) fetchNodes: any;
 
   @ns.stages.Action(StageActionTypes.FETCH_ONE) fetchOne: any;
@@ -31,29 +33,36 @@ export default class StagesList extends Vue {
 
   @ns.stages.Mutation(StageMutationTypes.SET_SCALE) setScale: any;
 
+  @ns.stages.Mutation(StageMutationTypes.CREATE_CONTEXT) createContext: any;
+
   public mounted() {
     this.fetchOne(this.$route.params.id);
-    this.fetchNodes(this.$route.params.id);
   }
 }
 </script>
 
 <template>
-  <div class="fit-screen">
-    <Toolbar />
-    <svg
-      height="100%"
-      width="100%"
-      @mousedown.left="startDrag({x: $event.clientX, y: $event.clientY})"
-      @mousemove="moveDrag({x: $event.clientX, y: $event.clientY})"
-      @mouseleave="endDrag({x: $event.clientX, y: $event.clientY})"
-      @mouseup="endDrag({x: $event.clientX, y: $event.clientY})"
-      @wheel.prevent="setScale($event.deltaY)"
-    >
-      <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
-        <NodeWrapper :node="node" v-for="node in nodes" :key="node.id" />
-      </g>
-    </svg>
+  <div>
+    <div class="fit-screen" v-if="loaded">
+      <Toolbar />
+      <svg
+        v-if="nodes.length > 0"
+        height="100%"
+        width="100%"
+        @mousedown.left="startDrag({x: $event.clientX, y: $event.clientY})"
+        @mousemove="moveDrag({x: $event.clientX, y: $event.clientY})"
+        @mouseleave="endDrag({x: $event.clientX, y: $event.clientY})"
+        @mouseup="endDrag({x: $event.clientX, y: $event.clientY})"
+        @wheel.prevent="setScale($event.deltaY)"
+      >
+        <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
+          <NodeWrapper :node="node" v-for="node in nodes" :key="node.id" />
+        </g>
+      </svg>
+    </div>
+    <div v-else class="fit-screen loading-screen" @click="createContext(); fetchNodes($route.params.id)">
+      Click anywhere to start
+    </div>
   </div>
 </template>
 
@@ -62,11 +71,17 @@ export default class StagesList extends Vue {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  background-color: black;
+}
+
+.loading-screen {
+  color: #00FF00;
+  line-height: 100vh;
+  text-align: center;
 }
 
 svg {
   height: calc(100vh - 30px);
   overflow: hidden;
-  background-color: black;
 }
 </style>

@@ -37,6 +37,11 @@ const mutations : MutationTree<IStageState> & StageMutations = {
   },
   [StageMutationTypes.ADD_STAGE](state, stage) {
     state.list.push(stage);
+  },
+  [StageMutationTypes.CREATE_CONTEXT](state) {
+    console.log('passage')
+    state.context = new AudioContext();
+    console.log((this.state as any).nodes)
   }
 }
 

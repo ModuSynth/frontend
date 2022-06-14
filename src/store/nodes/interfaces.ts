@@ -9,6 +9,8 @@ export interface INodeState {
   dragged?: INode;
   // The coordinates from the last drag event on the dragged node.
   dragOrigin: ICoordinates;
+  // Indicates whether the nodes have been loaded (TRUE) or not (FALSE);
+  loaded: boolean;
 }
 
 export type NodeMutations<S = INodeState> = {
@@ -16,7 +18,7 @@ export type NodeMutations<S = INodeState> = {
   [NodeMutationTypes.START_DRAG](state: INodeState, payload: any): void;
   [NodeMutationTypes.MOVE_DRAG](state: INodeState, payload: MouseEvent): void;
   [NodeMutationTypes.END_DRAG](state: INodeState): void;
-  [NodeMutationTypes.ADD_NODE](state: INodeState, payload: any): void;
+  [NodeMutationTypes.ADD_NODE](state: INodeState, payload: INode): void;
 }
 
 export type NodeActions = {
