@@ -39,7 +39,13 @@ const mutations: MutationTree<INodeState> & NodeMutations = {
   },
   [NodeMutationTypes.ADD_NODE](state, node) {
     addNode(state, this.state, node);
-  }
+  },
+  [NodeMutationTypes.REMOVE_NODE](state, nodeId) {
+    const index: number = state.nodes.findIndex((node: INode) => {
+      return node.id === nodeId;
+    });;
+    state.nodes.splice(index, 1);
+  },
 }
 
 export default mutations;

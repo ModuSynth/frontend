@@ -19,6 +19,8 @@ export default class NodeWrapper extends Vue {
 
   @ns.nodes.Mutation(NodeMutationTypes.MOVE_DRAG) moveDrag: any;
 
+  @ns.nodes.Action(NodeActionTypes.DELETE) deleteNode: any;
+
   public get width(): number {
     return dimensionsFactory.width(this.node.type) || 160;
   }
@@ -39,6 +41,23 @@ export default class NodeWrapper extends Vue {
   >
     <rect fill="black" stroke="#00FF00" stroke-width="2 " :width="width" :height="height" />
     <text x="5" y="20" fill="#00FF00">{{ $t(`nodes.types.${node.type}`) }}</text>
+    <text
+      :x="width - 20"
+      y="20"
+      fill="#00FF00"
+      font-size="24"
+      class="close"
+      @click.stop="deleteNode(node.id)"
+      @mousedown.stop
+    >
+      &times;
+    </text>
     <component :is="node.type" :node="node"></component>
   </g>
 </template>
+
+<style scoped>
+.close:hover {
+  cursor: pointer;
+}
+</style>
