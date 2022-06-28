@@ -41,12 +41,16 @@ export default class NodeWrapper extends Vue {
 <template>
   <g
     :transform="`translate(${node.x} ${node.y})`"
-    @mousedown.left.stop="startDrag({node, $event})"
-    @mouseleave.stop="endDrag"
-    @mousemove.stop="moveDrag"
-    @mouseup="endDrag"
   >
-    <rect fill="black" stroke="#00FF00" stroke-width="2 " :width="width" :height="height" />
+    <foreignObject
+      :width="width"
+      :height="height"
+    >
+      <div class="node-container"
+      @mousedown.left.stop="startDrag({node, $event})"
+      ></div>
+    </foreignObject>
+    <!--rect fill="black" stroke="#00FF00" stroke-width="2 " :width="width" :height="height" />
     <text x="5" y="20" fill="#00FF00">{{ $t(`nodes.types.${node.type}`) }}</text>
     <text
       :x="width - 20"
@@ -58,13 +62,19 @@ export default class NodeWrapper extends Vue {
       @mousedown.stop
     >
       &times;
-    </text>
-    <component :is="node.type" :node="node"></component>
+    </text-->
+    
   </g>
 </template>
 
 <style scoped>
 .close:hover {
   cursor: pointer;
+}
+
+.node-container {
+  border: 2px solid #00FF00;
+  height: 100%;
+  width: 100%;
 }
 </style>

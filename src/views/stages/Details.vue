@@ -6,7 +6,7 @@ import { IStageDetails } from '@/interfaces/IStage';
 import NodeWrapper from '@/components/NodeWrapper.vue'
 import ns from '@/utils/ns';
 import INode from '@/interfaces/INode'
-import { NodeActionTypes } from '@/store/nodes/enums';
+import { NodeActionTypes, NodeMutationTypes } from '@/store/nodes/enums';
 
 @Component({
   components: { NodeWrapper, Toolbar }
@@ -29,11 +29,25 @@ export default class StagesList extends Vue {
 
   @ns.stages.Action(StageActionTypes.SAVE_POSITION) endDrag: any;
 
+  @ns.nodes.Action(NodeActionTypes.SAVE_POSITION) endNodeDrag: any;
+
   @ns.stages.Mutation(StageMutationTypes.MOVE_DRAG) moveDrag: any;
+
+  @ns.nodes.Mutation(NodeMutationTypes.MOVE_DRAG) nodeDrag: any;
 
   @ns.stages.Mutation(StageMutationTypes.SET_SCALE) setScale: any;
 
   @ns.stages.Mutation(StageMutationTypes.CREATE_CONTEXT) createContext: any;
+
+  public endDrags($event: MouseEvent) {
+    this.endDrag({x: $event.clientX, y: $event.clientY});
+    this.endNodeDrag($event)
+  }
+
+  public moveDrags($event: MouseEvent) {
+    this.moveDrag({x: $event.clientX, y: $event.clientY});
+    this.nodeDrag($event)
+  }
 
   public mounted() {
     this.fetchOne(this.$route.params.id);
@@ -50,9 +64,9 @@ export default class StagesList extends Vue {
         height="100%"
         width="100%"
         @mousedown.left="startDrag({x: $event.clientX, y: $event.clientY})"
-        @mousemove="moveDrag({x: $event.clientX, y: $event.clientY})"
-        @mouseleave="endDrag({x: $event.clientX, y: $event.clientY})"
-        @mouseup="endDrag({x: $event.clientX, y: $event.clientY})"
+        @mousemove="moveDrags"
+        @mouseleave="endDrags"
+        @mouseup="endDrags"
         @wheel.prevent="setScale($event.deltaY)"
       >
         <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
