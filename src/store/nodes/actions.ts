@@ -22,12 +22,17 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
       commit(NodeMutationTypes.ADD_NODE, node);
     });
   },
-  [NodeActionTypes.SAVE_POSITION]({ commit, state }, event) {
+  [NodeActionTypes.SAVE_POSITION]({ state }) {
     if (state.dragged === undefined) return;
 
     const uri: string = `http://localhost:3000/nodes/${state.dragged.id}`;
     return axios.patch(uri, { x: state.dragged.x, y: state.dragged.y }).then(() => {
       state.dragged = undefined;
+    })
+  },
+  [NodeActionTypes.DELETE]({ commit }, nodeId) {
+    return axios.delete(`http://localhost:3000/nodes/${nodeId}`).then(() => {
+      commit(NodeMutationTypes.REMOVE_NODE, nodeId);
     })
   }
 }

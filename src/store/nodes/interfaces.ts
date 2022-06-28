@@ -19,10 +19,12 @@ export type NodeMutations<S = INodeState> = {
   [NodeMutationTypes.MOVE_DRAG](state: INodeState, payload: MouseEvent): void;
   [NodeMutationTypes.END_DRAG](state: INodeState): void;
   [NodeMutationTypes.ADD_NODE](state: INodeState, payload: INode): void;
+  [NodeMutationTypes.REMOVE_NODE](state: INodeState, payload: string): void;
 }
 
 export type NodeActions = {
   [NodeActionTypes.FETCH_LIST](context: any, payload: number): Promise<any>;
   [NodeActionTypes.CREATE](context: any, type: string): Promise<any>;
-  [NodeActionTypes.SAVE_POSITION](context: any, payload: MouseEvent): any
+  [NodeActionTypes.SAVE_POSITION](context: any, payload: MouseEvent): any;
+  [NodeActionTypes.DELETE](context: any, payload: string): Promise<any>;
 }
