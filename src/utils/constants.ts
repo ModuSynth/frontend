@@ -20,6 +20,9 @@ export const PARAM_WIDTH  = 140;
 export const PARAM_TOP_MARGIN = 10;
 
 export const NODE_PADDING = 10;
+export const NODE_CLOSE_SIZE = 20;
+export const NODE_TITLE_HEIGHT = 20;
+export const NODE_TITLE_WIDTH = PARAM_WIDTH + 2 * NODE_PADDING - NODE_CLOSE_SIZE;
 
 export const PORT_DIAMETER = 20;
 export const PORT_TOP_MARGIN = 5;

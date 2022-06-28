@@ -6,6 +6,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import GainNode from './nodes/GainNode.vue'
 import OscillatorNode from './nodes/OscillatorNode.vue'
 import dimensionsFactory from '@/factories/DimensionsFactory'
+import { NODE_PADDING, PARAM_WIDTH, NODE_CLOSE_SIZE, NODE_TITLE_HEIGHT } from '@/utils/constants';
 
 
 /**
@@ -28,8 +29,16 @@ export default class NodeWrapper extends Vue {
 
   @ns.nodes.Action(NodeActionTypes.DELETE) deleteNode: any;
 
+  public get titleStyle() {
+    return {"--size": `${NODE_TITLE_HEIGHT}px`, "--font-size": `${NODE_TITLE_HEIGHT}px`}
+  }
+
+  public get closeButtonStyle() {
+    return {"--size": `${NODE_CLOSE_SIZE}px`, "--font-size": `${NODE_CLOSE_SIZE + 4}px`}
+  }
+
   public get width(): number {
-    return dimensionsFactory.width(this.node.type) || 160;
+    return PARAM_WIDTH + 2 * NODE_PADDING;
   }
 
   public get height(): number {
@@ -46,23 +55,11 @@ export default class NodeWrapper extends Vue {
       :width="width"
       :height="height"
     >
-      <div class="node-container"
-      @mousedown.left.stop="startDrag({node, $event})"
-      ></div>
+      <div class="node-container" @mousedown.left.stop="startDrag({node, $event})">
+        <div :style="titleStyle" class="node-title">{{ $t(`nodes.types.${node.type}`) }}</div>
+        <a :style="closeButtonStyle" class="node-close" @click.stop="deleteNode(node.id)" @mousedown.stop>&times;</a>
+      </div>
     </foreignObject>
-    <!--rect fill="black" stroke="#00FF00" stroke-width="2 " :width="width" :height="height" />
-    <text x="5" y="20" fill="#00FF00">{{ $t(`nodes.types.${node.type}`) }}</text>
-    <text
-      :x="width - 20"
-      y="20"
-      fill="#00FF00"
-      font-size="24"
-      class="close"
-      @click.stop="deleteNode(node.id)"
-      @mousedown.stop
-    >
-      &times;
-    </text-->
     
   </g>
 </template>
@@ -76,5 +73,35 @@ export default class NodeWrapper extends Vue {
   border: 2px solid #00FF00;
   height: 100%;
   width: 100%;
+  position: relative;
+  background-color: black;
+}
+
+.node-close {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: var(--size);
+  height: var(--size);
+  line-height: var(--size);
+  font-size: var(--font-size);
+  text-align: center;
+  color: #00FF00;
+}
+
+.node-title {
+  pointer-events: none;
+}
+
+.node-title, .node-close {
+  height: var(--size);
+  line-height: var(--size);
+  font-size: var(--font-size);
+  color: #00FF00;
+  user-select: none;
+}
+
+.node-title {
+
 }
 </style>
