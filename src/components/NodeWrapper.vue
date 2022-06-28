@@ -7,6 +7,13 @@ import GainNode from './nodes/GainNode.vue'
 import OscillatorNode from './nodes/OscillatorNode.vue'
 import dimensionsFactory from '@/factories/DimensionsFactory'
 
+
+/**
+ * A node wrapper is a component displaying every node in the same way. It helps at providing
+ * a standard node display for each and every type of node. Parameters are dynamically displayed
+ * depending on their type (number parameter or list value parameter).
+ * @author Vincent Courtois <courtois.vincent@outlook.com>
+ */
 @Component({
   components: { GainNode, OscillatorNode }
 })

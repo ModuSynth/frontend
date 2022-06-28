@@ -10,3 +10,16 @@ export const MAX_ZOOM_OUT = 0.0625;
 // This value is the maximum value the ratio can be "zoomed in" with
 // It is a magic value obtained after some trials and errors too.
 export const MAX_ZOOM_IN = 2;
+
+/* +----------------------------------------------------+
+ * | CONSTANTS CONCERNING NODES/PARAMS/PORTS DIMENSIONS |
+ * +----------------------------------------------------+ */
+
+export const PARAM_HEIGHT = 30;
+export const PARAM_WIDTH  = 140;
+export const PARAM_TOP_MARGIN = 10;
+
+export const NODE_PADDING = 10;
+
+export const PORT_DIAMETER = 20;
+export const PORT_TOP_MARGIN = 5;
