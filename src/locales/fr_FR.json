@@ -2,7 +2,8 @@
   "nodes": {
     "types": {
       "GainNode": "Volume",
-      "OscillatorNode": "Oscillator"
+      "OscillatorNode": "Oscillator",
+      "output": "Output"
     }
   },
   "stages": {

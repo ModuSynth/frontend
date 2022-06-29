@@ -1,3 +1,4 @@
+import INode from "@/interfaces/INode";
 import axios from "axios";
 import { ActionTree } from "vuex";
 import MainState from "../utils/MainState";
@@ -5,9 +6,10 @@ import { NodeActionTypes, NodeMutationTypes } from "./enums";
 import { INodeState, NodeActions } from "./interfaces";
 
 const actions: ActionTree<INodeState, MainState> & NodeActions = {
-  [NodeActionTypes.FETCH_LIST]({ commit }, stageId) {
+  [NodeActionTypes.FETCH_LIST]({ commit, dispatch }, stageId) {
     return axios.get(`http://localhost:3000/nodes?stage_id=${stageId}`).then(({ data }) => {
       commit(NodeMutationTypes.SET_NODES_LIST, data);
+      dispatch(NodeActionTypes.FETCH_LINKS)
     });
   },
   [NodeActionTypes.CREATE]({ commit, rootState }, type) {
@@ -34,7 +36,18 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
     return axios.delete(`http://localhost:3000/nodes/${nodeId}`).then(() => {
       commit(NodeMutationTypes.REMOVE_NODE, nodeId);
     })
-  }
+  },
+  [NodeActionTypes.FETCH_LINKS]({ commit, state }) {
+    return axios.get(`http://localhost:3000/links`).then(({ data }) => {
+      data.forEach((link: any) => {
+        const from: INode | undefined = state.nodes.find(n => n.id == link.from)
+        const to: INode | undefined = state.nodes.find(n => n.id == link.to)
+        if (from !== undefined && to !== undefined) {
+          from.waaNode.connect(to.waaNode)
+        }
+      });
+    });
+  },
 }
 
 export default actions;

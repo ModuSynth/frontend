@@ -13,4 +13,5 @@ export enum NodeActionTypes {
   CREATE = 'CREATE',
   SAVE_POSITION = 'SAVE_POSITION',
   DELETE = 'DELETE',
+  FETCH_LINKS = 'FETCH_LINKS',
 }

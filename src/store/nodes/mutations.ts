@@ -1,3 +1,4 @@
+import { NodeType } from "@/interfaces/enums/NodeType";
 import INode from "@/interfaces/INode";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
 import { MutationTree } from "vuex";
@@ -6,7 +7,15 @@ import { NodeMutationTypes } from "./enums";
 import { INodeState, NodeMutations } from "./interfaces";
 
 function addNode(state: INodeState, globalState: MainState, node: INode) {
-  node.waaNode = eval(`new ${node.type}(globalState.stages.context)`);
+  if (node.type == NodeType.OUTPUT) {
+    node.waaNode = (globalState as any).stages.context.destination;
+  }
+  else {
+    node.waaNode = eval(`new ${node.type}(globalState.stages.context)`);
+    if (node.type == NodeType.OSCILLATOR) {
+      (node.waaNode as OscillatorNode).start()
+    }
+  }
   state.nodes.push(node);
 }
 
@@ -43,7 +52,7 @@ const mutations: MutationTree<INodeState> & NodeMutations = {
   [NodeMutationTypes.REMOVE_NODE](state, nodeId) {
     const index: number = state.nodes.findIndex((node: INode) => {
       return node.id === nodeId;
-    });;
+    });
     state.nodes.splice(index, 1);
   },
 }

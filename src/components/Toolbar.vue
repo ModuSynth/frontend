@@ -5,7 +5,7 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Toolbar extends Vue {
-  public types: string[] = ['GainNode', 'OscillatorNode']
+  public types: string[] = ['GainNode', 'OscillatorNode', 'output']
 
   @ns.nodes.Action(NodeActionTypes.CREATE) createNode: any;
 }
