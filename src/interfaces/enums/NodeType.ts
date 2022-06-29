@@ -1,3 +1,5 @@
 export enum NodeType {
-  GAIN = 'GainNode'
+  GAIN = 'GainNode',
+  OSCILLATOR = 'OscillatorNode',
+  OUTPUT = 'output'
 }
