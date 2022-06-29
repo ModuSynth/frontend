@@ -4,9 +4,8 @@ import { NodeActionTypes, NodeMutationTypes } from '@/store/nodes/enums';
 import ns from '@/utils/ns';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import GainNode from './nodes/GainNode.vue'
-import OscillatorNode from './nodes/OscillatorNode.vue'
-import dimensionsFactory from '@/factories/DimensionsFactory'
-import { NODE_PADDING, PARAM_WIDTH, NODE_CLOSE_SIZE, NODE_TITLE_HEIGHT } from '@/utils/constants';
+import OscillatorNode from './nodes/OscillatorNode.vue';
+import { NODE_PADDING, PARAM_WIDTH, NODE_CLOSE_SIZE, NODE_TITLE_HEIGHT, NODE_TITLE_WIDTH } from '@/utils/constants';
 
 
 /**
@@ -23,18 +22,22 @@ export default class NodeWrapper extends Vue {
 
   @ns.nodes.Mutation(NodeMutationTypes.START_DRAG) startDrag: any;
 
-  @ns.nodes.Action(NodeActionTypes.SAVE_POSITION) endDrag: any;
-
-  @ns.nodes.Mutation(NodeMutationTypes.MOVE_DRAG) moveDrag: any;
-
   @ns.nodes.Action(NodeActionTypes.DELETE) deleteNode: any;
 
   public get titleStyle() {
-    return {"--size": `${NODE_TITLE_HEIGHT}px`, "--font-size": `${NODE_TITLE_HEIGHT}px`}
+    return {
+      "--size": `${NODE_TITLE_HEIGHT}px`,
+      "--font-size": `${NODE_TITLE_HEIGHT}px`,
+      "--width": `${NODE_TITLE_WIDTH}px`
+    }
   }
 
   public get closeButtonStyle() {
-    return {"--size": `${NODE_CLOSE_SIZE}px`, "--font-size": `${NODE_CLOSE_SIZE + 4}px`}
+    return {"--size": `${NODE_CLOSE_SIZE}px`, "--font-size": `${NODE_CLOSE_SIZE + 6}px`}
+  }
+
+  public get containerStyle() {
+    return {"--padding": `${NODE_PADDING}px`};
   }
 
   public get width(): number {
@@ -42,7 +45,7 @@ export default class NodeWrapper extends Vue {
   }
 
   public get height(): number {
-    return dimensionsFactory.height(this.node.type) || 160;
+    return NODE_TITLE_HEIGHT + 2 * NODE_PADDING;
   }
 }
 </script>
@@ -55,12 +58,11 @@ export default class NodeWrapper extends Vue {
       :width="width"
       :height="height"
     >
-      <div class="node-container" @mousedown.left.stop="startDrag({node, $event})">
-        <div :style="titleStyle" class="node-title">{{ $t(`nodes.types.${node.type}`) }}</div>
+      <div class="node-container" :style="containerStyle" @mousedown.left.stop="startDrag({node, $event})">
+        <div :style="titleStyle" class="node-title text-truncate">{{ $t(`nodes.types.${node.type}`) }}</div>
         <a :style="closeButtonStyle" class="node-close" @click.stop="deleteNode(node.id)" @mousedown.stop>&times;</a>
       </div>
     </foreignObject>
-    
   </g>
 </template>
 
@@ -75,13 +77,15 @@ export default class NodeWrapper extends Vue {
   width: 100%;
   position: relative;
   background-color: black;
+  padding: var(--padding)
 }
 
 .node-close {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: var(--padding);
+  right: var(--padding);
   width: var(--size);
+  max-width: var(--size);
   height: var(--size);
   line-height: var(--size);
   font-size: var(--font-size);
@@ -97,8 +101,10 @@ export default class NodeWrapper extends Vue {
   height: var(--size);
   line-height: var(--size);
   font-size: var(--font-size);
+  width: var(--width);
   color: #00FF00;
   user-select: none;
+  vertical-align: center;
 }
 
 .node-title {
