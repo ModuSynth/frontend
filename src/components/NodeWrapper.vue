@@ -40,8 +40,6 @@ export default class NodeWrapper extends Vue {
     return {"--padding": `${NODE_PADDING}px`};
   }
 
-  @ns.nodes.Action(NodeActionTypes.DELETE) deleteNode: any;
-
   public get width(): number {
     return PARAM_WIDTH + 2 * NODE_PADDING;
   }
