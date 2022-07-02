@@ -2,8 +2,16 @@
   "nodes": {
     "types": {
       "GainNode": "Volume",
-      "OscillatorNode": "Oscillator",
-      "output": "Output"
+      "OscillatorNode": "Oscillateur",
+      "OutputNode": "Sortie"
+    }
+  },
+  "params": {
+    "titles": {
+      "unknown": "Inconnu",
+      "gain": "Volume",
+      "frequency": "Fréquence",
+      "detune": "Désaccord"
     }
   },
   "stages": {
