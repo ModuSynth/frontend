@@ -26,5 +26,6 @@ export type NodeActions = {
   [NodeActionTypes.FETCH_LIST](context: any, payload: number): Promise<any>;
   [NodeActionTypes.CREATE](context: any, type: string): Promise<any>;
   [NodeActionTypes.SAVE_POSITION](context: any, payload: MouseEvent): any;
+  [NodeActionTypes.SAVE_PARAMS](context: any, payload: INode): any;
   [NodeActionTypes.DELETE](context: any, payload: string): Promise<any>;
 }

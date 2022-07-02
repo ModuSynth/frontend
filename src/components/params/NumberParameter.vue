@@ -1,10 +1,15 @@
 <script lang="ts">
+import INode from '@/interfaces/INode';
+import { NodeActionTypes } from '@/store/nodes/enums';
 import ns from '@/utils/ns';
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, PropSync } from 'vue-property-decorator';
 
 @Component
 export default class NumberParameter extends Vue {
-  @Prop() param!: AudioParam;
+
+  @Prop() node!: INode;
+
+  @Prop() paramName!: string;
 
   @Prop({ default: 140 }) width!: number;
 
@@ -20,20 +25,42 @@ export default class NumberParameter extends Vue {
 
   @ns.stages.State("context") context!: AudioContext;
 
-  public value: number = 0;
+  @ns.nodes.Action(NodeActionTypes.SAVE_PARAMS) saveParams: any;
 
-  public mounted() {
-    this.value = this.param.value;
+  public get param(): AudioParam {
+    const key: keyof AudioNode = this.paramName as unknown as keyof AudioNode;
+    return this.node.waaNode[key] as unknown as AudioParam;
   }
 
-  public setValue(newValue: number) {
+  public get value(): number {
+    return parseFloat(`${this.node.params[this.paramName]}`)
+  }
+
+  public set value(newValue: number) {
+    this.node.params[this.paramName] = newValue
+  }
+
+  public mounted() {
+    this.value = parseFloat(`${this.node.params[this.paramName] || 0}`);
+    this.applyValue();
+  }
+
+  public applyValue() {
     this.param.setValueAtTime(this.value, this.context.currentTime);
+    this.saveParams(this.node);
   }
 
   public changeValue(increment: number) {
-    if (this.value + increment > this.max || this.value + increment < this.min) return;
-    this.value = parseFloat(`${this.value}`) + increment;
-    this.setValue(this.value);
+    if (this.value + increment > this.max) {
+      this.value = this.max;
+    }
+    else if (this.value + increment < this.min) {
+      this.value = this.min;
+    }
+    else {
+      this.value = parseFloat(`${this.value}`) + increment;
+    }
+    this.applyValue();
   }
 
   public get widthStyle(): any {
@@ -47,7 +74,7 @@ export default class NumberParameter extends Vue {
     <div class="param-title">{{ $t(title) }}</div>
     <a class="param-button margin-right" @click="changeValue(-superIncrement)"><v-icon small>mdi-chevron-double-left</v-icon></a>
     <a class="param-button margin-right" @click="changeValue(-increment)"><v-icon small>mdi-chevron-left</v-icon></a>
-    <input type="text" class="param-input" v-model="value" @change="setValue" />
+    <input type="text" class="param-input" v-model="value" @change="applyValue" />
     <a class="param-button margin-left" @click="changeValue(increment)"><v-icon small>mdi-chevron-right</v-icon></a>
     <a class="param-button margin-left" @click="changeValue(superIncrement)"><v-icon small>mdi-chevron-double-right</v-icon></a>
   </div>
