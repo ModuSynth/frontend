@@ -32,6 +32,10 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
       state.dragged = undefined;
     })
   },
+  [NodeActionTypes.SAVE_PARAMS](_context, payload) {
+    const uri: string = `http://localhost:3000/nodes/${payload.id}`;
+    return axios.patch(uri, { params: payload.params })
+  },
   [NodeActionTypes.DELETE]({ commit }, nodeId) {
     return axios.delete(`http://localhost:3000/nodes/${nodeId}`).then(() => {
       commit(NodeMutationTypes.REMOVE_NODE, nodeId);
