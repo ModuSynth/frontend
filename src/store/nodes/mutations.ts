@@ -16,13 +16,14 @@ function addNode(state: INodeState, globalState: MainState, node: INode) {
       (node.waaNode as OscillatorNode).start()
     }
   }
-  state.nodes.push(node);
+  state.nodes.push({...node, width: 0, height: 0});
 }
 
 const mutations: MutationTree<INodeState> & NodeMutations = {
   [NodeMutationTypes.SET_NODES_LIST](state, payload) {
     payload.forEach((node: INode) => addNode(state, this.state, node));
     state.loaded = true;
+    console.log(state.nodes)
   },
   [NodeMutationTypes.START_DRAG](state, {node, $event}) {
     state.dragged = node;

@@ -6,6 +6,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import GainNode from './nodes/GainNode.vue'
 import OscillatorNode from './nodes/OscillatorNode.vue';
 import { NODE_PADDING, PARAM_WIDTH, NODE_CLOSE_SIZE, NODE_TITLE_HEIGHT, NODE_TITLE_WIDTH } from '@/utils/constants';
+import OutputNode from './nodes/OutputNode.vue';
 
 
 /**
@@ -15,7 +16,7 @@ import { NODE_PADDING, PARAM_WIDTH, NODE_CLOSE_SIZE, NODE_TITLE_HEIGHT, NODE_TIT
  * @author Vincent Courtois <courtois.vincent@outlook.com>
  */
 @Component({
-  components: { GainNode, OscillatorNode }
+  components: { GainNode, OscillatorNode, OutputNode }
 })
 export default class NodeWrapper extends Vue {
   @Prop() readonly node!: INode;
@@ -55,12 +56,17 @@ export default class NodeWrapper extends Vue {
     :transform="`translate(${node.x} ${node.y})`"
   >
     <foreignObject
-      :width="width"
-      :height="height"
+      :width="node.width"
+      :height="node.height"
     >
-      <div class="node-container" :style="containerStyle" @mousedown.left.stop="startDrag({node, $event})">
-        <div :style="titleStyle" class="node-title text-truncate">{{ $t(`nodes.types.${node.type}`) }}</div>
-        <a :style="closeButtonStyle" class="node-close" @click.stop="deleteNode(node.id)" @mousedown.stop>&times;</a>
+      <div class="node-container" @mousedown.left.stop="startDrag({node, $event})">
+        <div class="node-element node-topbar" :style="containerStyle">
+          <div :style="titleStyle" class="node-title text-truncate">{{ $t(`nodes.types.${node.type}`) }}</div>
+          <a :style="closeButtonStyle" class="node-close" @click.stop="deleteNode(node.id)" @mousedown.stop>&times;</a>
+        </div>
+        <div class="node-element" :style="containerStyle">
+          <component :is="node.type" :node="node"></component>
+        </div>
       </div>
     </foreignObject>
   </g>
@@ -73,11 +79,18 @@ export default class NodeWrapper extends Vue {
 
 .node-container {
   border: 2px solid #00FF00;
+  box-sizing: border-box;
   height: 100%;
   width: 100%;
   position: relative;
   background-color: black;
-  padding: var(--padding)
+}
+.node-element {
+  padding: var(--padding);
+}
+
+.node-topbar {
+  border-bottom: 1px solid #00FF00;
 }
 
 .node-close {

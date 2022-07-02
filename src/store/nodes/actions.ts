@@ -43,6 +43,7 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
         const from: INode | undefined = state.nodes.find(n => n.id == link.from)
         const to: INode | undefined = state.nodes.find(n => n.id == link.to)
         if (from !== undefined && to !== undefined) {
+          console.log(from.waaNode, to.waaNode);
           from.waaNode.connect(to.waaNode)
         }
       });
