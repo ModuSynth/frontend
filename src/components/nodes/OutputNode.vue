@@ -8,7 +8,7 @@ export default class OutputNode extends Vue {
 
   public mounted() {
     this.node.height = 50;
-    this.node.width = 50;
+    this.node.width = 100;
   }
 }
 </script>
