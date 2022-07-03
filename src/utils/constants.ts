@@ -25,5 +25,5 @@ export const NODE_TITLE_HEIGHT = 16;
 export const NODE_HEADERS_MARGIN = 5;
 export const NODE_TITLE_WIDTH = PARAM_WIDTH - NODE_CLOSE_SIZE;
 
-export const PORT_DIAMETER = 20;
+export const PORT_RADIUS = 10;
 export const PORT_TOP_MARGIN = 5;
