@@ -4,73 +4,102 @@ import { NodeActionTypes } from '@/store/nodes/enums';
 import ns from '@/utils/ns';
 import { Component, Vue, Prop, PropSync } from 'vue-property-decorator';
 
+/**
+ * This wrapper wraps a numeric value corresponding to a parameter on a node.
+ * It provides methods and actionners to increase or decrase the value of a
+ * given amount. The user can edit the value manually too for more precision.
+ * @author Vincent Courtois <courtois.vincent@outlook.com>
+ */
 @Component
 export default class NumberParameter extends Vue {
 
+  /**
+   * The node the parameter is declared on. The parameter is not directly given
+   * because we'd still need his name and we need the inner wrapped WAA node.
+   */
   @Prop() node!: INode;
-
-  @Prop() paramName!: string;
-
-  @Prop({ default: 140 }) width!: number;
-
+  /**
+   * The string name of the parameter, used to find it in the parameters object
+   * and in the parameters of the wrapped AudioNode.
+   */
+  @Prop() paramName!: keyof AudioNode;
+  /**
+   * The amount the value will be increased or decreased with when pressing the
+   * inner buttons in the controls. This SHOULD be lower than superIncrement.
+   */
   @Prop({ default: 1 }) increment!: number;
-
+  /**
+   * The amount the value will be increased or decreased with when pressing the
+   * outer buttons in the controls. This SHOULD be creater than increment.
+   */
   @Prop({ default: 10 }) superIncrement!: number;
-
+  /**
+   * The minimum numerical value this control can have. If lower than this, the
+   * value will NOT be applied, and minimum value will be used instead.
+   */
   @Prop({ default: 0 }) min!: number;
-
+  /**
+   * The maximum numerical value this control can have. If greater than this, the
+   * value will NOT be applied, and maximum value will be used instead.
+   */
   @Prop({ default: Infinity }) max!: number;
-
+  /**
+   * The translation key to use for the title of the parameter.
+   */
   @Prop({ default: 'params.titles.unknown' }) title!: string;
 
   @ns.stages.State("context") context!: AudioContext;
 
   @ns.nodes.Action(NodeActionTypes.SAVE_PARAMS) saveParams: any;
 
+  /**
+   * Returns the Audio Parameter from the wrapped Audio Node in our node.
+   * This Audio Parameter can then be mutated using setValueAtTime.
+   */
   public get param(): AudioParam {
-    const key: keyof AudioNode = this.paramName as unknown as keyof AudioNode;
-    return this.node.waaNode[key] as unknown as AudioParam;
+    return this.node.waaNode[this.paramName] as unknown as AudioParam;
   }
 
+  /**
+   * Getter for the wrapped value on the node wrapper. This value is NOT
+   * extracted from the wrapped parameter, but is SHOULD be the same as the
+   * underlying Audio Parameter.
+   */
   public get value(): number {
-    return parseFloat(`${this.node.params[this.paramName]}`)
+    return Number(this.node.params[this.paramName]);
   }
 
+  /**
+   * Sets the new value for the parameter wrapper with a correct cast along the way.
+   */
   public set value(newValue: number) {
-    this.node.params[this.paramName] = newValue
+    this.node.params[this.paramName] = Number(newValue)
   }
 
-  public mounted() {
-    this.value = parseFloat(`${this.node.params[this.paramName] || 0}`);
-    this.applyValue();
-  }
-
+  /**
+   * Applies the current value of the parameter wrapper to the wrapped Audio
+   * Parameter by using the correct mutation method. The context we use here MUST be
+   * the same context that created the node.
+   */
   public applyValue() {
     this.param.setValueAtTime(this.value, this.context.currentTime);
     this.saveParams(this.node);
   }
 
+  /**
+   * Changes the value of the parameter wrapper and applies this change to the wrapped
+   * Audio Parameter afterhand.
+   * @param increment The amount the value will be changed of.
+   */
   public changeValue(increment: number) {
-    if (this.value + increment > this.max) {
-      this.value = this.max;
-    }
-    else if (this.value + increment < this.min) {
-      this.value = this.min;
-    }
-    else {
-      this.value = parseFloat(`${this.value}`) + increment;
-    }
+    this.value = Math.max(Math.min(this.value + increment, this.max), this.min);
     this.applyValue();
-  }
-
-  public get widthStyle(): any {
-    return {"--width": `${this.width}px`}
   }
 }
 </script>
 
 <template>
-  <div class="param-container" :style="widthStyle">
+  <div class="param-container">
     <div class="param-title">{{ $t(title) }}</div>
     <a class="param-button margin-right" @click="changeValue(-superIncrement)"><v-icon small>mdi-chevron-double-left</v-icon></a>
     <a class="param-button margin-right" @click="changeValue(-increment)"><v-icon small>mdi-chevron-left</v-icon></a>
@@ -82,7 +111,7 @@ export default class NumberParameter extends Vue {
 
 <style scoped>
 .param-container {
-  width: var(--width);
+  width: 100%;
   background-color: black;
 }
 .param-container > a > i {

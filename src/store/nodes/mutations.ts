@@ -1,3 +1,4 @@
+import factories from "@/factories/nodes";
 import { NodeType } from "@/interfaces/enums/NodeType";
 import INode from "@/interfaces/INode";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
@@ -7,23 +8,18 @@ import { NodeMutationTypes } from "./enums";
 import { INodeState, NodeMutations } from "./interfaces";
 
 function addNode(state: INodeState, globalState: MainState, node: INode) {
-  if (node.type == NodeType.OUTPUT) {
-    node.waaNode = (globalState as any).stages.context.destination;
-  }
-  else {
-    node.waaNode = eval(`new ${node.type}(globalState.stages.context)`);
-    if (node.type == NodeType.OSCILLATOR) {
-      (node.waaNode as OscillatorNode).start()
-    }
-  }
-  state.nodes.push({...node, width: 0, height: 0});
+  state.nodes.push({
+    ...node,
+    width: 0,
+    height: 0,
+    waaNode: factories[node.type]((globalState as any).stages.context, node)
+  });
 }
 
 const mutations: MutationTree<INodeState> & NodeMutations = {
   [NodeMutationTypes.SET_NODES_LIST](state, payload) {
     payload.forEach((node: INode) => addNode(state, this.state, node));
     state.loaded = true;
-    console.log(state.nodes)
   },
   [NodeMutationTypes.START_DRAG](state, {node, $event}) {
     state.dragged = node;
