@@ -5,8 +5,10 @@ import ns from '@/utils/ns';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import GainNode from './nodes/GainNode.vue'
 import OscillatorNode from './nodes/OscillatorNode.vue';
-import { NODE_PADDING, PARAM_WIDTH, NODE_CLOSE_SIZE, NODE_TITLE_HEIGHT, NODE_TITLE_WIDTH } from '@/utils/constants';
+import { NODE_PADDING, PARAM_WIDTH, NODE_CLOSE_SIZE, NODE_TITLE_HEIGHT, NODE_TITLE_WIDTH, PORT_RADIUS, PORT_TOP_MARGIN } from '@/utils/constants';
 import OutputNode from './nodes/OutputNode.vue';
+import InputPort from './ports/InputPort.vue';
+import OutputPort from './ports/OutputPort.vue';
 
 
 /**
@@ -16,7 +18,7 @@ import OutputNode from './nodes/OutputNode.vue';
  * @author Vincent Courtois <courtois.vincent@outlook.com>
  */
 @Component({
-  components: { GainNode, OscillatorNode, OutputNode }
+  components: { GainNode, OscillatorNode, OutputNode, InputPort, OutputPort }
 })
 export default class NodeWrapper extends Vue {
   @Prop() readonly node!: INode;
@@ -48,6 +50,18 @@ export default class NodeWrapper extends Vue {
   public get height(): number {
     return NODE_TITLE_HEIGHT + 2 * NODE_PADDING;
   }
+
+  public get radius() {
+    return PORT_RADIUS
+  }
+
+  public portsHeight(numberOfPorts: number): number {
+    return ((PORT_RADIUS + PORT_TOP_MARGIN) * numberOfPorts) - PORT_TOP_MARGIN
+  }
+
+  public portsY(numberOfPorts: number): number {
+    return (this.node.height - this.portsHeight(numberOfPorts) + this.radius) / 2
+  }
 }
 </script>
 
@@ -55,6 +69,12 @@ export default class NodeWrapper extends Vue {
   <g
     :transform="`translate(${node.x} ${node.y})`"
   >
+    <g :transform="`translate(0 ${portsY(node.waaNode.numberOfInputs)})`" v-if="node.waaNode.numberOfInputs > 0">
+      <InputPort v-for="index in node.waaNode.numberOfInputs" :index="index - 1" :key="index" />
+    </g>
+    <g :transform="`translate(${node.width} ${portsY(node.waaNode.numberOfOutputs)})`" v-if="node.waaNode.numberOfOutputs > 0">
+      <OutputPort v-for="index in node.waaNode.numberOfOutputs" :index="index - 1" :key="index" />
+    </g>
     <foreignObject
       :width="node.width"
       :height="node.height"
