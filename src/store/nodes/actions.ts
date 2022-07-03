@@ -4,6 +4,7 @@ import { ActionTree } from "vuex";
 import MainState from "../utils/MainState";
 import { NodeActionTypes, NodeMutationTypes } from "./enums";
 import { INodeState, NodeActions } from "./interfaces";
+import defaults from '@/utils/defaults'
 
 const actions: ActionTree<INodeState, MainState> & NodeActions = {
   [NodeActionTypes.FETCH_LIST]({ commit, dispatch }, stageId) {
@@ -17,7 +18,8 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
       x: 50 - rootState.stages.stage.x,
       y: 50 - rootState.stages.stage.y,
       type: type,
-      stage_id: rootState.stages.stage.id
+      stage_id: rootState.stages.stage.id,
+      params: defaults[type]
     }
     return axios.post('http://localhost:3000/nodes', node).then(({ data }) => {
       node.id = data.id;
