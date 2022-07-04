@@ -3,9 +3,10 @@ import INode from '@/interfaces/INode';
 import ns from '@/utils/ns';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import NumberParameter from '../params/NumberParameter.vue';
+import ListParameter from '../params/ListParameter.vue';
 
 @Component({
-  components: { NumberParameter }
+  components: { ListParameter, NumberParameter }
 })
 export default class OscillatorNodeComponent extends Vue {
   @Prop() node!: INode;
@@ -13,7 +14,7 @@ export default class OscillatorNodeComponent extends Vue {
   @ns.stages.State("context") context!: AudioContext;
 
   public mounted() {
-    this.node.height = 160;
+    this.node.height = 190;
     this.node.width = 164;
   }
 
@@ -32,7 +33,8 @@ export default class OscillatorNodeComponent extends Vue {
 </script>
 
 <template>
-  <div>
+  <div @mousedown.stop>
+    <ListParameter :node="node" paramName="type" :values="['sine', 'triangle', 'square', 'sawtooth']" />
     <NumberParameter
       :node="node"
       paramName="frequency"
