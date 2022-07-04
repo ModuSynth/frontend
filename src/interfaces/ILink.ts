@@ -6,6 +6,15 @@ export default interface ILink {
   to: IEnd;
 }
 
+export interface IParamLink {
+  from: IEnd;
+  to: IParamEnd;
+}
+
+export interface IParamEnd {
+  paramName: string;
+}
+
 export interface IEnd {
   node: INode;
   index: number;

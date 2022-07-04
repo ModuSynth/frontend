@@ -14,5 +14,4 @@ export enum NodeActionTypes {
   SAVE_POSITION = 'SAVE_POSITION',
   SAVE_PARAMS = 'SAVE_PARAMS',
   DELETE = 'DELETE',
-  FETCH_LINKS = 'FETCH_LINKS',
 }

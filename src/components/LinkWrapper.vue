@@ -6,10 +6,6 @@ import ILink from '@/interfaces/ILink'
 export default class LinkWrapper extends Vue {
   @Prop() link!: ILink;
 
-  public mounted() {
-    console.log(this.link);
-  }
-
   public get fromX(): number {
     return this.link.from.node.x + this.link.from.node.width;
   }

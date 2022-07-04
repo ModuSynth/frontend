@@ -1,5 +1,6 @@
 <script lang="ts">
 import INode from '@/interfaces/INode';
+import IParam from '@/interfaces/IParam';
 import { NodeActionTypes } from '@/store/nodes/enums';
 import ns from '@/utils/ns';
 import { Component, Vue, Prop, PropSync } from 'vue-property-decorator';
@@ -13,11 +14,13 @@ import { Component, Vue, Prop, PropSync } from 'vue-property-decorator';
 @Component
 export default class NumberParameter extends Vue {
 
+  @Prop() node!: INode;
+
   /**
    * The node the parameter is declared on. The parameter is not directly given
    * because we'd still need his name and we need the inner wrapped WAA node.
    */
-  @Prop() node!: INode;
+  @Prop() param!: IParam;
   /**
    * The string name of the parameter, used to find it in the parameters object
    * and in the parameters of the wrapped AudioNode.
@@ -52,29 +55,6 @@ export default class NumberParameter extends Vue {
 
   @ns.nodes.Action(NodeActionTypes.SAVE_PARAMS) saveParams: any;
 
-  /**
-   * Returns the Audio Parameter from the wrapped Audio Node in our node.
-   * This Audio Parameter can then be mutated using setValueAtTime.
-   */
-  public get param(): AudioParam {
-    return this.node.waaNode[this.paramName] as unknown as AudioParam;
-  }
-
-  /**
-   * Getter for the wrapped value on the node wrapper. This value is NOT
-   * extracted from the wrapped parameter, but is SHOULD be the same as the
-   * underlying Audio Parameter.
-   */
-  public get value(): number {
-    return Number(this.node.params[this.paramName]);
-  }
-
-  /**
-   * Sets the new value for the parameter wrapper with a correct cast along the way.
-   */
-  public set value(newValue: number) {
-    this.node.params[this.paramName] = Number(newValue)
-  }
 
   /**
    * Applies the current value of the parameter wrapper to the wrapped Audio
@@ -82,8 +62,12 @@ export default class NumberParameter extends Vue {
    * the same context that created the node.
    */
   public applyValue() {
-    this.param.setValueAtTime(this.value, this.context.currentTime);
+    this.innerParam.setValueAtTime(Number(this.param.value), this.context.currentTime);
     this.saveParams(this.node);
+  }
+
+  public get innerParam(): AudioParam {
+    return this.node.waaNode[this.param.name as unknown as keyof AudioNode] as unknown as AudioParam
   }
 
   /**
@@ -92,7 +76,7 @@ export default class NumberParameter extends Vue {
    * @param increment The amount the value will be changed of.
    */
   public changeValue(increment: number) {
-    this.value = Math.max(Math.min(this.value + increment, this.max), this.min);
+    this.param.value = Math.max(Math.min(Number(this.param.value) + increment, this.max), this.min);
     this.applyValue();
   }
 }
@@ -103,7 +87,7 @@ export default class NumberParameter extends Vue {
     <div class="param-title">{{ $t(title) }}</div>
     <a class="param-button margin-right" @click="changeValue(-superIncrement)"><v-icon small>mdi-chevron-double-left</v-icon></a>
     <a class="param-button margin-right" @click="changeValue(-increment)"><v-icon small>mdi-chevron-left</v-icon></a>
-    <input type="text" class="param-input" v-model="value" @change="applyValue" />
+    <input type="text" class="param-input" v-model="param.value" @change="applyValue" />
     <a class="param-button margin-left" @click="changeValue(increment)"><v-icon small>mdi-chevron-right</v-icon></a>
     <a class="param-button margin-left" @click="changeValue(superIncrement)"><v-icon small>mdi-chevron-double-right</v-icon></a>
   </div>

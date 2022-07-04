@@ -1,5 +1,6 @@
 <script lang="ts">
 import INode from '@/interfaces/INode';
+import IParam from '@/interfaces/IParam';
 import { NodeActionTypes } from '@/store/nodes/enums';
 import ns from '@/utils/ns';
 import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -24,9 +25,11 @@ export default class ListParameter extends Vue {
   }
 
   public set value(newValue: string) {
-    this.node.params[this.paramName] = newValue;
+    const param: IParam | undefined = this.node.params.find(p => p.name == this.paramName)
+    if (param !== undefined)  {
+      param.value = newValue;
+    }
     this.innerNode[this.paramName] = newValue;
-    console.log(this.node.params);
     this.saveParams(this.node);
   }
 }
