@@ -1,5 +1,4 @@
 import factories from "@/factories/nodes";
-import { NodeType } from "@/interfaces/enums/NodeType";
 import INode from "@/interfaces/INode";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
 import { MutationTree } from "vuex";
