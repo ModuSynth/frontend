@@ -7,9 +7,11 @@ import NodeWrapper from '@/components/NodeWrapper.vue'
 import ns from '@/utils/ns';
 import INode from '@/interfaces/INode'
 import { NodeActionTypes, NodeMutationTypes } from '@/store/nodes/enums';
+import ILink from '@/interfaces/ILink';
+import LinkWrapper from '../../components/LinkWrapper.vue';
 
 @Component({
-  components: { NodeWrapper, Toolbar }
+  components: { NodeWrapper, Toolbar, LinkWrapper }
 })
 export default class StagesList extends Vue {
 
@@ -20,6 +22,8 @@ export default class StagesList extends Vue {
   @ns.nodes.State('nodes') nodes!: INode[];
 
   @ns.nodes.State('loaded') loaded!: boolean;
+
+  @ns.links.State('links') links!: ILink[];
 
   @ns.nodes.Action(NodeActionTypes.FETCH_LIST) fetchNodes: any;
 
@@ -70,7 +74,8 @@ export default class StagesList extends Vue {
         @wheel.prevent="setScale($event.deltaY)"
       >
         <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
-          <NodeWrapper :node="node" v-for="node in nodes" :key="node.id" />
+          <LinkWrapper :link="link" v-for="link in links" :key="`link-${link.id}`" />
+          <NodeWrapper :node="node" v-for="node in nodes" :key="`node-${node.id}`" />
         </g>
       </svg>
     </div>

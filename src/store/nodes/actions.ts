@@ -5,12 +5,13 @@ import MainState from "../utils/MainState";
 import { NodeActionTypes, NodeMutationTypes } from "./enums";
 import { INodeState, NodeActions } from "./interfaces";
 import defaults from '@/utils/defaults'
+import { LinkActionTypes } from "../links/enums";
 
 const actions: ActionTree<INodeState, MainState> & NodeActions = {
   [NodeActionTypes.FETCH_LIST]({ commit, dispatch }, stageId) {
     return axios.get(`http://localhost:3000/nodes?stage_id=${stageId}`).then(({ data }) => {
       commit(NodeMutationTypes.SET_NODES_LIST, data);
-      dispatch(NodeActionTypes.FETCH_LINKS)
+      dispatch(`links/${LinkActionTypes.FETCH_LIST}`, null, {root: true})
     });
   },
   [NodeActionTypes.CREATE]({ commit, rootState }, type) {
