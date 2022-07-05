@@ -4,6 +4,7 @@ import ns from '@/utils/ns';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import NumberParameter from '../params/NumberParameter.vue';
 import ListParameter from '../params/ListParameter.vue';
+import IParam from '@/interfaces/IParam';
 
 @Component({
   components: { ListParameter, NumberParameter }
@@ -14,7 +15,7 @@ export default class OscillatorNodeComponent extends Vue {
   @ns.stages.State("context") context!: AudioContext;
 
   public mounted() {
-    this.node.height = 190;
+    this.node.height = 210;
     this.node.width = 164;
   }
 
@@ -22,12 +23,12 @@ export default class OscillatorNodeComponent extends Vue {
     return (this.node.waaNode as unknown as OscillatorNode);
   }
 
-  public get frequency(): AudioParam {
-    return this.wrappedNode.frequency
+  public get frequency(): IParam | undefined {
+    return this.node.params.find(p => p.name == "frequency")
   }
 
-  public get detune(): AudioParam {
-    return this.wrappedNode.detune
+  public get detune(): IParam | undefined {
+    return this.node.params.find(p => p.name == "detune")
   }
 }
 </script>
@@ -38,6 +39,7 @@ export default class OscillatorNodeComponent extends Vue {
     <NumberParameter
       :node="node"
       paramName="frequency"
+      :param="frequency"
       :increment="1"
       :superIncrement="10"
       :max="context.sampleRate / 2"
@@ -47,6 +49,7 @@ export default class OscillatorNodeComponent extends Vue {
     <NumberParameter
       :node="node"
       paramName="detune"
+      :param="detune"
       :increment="10"
       :superIncrement="100"
       :max="153600"

@@ -43,18 +43,7 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
     return axios.delete(`http://localhost:3000/nodes/${nodeId}`).then(() => {
       commit(NodeMutationTypes.REMOVE_NODE, nodeId);
     })
-  },
-  [NodeActionTypes.FETCH_LINKS]({ commit, state }) {
-    return axios.get(`http://localhost:3000/links`).then(({ data }) => {
-      data.forEach((link: any) => {
-        const from: INode | undefined = state.nodes.find(n => n.id == link.from)
-        const to: INode | undefined = state.nodes.find(n => n.id == link.to)
-        if (from !== undefined && to !== undefined) {
-          from.waaNode.connect(to.waaNode)
-        }
-      });
-    });
-  },
+  }
 }
 
 export default actions;

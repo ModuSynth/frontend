@@ -1,4 +1,5 @@
 import { NodeType } from "./enums/NodeType";
+import IParam from "./IParam";
 
 export default interface INode {
   x: number;
@@ -9,5 +10,5 @@ export default interface INode {
   height: number;
   // The Web Audio Api (WAA) node linked to this node wrapper
   waaNode: AudioNode;
-  params: {[key: string]: number | string}
+  params: IParam[]
 }

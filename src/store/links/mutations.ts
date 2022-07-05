@@ -16,6 +16,21 @@ const mutations: MutationTree<ILinkState> & LinkMutations = {
       })
       from.waaNode.connect(to.waaNode, link.to.index, link.from.index)
     }
+  },
+  [LinkMutationTypes.ADD_PARAM_LINK](state, link) {
+    const nodes: INode[] = (this.state as any).nodes.nodes;
+    const from: INode | undefined = nodes.find(n => n.id == link.from.id);
+    const split: string[] = link.to.id.split('::');
+    const to: INode | undefined = nodes.find(n => n.id == split[0]);
+    if (from !== undefined && to !== undefined) {
+      state.paramLinks.push({
+        id: link.id,
+        from: { node: from, index: link.from.index },
+        to: { node: to, index: link.to.index },
+        paramName: split[1]
+      });
+      from.waaNode.connect((to.waaNode as any)[split[1]])
+    }
   }
 }
 

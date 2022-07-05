@@ -1,5 +1,6 @@
 <script lang="ts">
 import INode from '@/interfaces/INode';
+import IParam from '@/interfaces/IParam';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import NumberParameter from '../params/NumberParameter.vue';
 
@@ -10,18 +11,19 @@ export default class GainNode extends Vue {
   @Prop() node!: INode;
 
   public mounted() {
-    this.node.height = 110;
-    this.node.width = 164;
+    this.node.height = 120;
+    this.node.width = 174;
   }
 
-  public get gain(): AudioParam {
-    return (this.node.waaNode as unknown as GainNode).gain
+  public get gain(): IParam | undefined {
+    return this.node.params.find(p => p.name == 'gain')
   }
 }
 </script>
 
 <template>
   <div>
-    <NumberParameter :node="node" paramName="gain" :increment=".1" :superIncrement="1" title="params.titles.gain" />
+    <NumberParameter :node="node" paramName="gain" :param="gain" :increment=".1" :superIncrement="1" title="params.titles.gain"
+      :dy="79" />
   </div>
 </template>
