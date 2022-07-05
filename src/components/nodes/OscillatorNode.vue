@@ -15,7 +15,7 @@ export default class OscillatorNodeComponent extends Vue {
   @ns.stages.State("context") context!: AudioContext;
 
   public mounted() {
-    this.node.height = 190;
+    this.node.height = 210;
     this.node.width = 164;
   }
 
