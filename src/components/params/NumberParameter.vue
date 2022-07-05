@@ -14,6 +14,13 @@ import { Component, Vue, Prop, PropSync } from 'vue-property-decorator';
 @Component
 export default class NumberParameter extends Vue {
 
+  /**
+   * The number of pixel, in the Y axis, from the top of the node to the middle
+   * of the port linked to this parameter. It makes the computation of parameters
+   * links coordinates easier by setting it in a dedicated place.
+   */
+  @Prop({ default: 0 }) dy!: number;
+
   @Prop() node!: INode;
 
   /**
@@ -55,6 +62,11 @@ export default class NumberParameter extends Vue {
 
   @ns.nodes.Action(NodeActionTypes.SAVE_PARAMS) saveParams: any;
 
+  public mounted() {
+    this.param.dy = this.dy
+    console.log(this.dy)
+    console.log(this.param.dy)
+  }
 
   /**
    * Applies the current value of the parameter wrapper to the wrapped Audio

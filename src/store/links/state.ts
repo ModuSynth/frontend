@@ -1,7 +1,8 @@
 import { ILinkState } from "./interfaces";
 
 const state: ILinkState = {
-  links: []
+  links: [],
+  paramLinks: []
 }
 
 export default state;

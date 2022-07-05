@@ -7,13 +7,12 @@ export default interface ILink {
 }
 
 export interface IParamLink {
+  id: string;
   from: IEnd;
-  to: IParamEnd;
-}
-
-export interface IParamEnd {
+  to: IEnd;
   paramName: string;
 }
+
 
 export interface IEnd {
   node: INode;
