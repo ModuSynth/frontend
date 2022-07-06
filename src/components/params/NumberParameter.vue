@@ -64,8 +64,6 @@ export default class NumberParameter extends Vue {
 
   public mounted() {
     this.param.dy = this.dy
-    console.log(this.dy)
-    console.log(this.param.dy)
   }
 
   /**

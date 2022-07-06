@@ -20,7 +20,9 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
       y: 50 - rootState.stages.stage.y,
       type: type,
       stage_id: rootState.stages.stage.id,
-      params: defaults[type]
+      params: Object.keys(defaults[type]).map((k: string) => {
+        return {name: k, value: defaults[type][k]};
+      })
     }
     return axios.post('http://localhost:3000/nodes', node).then(({ data }) => {
       node.id = data.id;
