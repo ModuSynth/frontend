@@ -26,10 +26,6 @@ export default class ParamLinkWrapper extends Vue {
   public get toY() {
     return this.link.to.node.y + (this.param?.dy || 0)
   }
-
-  public mounted() {
-    console.log(this.param);
-  }
 }
 </script>
 
