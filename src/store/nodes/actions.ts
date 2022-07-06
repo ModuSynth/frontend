@@ -6,7 +6,6 @@ import { NodeActionTypes, NodeMutationTypes } from "./enums";
 import { INodeState, NodeActions } from "./interfaces";
 import defaults from '@/utils/defaults'
 import { LinkActionTypes } from "../links/enums";
-import { keyBy } from "lodash";
 
 const actions: ActionTree<INodeState, MainState> & NodeActions = {
   [NodeActionTypes.FETCH_LIST]({ commit, dispatch }, stageId) {
