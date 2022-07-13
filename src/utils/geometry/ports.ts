@@ -9,7 +9,7 @@ import { PORT_RADIUS, PORT_TOP_MARGIN } from "../constants";
  * @returns the Y coordinates for the ports group.
  */
 export function portsY(node: INode, numberOfPorts: number): number {
-    return (node.height - portsHeight(numberOfPorts)) / 2
+    return (node.height - portsHeight(numberOfPorts)) / 2 + PORT_RADIUS
 }
 
 export function portsHeight(numberOfPorts: number): number {
@@ -17,5 +17,5 @@ export function portsHeight(numberOfPorts: number): number {
 }
 
 export function portY(index: number): number {
-    return (((index * 2) + 1) * PORT_RADIUS) + (index * PORT_TOP_MARGIN)
+    return (index * 2 * PORT_RADIUS) + (index * PORT_TOP_MARGIN)
 }
