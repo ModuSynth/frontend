@@ -5,10 +5,12 @@ import ns from '@/utils/ns';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import GainNode from './nodes/GainNode.vue'
 import OscillatorNode from './nodes/OscillatorNode.vue';
+import ChannelMergerNode from './nodes/ChannelMergerNode.vue';
 import { NODE_PADDING, PARAM_WIDTH, NODE_CLOSE_SIZE, NODE_TITLE_HEIGHT, NODE_TITLE_WIDTH, PORT_RADIUS, PORT_TOP_MARGIN } from '@/utils/constants';
 import OutputNode from './nodes/OutputNode.vue';
 import InputPort from './ports/InputPort.vue';
 import OutputPort from './ports/OutputPort.vue';
+import { portsHeight, portsY } from '@/utils/geometry/ports';
 
 
 /**
@@ -18,7 +20,7 @@ import OutputPort from './ports/OutputPort.vue';
  * @author Vincent Courtois <courtois.vincent@outlook.com>
  */
 @Component({
-  components: { GainNode, OscillatorNode, OutputNode, InputPort, OutputPort }
+  components: { GainNode, OscillatorNode, OutputNode, InputPort, OutputPort, ChannelMergerNode }
 })
 export default class NodeWrapper extends Vue {
   @Prop() readonly node!: INode;
@@ -56,11 +58,11 @@ export default class NodeWrapper extends Vue {
   }
 
   public portsHeight(numberOfPorts: number): number {
-    return ((PORT_RADIUS + PORT_TOP_MARGIN) * numberOfPorts) - PORT_TOP_MARGIN
+    return portsHeight(numberOfPorts)
   }
 
   public portsY(numberOfPorts: number): number {
-    return (this.node.height - this.portsHeight(numberOfPorts) + this.radius) / 2
+    return portsY(this.node, numberOfPorts);
   }
 }
 </script>

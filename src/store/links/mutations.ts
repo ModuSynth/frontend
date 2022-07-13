@@ -14,7 +14,7 @@ const mutations: MutationTree<ILinkState> & LinkMutations = {
         from: { node: from, index: link.from.index },
         to: { node: to, index: link.to.index }
       })
-      from.waaNode.connect(to.waaNode, link.to.index, link.from.index)
+      from.waaNode.connect(to.waaNode, link.from.index, link.to.index)
     }
   },
   [LinkMutationTypes.ADD_PARAM_LINK](state, link) {

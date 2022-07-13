@@ -3,7 +3,8 @@
     "types": {
       "GainNode": "Volume",
       "OscillatorNode": "Oscillateur",
-      "OutputNode": "Sortie"
+      "OutputNode": "Sortie",
+      "ChannelMergerNode": "Assembleur"
     }
   },
   "params": {

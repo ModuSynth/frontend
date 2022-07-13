@@ -1,3 +1,4 @@
+import createChannelMergerNode from "./ChannelMergerNode";
 import createGainNode from "./GainNode";
 import createOscillatorNode from "./OscillatorNode";
 import createOutputNode from "./OutputNode";
@@ -5,7 +6,8 @@ import createOutputNode from "./OutputNode";
 const factories = {
   GainNode: createGainNode,
   OscillatorNode: createOscillatorNode,
-  OutputNode: createOutputNode
+  OutputNode: createOutputNode,
+  ChannelMergerNode: createChannelMergerNode
 }
 
 export default factories;
