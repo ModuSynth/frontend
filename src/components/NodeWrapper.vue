@@ -72,10 +72,10 @@ export default class NodeWrapper extends Vue {
     :transform="`translate(${node.x} ${node.y})`"
   >
     <g :transform="`translate(0 ${portsY(node.waaNode.numberOfInputs)})`" v-if="node.waaNode.numberOfInputs > 0">
-      <InputPort v-for="port in node.inputs" :index="port.index" :key="`input-${node.id}.${port.index}`" />
+      <InputPort v-for="port in node.inputs" :port="port" :key="`input-${node.id}.${port.index}`" />
     </g>
     <g :transform="`translate(${node.width} ${portsY(node.waaNode.numberOfOutputs)})`" v-if="node.waaNode.numberOfOutputs > 0">
-      <InputPort v-for="port in node.outputs" :index="port.index" :key="`output-${node.id}.${port.index}`" />
+      <OutputPort v-for="port in node.outputs" :port="port" :key="`output-${node.id}.${port.index}`" />
     </g>
     <foreignObject
       :width="node.width"
