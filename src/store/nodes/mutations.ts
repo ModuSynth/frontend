@@ -9,14 +9,15 @@ import { INodeState, NodeMutations } from "./interfaces";
 
 function addNode(state: INodeState, globalState: MainState, node: INode) {
   const waaNode: AudioNode = factories[node.type]((globalState as any).stages.context, node)
-  state.nodes.push({
+  const createdNode: INode ={
     ...node,
     width: 0,
     height: 0,
     waaNode,
-    inputs: createPorts(node, waaNode.numberOfInputs),
-    outputs: createPorts(node, waaNode.numberOfOutputs)
-  });
+  };
+  createdNode.inputs = createPorts(createdNode, waaNode.numberOfInputs),
+  createdNode.outputs = createPorts(createdNode, waaNode.numberOfOutputs)
+  state.nodes.push(createdNode)
 }
 
 const mutations: MutationTree<INodeState> & NodeMutations = {
