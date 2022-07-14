@@ -1,22 +1,16 @@
-import INode from "./INode";
+import IPort from "./IPort";
 
 export default interface ILink {
   id: string;
-  from: IEnd;
-  to: IEnd;
+  from: IPort;
+  to: IPort;
 }
 
 export interface IParamLink {
   id: string;
-  from: IEnd;
-  to: IEnd;
+  from: IPort;
+  to: IPort;
   paramName: string;
-}
-
-
-export interface IEnd {
-  node: INode;
-  index: number;
 }
 
 export interface IApiLink {
@@ -26,9 +20,6 @@ export interface IApiLink {
   through?: IApiEnd;
 }
 
-/**
- * The ends of a link as returned by the API before being parsed.
- */
 export interface IApiEnd {
   index: number;
   id: string;

@@ -7,7 +7,7 @@ export default interface IPort {
     // the index, starting at 0, of the port in the list.
     index: number;
     // The links connected to this port.
-    links: ILink[];
+    links?: ILink[];
 }
 
 export function createPorts(node: INode, count: number): IPort[] {
