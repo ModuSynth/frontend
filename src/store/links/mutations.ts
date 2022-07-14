@@ -4,17 +4,32 @@ import { MutationTree } from "vuex";
 import { LinkMutationTypes } from "./enums";
 import { ILinkState, LinkMutations } from "./interfaces";
 
-class ElementNotFound extends Error {}
+class ElementNotFound extends Error {
+
+  private _type: string;
+
+  constructor(type: string) {
+    super();
+    this._type = type;
+  }
+
+  public get type() {
+    return this._type;
+  }
+}
 
 function findNode(nodes: INode[], nodeId: string): INode {
   const node: INode | undefined = nodes.find(n => n.id == nodeId)
-  if (node === undefined) throw new ElementNotFound();
+  if (node === undefined) throw new ElementNotFound("node");
   return node;
 }
 
 function findPort(ports: IPort[], index: number): IPort {
   const port: IPort | undefined = ports.find(p => p.index === index);
-  if (port === undefined) throw new ElementNotFound();
+  if (port === undefined) {
+    console.log(ports, index)
+  }
+  if (port === undefined) throw new ElementNotFound("port");
   return port;
 }
 
@@ -27,12 +42,13 @@ const mutations: MutationTree<ILinkState> & LinkMutations = {
       state.links.push({
         id: link.id,
         from: findPort(from.outputs, link.from.index),
-        to: findPort(to.outputs, link.to.index)
+        to: findPort(to.inputs, link.to.index)
       });
       from.waaNode.connect(to.waaNode, link.from.index, link.to.index)
     }
-    catch(ElementNotFound) {
-      console.log("Something that was required to find the link was not found.");
+    catch(_e) {
+      const e: ElementNotFound = _e as ElementNotFound;
+      console.log(e);
     }
   },
   [LinkMutationTypes.ADD_PARAM_LINK](state, link) {
