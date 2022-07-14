@@ -1,5 +1,6 @@
 import factories from "@/factories/nodes";
 import INode from "@/interfaces/INode";
+import { createPorts } from "@/interfaces/IPort";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
 import { MutationTree } from "vuex";
 import MainState from "../utils/MainState";
@@ -7,11 +8,14 @@ import { NodeMutationTypes } from "./enums";
 import { INodeState, NodeMutations } from "./interfaces";
 
 function addNode(state: INodeState, globalState: MainState, node: INode) {
+  const waaNode: AudioNode = factories[node.type]((globalState as any).stages.context, node)
   state.nodes.push({
     ...node,
     width: 0,
     height: 0,
-    waaNode: factories[node.type]((globalState as any).stages.context, node)
+    waaNode,
+    inputs: createPorts(node, waaNode.numberOfInputs),
+    outputs: createPorts(node, waaNode.numberOfOutputs)
   });
 }
 

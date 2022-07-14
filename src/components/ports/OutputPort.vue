@@ -1,17 +1,18 @@
 <script lang="ts">
+import IPort from '@/interfaces/IPort';
 import { PORT_RADIUS, PORT_TOP_MARGIN } from '@/utils/constants';
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class OutputPort extends Vue {
-  @Prop() index!: number;
+  @Prop() port!: IPort;
 
   public get radius() {
     return PORT_RADIUS
   }
 
   public get y() {
-    return (((PORT_RADIUS * 2) + PORT_TOP_MARGIN) * this.index)
+    return (((PORT_RADIUS * 2) + PORT_TOP_MARGIN) * this.port.index)
   }
 }
 </script>
