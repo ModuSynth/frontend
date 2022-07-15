@@ -26,9 +26,6 @@ function findNode(nodes: INode[], nodeId: string): INode {
 
 function findPort(ports: IPort[], index: number): IPort {
   const port: IPort | undefined = ports.find(p => p.index === index);
-  if (port === undefined) {
-    console.log(ports, index)
-  }
   if (port === undefined) throw new ElementNotFound("port");
   return port;
 }
@@ -52,18 +49,22 @@ const mutations: MutationTree<ILinkState> & LinkMutations = {
     }
   },
   [LinkMutationTypes.ADD_PARAM_LINK](state, link) {
-    const nodes: INode[] = (this.state as any).nodes.nodes;
-    const from: INode | undefined = nodes.find(n => n.id == link.from.id);
-    const split: string[] = link.to.id.split('::');
-    const to: INode | undefined = nodes.find(n => n.id == split[0]);
-    if (from !== undefined && to !== undefined) {
+    try {
+      const nodes: INode[] = (this.state as any).nodes.nodes;
+      const split: string[] = link.to.id.split('::');
+      const from: INode = findNode(nodes, link.from.id);
+      const to: INode = findNode(nodes, split[0]);
       state.paramLinks.push({
         id: link.id,
-        from: { node: from, index: link.from.index },
-        to: { node: to, index: link.to.index },
+        from: findPort(from.outputs, link.from.index),
+        to: findPort(to.inputs, link.to.index),
         paramName: split[1]
       });
       from.waaNode.connect((to.waaNode as any)[split[1]])
+    }
+    catch(_e) {
+      const e: ElementNotFound = _e as ElementNotFound;
+      console.log(e);
     }
   }
 }
