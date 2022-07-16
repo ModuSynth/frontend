@@ -22,13 +22,23 @@ export function portY(port: IPort): number {
 }
 
 export function yInput(port: IPort) {
-    return yPort(port, port.node.waaNode.numberOfInputs);
+    return yLinkPort(port, port.node.waaNode.numberOfInputs);
 }
 
 export function yOutput(port: IPort) {
-    return yPort(port, port.node.waaNode.numberOfOutputs);
+    return yLinkPort(port, port.node.waaNode.numberOfOutputs);
 }
 
-export function yPort(port: IPort, numberOfPort: number) {
+/**
+ * This function computes the absolute Y coordinate for one end of a link between two nodes.
+ * This Y coordinates depends on :
+ * - the coordinates of the node itself.
+ * - the number of ports in the corresponding ports group (to get the Y coordinate of it).
+ * - the position of the port in the port group.
+ * @param port the port to determine the Y coordinates from.
+ * @param numberOfPort the total number of ports in the corresponding port group.
+ * @returns the number of pixels for the Y coordinate of the corresponding link's end.
+ */
+export function yLinkPort(port: IPort, numberOfPort: number) {
     return port.node.y + portsY(port.node, numberOfPort) + portY(port)
 }
