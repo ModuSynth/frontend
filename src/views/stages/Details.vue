@@ -79,7 +79,7 @@ export default class StagesList extends Vue {
         <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
           <LinkWrapper :link="link" v-for="link in links" :key="`link-${link.id}`" />
           <NodeWrapper :node="node" v-for="node in nodes" :key="`node-${node.id}`" />
-          <!--ParamLinkWrapper :link="link" v-for="link in paramLinks" :key="`param-link-${link.id}`" /-->
+          <ParamLinkWrapper :link="link" v-for="link in paramLinks" :key="`param-link-${link.id}`" />
         </g>
       </svg>
     </div>
