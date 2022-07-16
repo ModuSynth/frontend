@@ -1,3 +1,4 @@
+import ILink from "@/interfaces/ILink";
 import INode from "@/interfaces/INode";
 import IPort from "@/interfaces/IPort";
 import { MutationTree } from "vuex";
@@ -45,7 +46,6 @@ const mutations: MutationTree<ILinkState> & LinkMutations = {
     }
     catch(_e) {
       const e: ElementNotFound = _e as ElementNotFound;
-      console.log(e);
     }
   },
   [LinkMutationTypes.ADD_PARAM_LINK](state, link) {
@@ -64,7 +64,14 @@ const mutations: MutationTree<ILinkState> & LinkMutations = {
     }
     catch(_e) {
       const e: ElementNotFound = _e as ElementNotFound;
-      console.log(e);
+    }
+  },
+  [LinkMutationTypes.REMOVE_LINK](state, id) {
+    const index: number = state.links.findIndex(l => l.id === id);
+    if (index > -1) {
+      const found: ILink = state.links[index];
+      found.from.node.waaNode.disconnect(found.to.node.waaNode);
+      state.links.splice(index, 1);
     }
   }
 }
