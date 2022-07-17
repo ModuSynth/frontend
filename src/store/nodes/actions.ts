@@ -1,4 +1,4 @@
-import INode from "@/interfaces/INode";
+import InputPort from "@/interfaces/implementations/InputPort";
 import axios from "axios";
 import { ActionTree } from "vuex";
 import MainState from "../utils/MainState";
@@ -41,9 +41,9 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
     const uri: string = `http://localhost:3000/nodes/${payload.id}`;
     return axios.patch(uri, { params: payload.params })
   },
-  [NodeActionTypes.DELETE]({ commit }, nodeId) {
+  [NodeActionTypes.DELETE]({ commit, state }, nodeId) {
     return axios.delete(`http://localhost:3000/nodes/${nodeId}`).then(() => {
-      commit(NodeMutationTypes.REMOVE_NODE, nodeId);
+       commit(NodeMutationTypes.REMOVE_NODE, nodeId);
     })
   }
 }

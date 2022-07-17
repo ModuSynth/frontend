@@ -1,4 +1,5 @@
 import factories from "@/factories/nodes";
+import { InputPort, OutputPort } from "@/interfaces/implementations/InputPort";
 import INode from "@/interfaces/INode";
 import { createPorts } from "@/interfaces/IPort";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
@@ -14,9 +15,15 @@ function addNode(state: INodeState, globalState: MainState, node: INode) {
     width: 0,
     height: 0,
     waaNode,
+    inputs: [],
+    outputs: []
   };
-  createdNode.inputs = createPorts(createdNode, waaNode.numberOfInputs),
-  createdNode.outputs = createPorts(createdNode, waaNode.numberOfOutputs)
+  for (let i: number = 0; i < waaNode.numberOfInputs; ++i) {
+    createdNode.inputs.push(new InputPort(createdNode, i));
+  }
+  for (let i: number = 0; i < waaNode.numberOfOutputs; ++i) {
+    createdNode.outputs.push(new OutputPort(createdNode, i));
+  }
   state.nodes.push(createdNode)
 }
 
