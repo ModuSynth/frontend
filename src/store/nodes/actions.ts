@@ -1,4 +1,3 @@
-import InputPort from "@/interfaces/implementations/InputPort";
 import axios from "axios";
 import { ActionTree } from "vuex";
 import MainState from "../utils/MainState";
@@ -6,6 +5,10 @@ import { NodeActionTypes, NodeMutationTypes } from "./enums";
 import { INodeState, NodeActions } from "./interfaces";
 import defaults from '@/utils/defaults'
 import { LinkActionTypes } from "../links/enums";
+import Node from '@/interfaces/implementations/Node'
+import { NodeType } from "@/interfaces/enums/NodeType";
+import createNode from "@/factories/NodesFactory";
+import INode from "@/interfaces/INode";
 
 const actions: ActionTree<INodeState, MainState> & NodeActions = {
   [NodeActionTypes.FETCH_LIST]({ commit, dispatch }, stageId) {
@@ -15,18 +18,10 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
     });
   },
   [NodeActionTypes.CREATE]({ commit, rootState }, type) {
-    const node: any = {
-      x: 50 - rootState.stages.stage.x,
-      y: 50 - rootState.stages.stage.y,
-      type: type,
-      stage_id: rootState.stages.stage.id,
-      params: Object.keys(defaults[type]).map((k: string) => {
-        return {name: k, value: defaults[type][k]};
-      })
-    }
-    return axios.post('http://localhost:3000/nodes', node).then(({ data }) => {
-      node.id = data.id;
-      commit(NodeMutationTypes.ADD_NODE, node);
+    const creation: Node = createNode(rootState.stages.stage, type as NodeType);
+    return axios.post('http://localhost:3000/nodes', creation.payload).then(({ data }) => {
+      creation.id = data.id;
+      commit(NodeMutationTypes.ADD_NODE, creation);
     });
   },
   [NodeActionTypes.SAVE_POSITION]({ state }) {
