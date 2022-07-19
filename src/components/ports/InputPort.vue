@@ -1,11 +1,11 @@
 <script lang="ts">
-import IPort from '@/interfaces/IPort';
+import Port from '@/interfaces/implementations/Port';
 import { PORT_RADIUS, PORT_TOP_MARGIN } from '@/utils/constants';
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class InputPort extends Vue {
-  @Prop() port!: IPort;
+  @Prop() port!: Port;
 
   public get radius() {
     return PORT_RADIUS

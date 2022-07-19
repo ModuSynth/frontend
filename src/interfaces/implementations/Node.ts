@@ -72,4 +72,12 @@ export default class Node implements INode {
     public get payload() {
         return { x: this.x, y: this.y, params: this.params, type: this.type, stage_id: this._stage.id}
     }
+
+    public set inputs(ports: IPort[]) {
+        ports.forEach((input: IPort) => this.inputs.push(input));
+    }
+
+    public set outputs(ports: IPort[]) {
+        ports.forEach((output: IPort) => this.outputs.push(output));
+    }
 }

@@ -7,6 +7,7 @@ import INode from "@/interfaces/INode";
 import { tools, IParamDefault } from '@/config/tools'
 import IParam from "@/interfaces/IParam";
 import { cloneDeep } from "lodash";
+import { createPorts } from "./PortsFactory";
 
 /**
  * Creates the Web Audio API node corresponding to this node using the dedicated factory.
@@ -18,7 +19,6 @@ import { cloneDeep } from "lodash";
 }
 
 function initParams(node: Node): IParam[] {
-    console.log(cloneDeep(node))
     return tools[node.type].params.map((p: IParamDefault) => {
         return { name: p.name, value: p.value, dy: 0 };
     });
@@ -27,15 +27,20 @@ function initParams(node: Node): IParam[] {
 function createEmptyWrapper(stage: IStageDetails, type: NodeType): Node {
     const creation: Node = new Node(stage, type as NodeType);
     creation.params = initParams(creation);
-    console.log(creation.params);
     creation.dimensions = tools[type].dimensions
-    creation.position = { x: 50 - stage.x, y: 50 - stage.y}
     return creation
+}
+
+function initPorts(node: Node) {
+    node.inputs = createPorts(node, node.waaNode.numberOfInputs);
+    node.outputs = createPorts(node, node.waaNode.numberOfOutputs);
 }
 
 export default function createNode(stage: IStageDetails, type: NodeType): Node {
     const creation: Node = createEmptyWrapper(stage, type);
+    creation.position = { x: 50 - stage.x, y: 50 - stage.y}
     creation.waaNode = createWaaNode(creation);
+    initPorts(creation);
     return creation;
 }
 
@@ -45,5 +50,6 @@ export function wrapNode(stage: IStageDetails, node: INode): Node {
     creation.id = node.id
     creation.position = { x: node.x, y: node.y }
     creation.waaNode = createWaaNode(creation);
+    initPorts(creation);
     return creation;
 }

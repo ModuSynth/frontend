@@ -11,6 +11,7 @@ import OutputNode from './nodes/OutputNode.vue';
 import InputPort from './ports/InputPort.vue';
 import OutputPort from './ports/OutputPort.vue';
 import { portsHeight, portsY } from '@/utils/geometry/ports';
+import Node from '@/interfaces/implementations/Node'
 
 
 /**
@@ -23,7 +24,7 @@ import { portsHeight, portsY } from '@/utils/geometry/ports';
   components: { GainNode, OscillatorNode, OutputNode, InputPort, OutputPort, ChannelMergerNode }
 })
 export default class NodeWrapper extends Vue {
-  @Prop() readonly node!: INode;
+  @Prop() readonly node!: Node;
 
   @ns.nodes.Mutation(NodeMutationTypes.START_DRAG) startDrag: any;
 
