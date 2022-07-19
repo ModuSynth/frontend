@@ -3,12 +3,11 @@ import { ActionTree } from "vuex";
 import MainState from "../utils/MainState";
 import { NodeActionTypes, NodeMutationTypes } from "./enums";
 import { INodeState, NodeActions } from "./interfaces";
-import defaults from '@/utils/defaults'
 import { LinkActionTypes } from "../links/enums";
 import Node from '@/interfaces/implementations/Node'
 import { NodeType } from "@/interfaces/enums/NodeType";
 import createNode from "@/factories/NodesFactory";
-import INode from "@/interfaces/INode";
+import ILink from "@/interfaces/ILink";
 
 const actions: ActionTree<INodeState, MainState> & NodeActions = {
   [NodeActionTypes.FETCH_LIST]({ commit, dispatch }, stageId) {
@@ -36,9 +35,14 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
     const uri: string = `http://localhost:3000/nodes/${payload.id}`;
     return axios.patch(uri, { params: payload.params })
   },
-  [NodeActionTypes.DELETE]({ commit, state }, nodeId) {
+  [NodeActionTypes.DELETE]({ commit, state, dispatch }, nodeId) {
     return axios.delete(`http://localhost:3000/nodes/${nodeId}`).then(() => {
-       commit(NodeMutationTypes.REMOVE_NODE, nodeId);
+      const node: Node = state.nodes.find((n: Node) => n.id == nodeId);
+      console.log(node.links);
+      node.links.forEach((link: ILink) => {
+        dispatch(`links/${LinkActionTypes.DELETE_LINK}`, link, {root: true});
+      })
+      commit(NodeMutationTypes.REMOVE_NODE, node);
     })
   }
 }

@@ -1,17 +1,19 @@
 import { NodeType } from "../enums/NodeType";
+import ILink from "../ILink";
 import INode from "../INode";
 import IParam from "../IParam";
 import IPort from "../IPort";
 import IStage, { IStageDetails } from "../IStage";
+import Port from "./Port";
 
 export default class Node implements INode {
 
     // The audio node from the Web Aduio API linked to this node.
     private _waaNode!: AudioNode;
     // The ports you can bring sound content to the node from.
-    private _inputs: IPort[];
+    private _inputs: Port[];
     // The ports outputing the sound content of the node.
-    private _outputs: IPort[];
+    private _outputs: Port[];
     // The type of the node, representing the class it's wrapping in the Web Audio API.
     private _type: NodeType;
 
@@ -79,5 +81,33 @@ export default class Node implements INode {
 
     public set outputs(ports: IPort[]) {
         ports.forEach((output: IPort) => this.outputs.push(output));
+    }
+
+    public get links(): ILink[] {
+        return [... this.inputLinks, ...this.outputLinks];
+    }
+
+    public get inputLinks(): ILink[] {
+        return this.inputs.map((i: IPort) => i.links || []).flat();
+    }
+
+    public get outputLinks(): ILink[] {
+        return this.outputs.map((o: IPort) => o.links || []).flat();
+    }
+
+    /**
+     * Connects another node following the current one.
+     * @param to the node to connect in the outputs of the current node.
+     */
+    public connect(to: Node, linkId: string, fromIndex: number = 0, toIndex: number = 0): ILink {
+        const link: ILink = {
+            id: linkId,
+            from: this.outputs[fromIndex],
+            to: to.inputs[toIndex]
+        }
+        this._outputs[fromIndex].links.push(link);
+        to._inputs[toIndex].links.push(link)
+        this.waaNode.connect(to.waaNode)
+        return link;
     }
 }

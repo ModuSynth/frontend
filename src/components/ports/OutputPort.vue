@@ -8,10 +8,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 export default class OutputPort extends Vue {
   @Prop() port!: Port;
 
-  public mounted() {
-    console.log(cloneDeep(this.port));
-  }
-
   public get radius() {
     return PORT_RADIUS
   }

@@ -1,4 +1,5 @@
 import { wrapNode } from "@/factories/NodesFactory";
+import ILink from "@/interfaces/ILink";
 import INode from "@/interfaces/INode";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
 import { MutationTree } from "vuex";
@@ -10,7 +11,6 @@ const mutations: MutationTree<INodeState> & NodeMutations = {
     payload.forEach((node: INode) => {
       state.nodes.push(wrapNode((this.state as any).stages.stage, node));
     });
-    console.log(state.nodes);
     state.loaded = true;
   },
   [NodeMutationTypes.START_DRAG](state, {node, $event}) {
