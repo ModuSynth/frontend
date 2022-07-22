@@ -1,7 +1,6 @@
 <script lang="ts">
 import Port from '@/interfaces/implementations/Port';
 import { PORT_RADIUS, PORT_TOP_MARGIN } from '@/utils/constants';
-import { cloneDeep } from 'lodash';
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component

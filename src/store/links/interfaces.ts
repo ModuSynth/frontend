@@ -15,4 +15,5 @@ export type LinkMutations<S = ILinkState> = {
   [LinkMutationTypes.ADD_LINK](state: S, payload: IApiLink): void;
   [LinkMutationTypes.ADD_PARAM_LINK](state: S, payload: IApiLink): void;
   [LinkMutationTypes.REMOVE_LINK](state: S, payload: string): void;
+  [LinkMutationTypes.REMOVE_PARAM_LINK](state: S, payload: IParamLink): void;
 }

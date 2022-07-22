@@ -5,7 +5,6 @@ import { ActionTree } from "vuex";
 import MainState from "../utils/MainState";
 import { LinkActionTypes, LinkMutationTypes } from "./enums";
 import { ILinkState, LinkActions } from "./interfaces";
-import Node from '@/interfaces/implementations/Node'
 
 const actions: ActionTree<ILinkState, MainState> & LinkActions = {
   [LinkActionTypes.FETCH_LIST]({ commit }) {
@@ -22,9 +21,13 @@ const actions: ActionTree<ILinkState, MainState> & LinkActions = {
     });
   },
   [LinkActionTypes.DELETE_LINK]({ commit }, link) {
-    console.log(link);
     return axios.delete(`http://localhost:3000/links/${link.id}`).then(() => {
       commit(LinkMutationTypes.REMOVE_LINK, link.id);
+    })
+  },
+  [LinkActionTypes.DELETE_PARAM_LINK]({ commit }, link) {
+    return axios.delete(`http://localhost:3000/links/${link.id}`).then(() => {
+      commit(LinkMutationTypes.REMOVE_PARAM_LINK, link);
     })
   }
 }

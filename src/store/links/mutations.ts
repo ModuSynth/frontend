@@ -1,10 +1,11 @@
-import ILink from "@/interfaces/ILink";
+import ILink, { IParamLink } from "@/interfaces/ILink";
 import INode from "@/interfaces/INode";
 import IPort from "@/interfaces/IPort";
 import { MutationTree } from "vuex";
 import { LinkMutationTypes } from "./enums";
 import { ILinkState, LinkMutations } from "./interfaces";
 import Node from '@/interfaces/implementations/Node'
+import { cloneDeep, find, findIndex, remove } from "lodash";
 
 class ElementNotFound extends Error {
 
@@ -70,6 +71,11 @@ const mutations: MutationTree<ILinkState> & LinkMutations = {
       found.from.node.waaNode.disconnect(found.to.node.waaNode);
       state.links.splice(index, 1);
     }
+  },
+  [LinkMutationTypes.REMOVE_PARAM_LINK](state, link) {
+    const param: AudioParam = link.to.node.waaNode[link.paramName as unknown as keyof AudioNode] as unknown as AudioParam;
+    link.from.node.waaNode.disconnect(param);
+    state.paramLinks.splice(findIndex(state.paramLinks, {id: link.id}), 1);
   }
 }
 
