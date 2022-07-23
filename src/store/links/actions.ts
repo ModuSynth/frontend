@@ -1,10 +1,11 @@
-import { IApiLink } from "@/interfaces/ILink";
+import { IApiLink, IParamLink } from "@/interfaces/ILink";
 import INode from "@/interfaces/INode";
 import axios from "axios";
 import { ActionTree } from "vuex";
 import MainState from "../utils/MainState";
 import { LinkActionTypes, LinkMutationTypes } from "./enums";
 import { ILinkState, LinkActions } from "./interfaces";
+import state from "./state";
 
 const actions: ActionTree<ILinkState, MainState> & LinkActions = {
   [LinkActionTypes.FETCH_LIST]({ commit }) {
@@ -28,6 +29,13 @@ const actions: ActionTree<ILinkState, MainState> & LinkActions = {
   [LinkActionTypes.DELETE_PARAM_LINK]({ commit }, link) {
     return axios.delete(`http://localhost:3000/links/${link.id}`).then(() => {
       commit(LinkMutationTypes.REMOVE_PARAM_LINK, link);
+    })
+  },
+  [LinkActionTypes.DELETE_PARAM_LINKS]({ dispatch }, node) {
+    state.paramLinks.forEach((l: IParamLink) => {
+      if (l.to.node.id === node.id) {
+        dispatch(LinkActionTypes.DELETE_PARAM_LINK, l)
+      }
     })
   }
 }

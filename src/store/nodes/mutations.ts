@@ -2,6 +2,7 @@ import { wrapNode } from "@/factories/NodesFactory";
 import ILink from "@/interfaces/ILink";
 import INode from "@/interfaces/INode";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
+import { findIndex, remove } from "lodash";
 import { MutationTree } from "vuex";
 import { NodeMutationTypes } from "./enums";
 import { INodeState, NodeMutations } from "./interfaces";
@@ -39,10 +40,7 @@ const mutations: MutationTree<INodeState> & NodeMutations = {
     state.nodes.push(node);
   },
   [NodeMutationTypes.REMOVE_NODE](state, nodeId) {
-    const index: number = state.nodes.findIndex((node: INode) => {
-      return node.id === nodeId;
-    });
-    state.nodes.splice(index, 1);
+    remove(state.nodes, {id: nodeId})
   },
 }
 

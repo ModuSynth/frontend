@@ -8,6 +8,7 @@ import Node from '@/interfaces/implementations/Node'
 import { NodeType } from "@/interfaces/enums/NodeType";
 import createNode from "@/factories/NodesFactory";
 import ILink from "@/interfaces/ILink";
+import { find } from "lodash";
 
 const actions: ActionTree<INodeState, MainState> & NodeActions = {
   [NodeActionTypes.FETCH_LIST]({ commit, dispatch }, stageId) {
@@ -37,12 +38,12 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
   },
   [NodeActionTypes.DELETE]({ commit, state, dispatch }, nodeId) {
     return axios.delete(`http://localhost:3000/nodes/${nodeId}`).then(() => {
-      const node: Node = state.nodes.find((n: Node) => n.id == nodeId);
-      console.log(node.links);
+      const node: Node = find(state.nodes, {id: nodeId});
       node.links.forEach((link: ILink) => {
         dispatch(`links/${LinkActionTypes.DELETE_LINK}`, link, {root: true});
       })
-      commit(NodeMutationTypes.REMOVE_NODE, node);
+      dispatch(`links/${LinkActionTypes.DELETE_PARAM_LINKS}`, node, {root: true})
+      commit(NodeMutationTypes.REMOVE_NODE, nodeId);
     })
   }
 }
