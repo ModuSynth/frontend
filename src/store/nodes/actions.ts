@@ -6,7 +6,7 @@ import { INodeState, NodeActions } from "./interfaces";
 import { LinkActionTypes } from "../links/enums";
 import Node from '@/interfaces/implementations/Node'
 import { NodeType } from "@/interfaces/enums/NodeType";
-import createNode from "@/factories/NodesFactory";
+import createNode, { wrapNode } from "@/factories/NodesFactory";
 import ILink from "@/interfaces/ILink";
 import { find } from "lodash";
 
@@ -18,10 +18,10 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
     });
   },
   [NodeActionTypes.CREATE]({ commit, rootState }, type) {
-    const creation: Node = createNode(rootState.stages.stage, type as NodeType);
-    return axios.post('http://localhost:3000/nodes', creation.payload).then(({ data }) => {
+    const creation: any = createNode(rootState.stages.stage, type as NodeType);
+    return axios.post('http://localhost:3000/nodes', creation).then(({ data }) => {
       creation.id = data.id;
-      commit(NodeMutationTypes.ADD_NODE, creation);
+      commit(NodeMutationTypes.ADD_NODE, wrapNode(rootState.stages.stage, creation));
     });
   },
   [NodeActionTypes.SAVE_POSITION]({ state }) {

@@ -5,7 +5,7 @@ export interface IParamDefault {
     value: any;
 }
 
-interface ITool {
+export interface ITool {
     params: IParamDefault[];
     dimensions: {width: number, height: number};
 }

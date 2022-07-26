@@ -6,8 +6,8 @@ import { AUDIO_CONTEXT } from "@/utils/constants";
 import INode from "@/interfaces/INode";
 import { tools, IParamDefault } from '@/config/tools'
 import IParam from "@/interfaces/IParam";
-import { cloneDeep } from "lodash";
 import { createPorts } from "./PortsFactory";
+import defaults from "@/utils/defaults";
 
 /**
  * Creates the Web Audio API node corresponding to this node using the dedicated factory.
@@ -36,12 +36,17 @@ function initPorts(node: Node) {
     node.outputs = createPorts(node, node.waaNode.numberOfOutputs);
 }
 
-export default function createNode(stage: IStageDetails, type: NodeType): Node {
-    const creation: Node = createEmptyWrapper(stage, type);
-    creation.position = { x: 50 - stage.x, y: 50 - stage.y}
-    creation.waaNode = createWaaNode(creation);
-    initPorts(creation);
-    return creation;
+export default function createNode(stage: IStageDetails, type: NodeType): any {
+    console.log(tools[type])
+    return {
+        x: 50 - stage.x,
+        y: 50 - stage.y,
+        type: type,
+        width: tools[type].dimensions.width,
+        height: tools[type].dimensions.height,
+        params: tools[type].params,
+        stage_id: stage.id
+    };
 }
 
 export function wrapNode(stage: IStageDetails, node: INode): Node {

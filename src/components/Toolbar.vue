@@ -1,11 +1,19 @@
 <script lang="ts">
 import { NodeActionTypes } from '@/store/nodes/enums';
 import ns from '@/utils/ns';
+import axios from 'axios';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Toolbar extends Vue {
-  public types: string[] = ['GainNode', 'OscillatorNode', 'OutputNode', 'ChannelMergerNode']
+  
+  public tools: any = {}
+
+  public mounted() {
+    axios.get('http://localhost:3000/tools').then(({ data }) => {
+      this.tools = data
+    })
+  }
 
   @ns.nodes.Action(NodeActionTypes.CREATE) createNode: any;
 }
@@ -13,12 +21,12 @@ export default class Toolbar extends Vue {
 
 <template>
   <div class="toolbar-wrapper">
-    <v-menu bottom>
+    <v-menu bottom v-for="(tool, name) in tools">
       <template v-slot:activator="{ on, attrs }">
-        <a v-bind="attrs" v-on="on" class="toolbar-tool">Ajouter Node</a>
+        <a v-bind="attrs" v-on="on" class="toolbar-tool">{{ name }}</a>
       </template>
       <div class="toolbar-popdown">
-        <a class="toolbar-option" v-for="type in types" @click="createNode(type)">
+        <a class="toolbar-option" v-for="type in tool" @click="createNode(type)">
           {{ $t(`nodes.types.${type}`) }}
         </a>
       </div>
