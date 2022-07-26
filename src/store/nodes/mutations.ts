@@ -1,16 +1,18 @@
-import { wrapNode } from "@/factories/NodesFactory";
-import ILink from "@/interfaces/ILink";
-import INode from "@/interfaces/INode";
+import { NodesFactory, wrapNode } from "@/factories/NodesFactory";
+import { INodeDetails } from "@/interfaces/api/INodeDetails";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
 import { findIndex, remove } from "lodash";
 import { MutationTree } from "vuex";
 import { NodeMutationTypes } from "./enums";
 import { INodeState, NodeMutations } from "./interfaces";
+import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
+import { IStageDetails } from "@/interfaces/IStage";
 
 const mutations: MutationTree<INodeState> & NodeMutations = {
   [NodeMutationTypes.SET_NODES_LIST](state, payload) {
-    payload.forEach((node: INode) => {
-      state.nodes.push(wrapNode((this.state as any).stages.stage, node));
+    payload.forEach((node: INodeDetails) => {
+      const stage: IStageDetails = (this.state as any).stages.stage
+      state.nodes.push(NodesFactory.create(stage, node));
     });
     state.loaded = true;
   },
@@ -36,8 +38,9 @@ const mutations: MutationTree<INodeState> & NodeMutations = {
     state.dragged = undefined;
     state.dragOrigin = { x: 0, y: 0 };
   },
-  [NodeMutationTypes.ADD_NODE](state, node) {
-    state.nodes.push(node);
+  [NodeMutationTypes.ADD_NODE](state, details) {
+    const stage: IStageDetails = (this.state as any).stages.stage
+    state.nodes.push(NodesFactory.create(stage, details));
   },
   [NodeMutationTypes.REMOVE_NODE](state, nodeId) {
     remove(state.nodes, {id: nodeId})

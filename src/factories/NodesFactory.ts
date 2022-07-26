@@ -7,7 +7,8 @@ import INode from "@/interfaces/INode";
 import { tools, IParamDefault } from '@/config/tools'
 import IParam from "@/interfaces/IParam";
 import { createPorts } from "./PortsFactory";
-import defaults from "@/utils/defaults";
+import { INodeDetails } from "@/interfaces/api/INodeDetails";
+import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 
 /**
  * Creates the Web Audio API node corresponding to this node using the dedicated factory.
@@ -57,4 +58,10 @@ export function wrapNode(stage: IStageDetails, node: INode): Node {
     creation.waaNode = createWaaNode(creation);
     initPorts(creation);
     return creation;
+}
+
+export class NodesFactory {
+    public static create(stage: IStageDetails, details: INodeDetails): NodeWrapper {
+        return new NodeWrapper(stage, details);
+    }
 }
