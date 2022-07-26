@@ -1,11 +1,10 @@
 import { NodesFactory, wrapNode } from "@/factories/NodesFactory";
 import { INodeDetails } from "@/interfaces/api/INodeDetails";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
-import { findIndex, remove } from "lodash";
+import { reject } from "lodash";
 import { MutationTree } from "vuex";
 import { NodeMutationTypes } from "./enums";
 import { INodeState, NodeMutations } from "./interfaces";
-import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 import { IStageDetails } from "@/interfaces/IStage";
 
 const mutations: MutationTree<INodeState> & NodeMutations = {
@@ -42,8 +41,8 @@ const mutations: MutationTree<INodeState> & NodeMutations = {
     const stage: IStageDetails = (this.state as any).stages.stage
     state.nodes.push(NodesFactory.create(stage, details));
   },
-  [NodeMutationTypes.REMOVE_NODE](state, nodeId) {
-    remove(state.nodes, {id: nodeId})
+  [NodeMutationTypes.REMOVE_NODE](state, id) {
+    state.nodes = reject(state.nodes, { id })
   },
 }
 

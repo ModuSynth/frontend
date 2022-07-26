@@ -1,5 +1,6 @@
 import { IStageDetails } from "../IStage";
 import { INodeDetails, IParam, IPort } from "../api/INodeDetails";
+import ILink from "../ILink";
 
 export default class NodeWrapper implements INodeDetails {
 
@@ -79,9 +80,10 @@ export default class NodeWrapper implements INodeDetails {
         ports.forEach((output: IPort) => this.outputs.push(output));
     }
 
-    // public get links(): ILink[] {
+    public get links(): ILink[] {
+        return []
     //     return [... this.inputLinks, ...this.outputLinks];
-    // }
+    }
 
     // public get inputLinks(): ILink[] {
     //     return this.inputs.map((i: IPort) => i.links || []).flat();

@@ -42,14 +42,15 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
     const uri: string = `http://localhost:3000/nodes/${payload.id}`;
     return axios.patch(uri, { params: payload.params })
   },
-  [NodeActionTypes.DELETE]({ commit, state, dispatch }, nodeId) {
-    return axios.delete(`http://localhost:3000/nodes/${nodeId}`).then(() => {
-      const node: Node = find(state.nodes, {id: nodeId});
-      node.links.forEach((link: ILink) => {
-        dispatch(`links/${LinkActionTypes.DELETE_LINK}`, link, {root: true});
-      })
-      dispatch(`links/${LinkActionTypes.DELETE_PARAM_LINKS}`, node, {root: true})
-      commit(NodeMutationTypes.REMOVE_NODE, nodeId);
+  [NodeActionTypes.DELETE]({ commit, state, dispatch }, id) {
+    return axios.delete(`http://localhost:3000/nodes/${id}`).then(() => {
+      //const node: Node = find(state.nodes, {id: nodeId});
+      // node.links.forEach((link: ILink) => {
+      //   dispatch(`links/${LinkActionTypes.DELETE_LINK}`, link, {root: true});
+      // })
+      // dispatch(`links/${LinkActionTypes.DELETE_PARAM_LINKS}`, node, {root: true})
+      // console.log(node);
+      commit(NodeMutationTypes.REMOVE_NODE, id);
     })
   }
 }
