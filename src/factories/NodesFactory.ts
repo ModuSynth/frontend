@@ -10,12 +10,7 @@ import { createPorts } from "./PortsFactory";
 import { INodeDetails } from "@/interfaces/api/INodeDetails";
 import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 
-/**
- * Creates the Web Audio API node corresponding to this node using the dedicated factory.
- * @param node 
- * @returns 
- */
- function createWaaNode(node: Node): AudioNode {
+function createWaaNode(node: Node): AudioNode {
     return factories[node.type](AUDIO_CONTEXT, (node as unknown as INode))
 }
 

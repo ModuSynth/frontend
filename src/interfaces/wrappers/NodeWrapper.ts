@@ -1,6 +1,7 @@
 import { IStageDetails } from "../IStage";
 import { INodeDetails, IParam, IPort } from "../api/INodeDetails";
 import ILink from "../ILink";
+import ParamWrapper from "./ParamWrapper";
 
 export default class NodeWrapper implements INodeDetails {
 
@@ -16,7 +17,7 @@ export default class NodeWrapper implements INodeDetails {
     private _stage: IStageDetails;
     
     // The list of parameters embedded in this node.
-    public params: IParam[] = [];
+    public params: ParamWrapper[] = [];
     // The X coordinate of the node in the whole stage.
     public x: number = 0;
     // The Y coordinate of the node in the whole stage.
@@ -35,6 +36,9 @@ export default class NodeWrapper implements INodeDetails {
         this._stage = stage;
         this.id = details.id;
         this.position = {x: 50, y: 50}
+        this.params = details.params.map((p: IParam) => {
+            return new ParamWrapper(p);
+        });
     }
 
     public get type(): string {
