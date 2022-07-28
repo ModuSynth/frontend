@@ -1,5 +1,4 @@
 <script lang="ts">
-import INode from '@/interfaces/INode';
 import { NodeActionTypes, NodeMutationTypes } from '@/store/nodes/enums';
 import ns from '@/utils/ns';
 import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -8,8 +7,6 @@ import OscillatorNode from './nodes/OscillatorNode.vue';
 import ChannelMergerNode from './nodes/ChannelMergerNode.vue';
 import { NODE_PADDING, PARAM_WIDTH, NODE_CLOSE_SIZE, NODE_TITLE_HEIGHT, NODE_TITLE_WIDTH, PORT_RADIUS, PORT_TOP_MARGIN } from '@/utils/constants';
 import OutputNode from './nodes/OutputNode.vue';
-import InputPort from './ports/InputPort.vue';
-import OutputPort from './ports/OutputPort.vue';
 import { portsHeight, portsY } from '@/utils/geometry/ports';
 import Node from '@/interfaces/implementations/Node'
 
@@ -21,7 +18,7 @@ import Node from '@/interfaces/implementations/Node'
  * @author Vincent Courtois <courtois.vincent@outlook.com>
  */
 @Component({
-  components: { GainNode, OscillatorNode, OutputNode, InputPort, OutputPort, ChannelMergerNode }
+  components: { GainNode, OscillatorNode, ChannelMergerNode, OutputNode }
 })
 export default class NodeWrapper extends Vue {
   @Prop() readonly node!: Node;
