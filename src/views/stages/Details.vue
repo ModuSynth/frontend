@@ -8,11 +8,9 @@ import ns from '@/utils/ns';
 import INode from '@/interfaces/INode'
 import { NodeActionTypes, NodeMutationTypes } from '@/store/nodes/enums';
 import ILink from '@/interfaces/ILink';
-import LinkWrapper from '../../components/LinkWrapper.vue';
-import ParamLinkWrapper from '../../components/ParamLinkWrapper.vue';
 
 @Component({
-  components: { NodeComponent, Toolbar, LinkWrapper, ParamLinkWrapper }
+  components: { NodeComponent, Toolbar }
 })
 export default class StagesList extends Vue {
 
