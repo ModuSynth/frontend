@@ -18,19 +18,16 @@ export default abstract class ParamWrapper implements IParam {
         this.type = details.type;
     }
 
-    public get value(): any {
-        return this._value;
-    }
+    public abstract get value(): any;
 
-    public set value(val: any) {
-        this._value = val;
-    }
+    public abstract set value(val: any);
 }
 
 export class NumberParameter extends ParamWrapper {
 
     public constructor(node: NodeWrapper, details: IParam) {
         super(node, details);
+        this._value = details.value;
     }
 
     public get waaParam(): AudioParam {
@@ -38,11 +35,11 @@ export class NumberParameter extends ParamWrapper {
     }
 
     public get value(): any {
-        return super.value;
+        return this._value
     }
 
     public set value(val: any) {
-        super.value = val;
+        this._value = val;
         this.waaParam.setValueAtTime(val, AUDIO_CONTEXT.currentTime);
     }
 }
@@ -50,5 +47,13 @@ export class NumberParameter extends ParamWrapper {
 export class ListParameter extends ParamWrapper {
     public constructor(node: NodeWrapper, details: IParam) {
         super(node, details);
+    }
+
+    public get value(): any {
+        return this._value
+    }
+
+    public set value(val: any) {
+        this._value = val;
     }
 }

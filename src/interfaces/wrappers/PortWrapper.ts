@@ -1,7 +1,6 @@
-import ILinkDetails from "../api/ILinkDetails";
 import { IPort } from "../api/INodeDetails";
 import NodeWrapper from "./NodeWrapper";
-import ParamWrapper, { NumberParameter } from "./ParamWrapper";
+import { NumberParameter } from "./ParamWrapper";
 
 export default abstract class PortWrapper implements IPort {
 

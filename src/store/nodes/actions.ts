@@ -44,6 +44,7 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
         name: p.name,
         value: p.value,
         dy: 0,
+        type: p.type,
         inputs: p.inputs.map((port: ParamPortWrapper) => {
           return {id: port.id }
         })
@@ -51,7 +52,7 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
     })
     return axios.patch(uri, { params })
   },
-  [NodeActionTypes.DELETE]({ commit, state, dispatch }, id) {
+  [NodeActionTypes.DELETE]({ commit }, id) {
     return axios.delete(`http://localhost:3000/nodes/${id}`).then(() => {
       commit(NodeMutationTypes.REMOVE_NODE, id);
     })

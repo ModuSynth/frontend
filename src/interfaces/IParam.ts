@@ -10,4 +10,5 @@ export default interface IParam {
    */
   dy: number;
   inputs: IPort[];
+  type: string;
 }
