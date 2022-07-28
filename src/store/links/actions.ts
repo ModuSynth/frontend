@@ -1,18 +1,23 @@
 import ILinkDetails from "@/interfaces/api/ILinkDetails";
-import { IParamLink } from "@/interfaces/ILink";
+import LinkWrapper from "@/interfaces/wrappers/LinkWrapper";
+import PortWrapper, { NodePortWrapper } from "@/interfaces/wrappers/PortWrapper";
 import axios from "axios";
 import { ActionTree } from "vuex";
 import MainState from "../utils/MainState";
 import { LinkActionTypes, LinkMutationTypes } from "./enums";
 import { ILinkState, LinkActions } from "./interfaces";
-import state from "./state";
 
 const actions: ActionTree<ILinkState, MainState> & LinkActions = {
   [LinkActionTypes.FETCH_LIST]({ commit, rootGetters }) {
-    console.log(rootGetters['nodes/PORTS'])
     return axios.get(`http://localhost:3000/links`).then(({ data }) => {
+      const ports: PortWrapper[] = rootGetters['nodes/PORTS'];
+      console.log(ports);
       data.forEach((link: ILinkDetails) => {
-        commit(LinkMutationTypes.ADD_LINK, link);
+        const from: PortWrapper|undefined = ports.find((p: PortWrapper) => p.id === link.from);
+        const to: PortWrapper|undefined = ports.find((p: PortWrapper) => p.id === link.to);
+        if (from !== undefined && to !== undefined) {
+          commit(LinkMutationTypes.ADD_LINK, new LinkWrapper(link.id, from as NodePortWrapper, to));
+        }
       });
     });
   },

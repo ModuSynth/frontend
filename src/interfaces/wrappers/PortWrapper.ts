@@ -1,15 +1,17 @@
 import ILinkDetails from "../api/ILinkDetails";
 import { IPort } from "../api/INodeDetails";
 import NodeWrapper from "./NodeWrapper";
-import ParamWrapper from "./ParamWrapper";
+import ParamWrapper, { NumberParameter } from "./ParamWrapper";
 
-export default class PortWrapper implements IPort {
+export default abstract class PortWrapper implements IPort {
 
     public readonly id: string
 
     public constructor(details: IPort) {
         this.id = details.id;
     }
+
+    public abstract connectInput(port: NodePortWrapper): void;
 }
 
 export class NodePortWrapper extends PortWrapper {
@@ -19,13 +21,21 @@ export class NodePortWrapper extends PortWrapper {
         super(details);
         this.node = node;
     }
+
+    public connectInput(port: NodePortWrapper): void {
+        port.node.waaNode.connect(this.node.waaNode);
+    }
 }
 
 export class ParamPortWrapper extends PortWrapper {
-    public readonly param: ParamWrapper;
+    public readonly param: NumberParameter;
 
-    public constructor(param: ParamWrapper, details: IPort) {
+    public constructor(param: NumberParameter, details: IPort) {
         super(details);
         this.param = param;
+    }
+
+    public connectInput(port: NodePortWrapper): void {
+        port.node.waaNode.connect(this.param.waaParam);
     }
 }

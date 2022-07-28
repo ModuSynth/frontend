@@ -8,13 +8,13 @@ export default class ParamsFactory {
         let param: ParamWrapper;
         if (details.type === 'NumberParameter') {
             param = new NumberParameter(node, details);
+            param.inputs = details.inputs.map((port: IPort) => {
+                return new ParamPortWrapper(param as NumberParameter, port);
+            })
         }
         else {
             param = new ListParameter(node, details);
         }
-        param.inputs = details.inputs.map((port: IPort) => {
-            return new ParamPortWrapper(param, port);
-        })
         return param;
     }
 }

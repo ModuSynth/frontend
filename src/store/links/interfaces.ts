@@ -2,9 +2,10 @@ import ILink, { IApiLink, IParamLink } from "@/interfaces/ILink";
 import { LinkActionTypes, LinkMutationTypes } from "./enums";
 import NodeWrapper from '@/interfaces/wrappers/NodeWrapper'
 import ILinkDetails from "@/interfaces/api/ILinkDetails";
+import LinkWrapper from "@/interfaces/wrappers/LinkWrapper";
 
 export interface ILinkState {
-  links: ILinkDetails[];
+  links: LinkWrapper[];
   paramLinks: IParamLink[];
 }
 

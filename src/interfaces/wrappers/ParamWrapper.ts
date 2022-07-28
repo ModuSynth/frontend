@@ -1,11 +1,12 @@
 import { AUDIO_CONTEXT } from "@/utils/constants";
 import { IParam, IPort } from "../api/INodeDetails";
 import NodeWrapper from "./NodeWrapper";
+import { ParamPortWrapper } from "./PortWrapper";
 
 export default abstract class ParamWrapper implements IParam {
     name: string;
     _value: any;
-    inputs: IPort[];
+    inputs: ParamPortWrapper[];
     node: NodeWrapper;
     type: string;
 
