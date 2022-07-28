@@ -11,7 +11,6 @@ const actions: ActionTree<ILinkState, MainState> & LinkActions = {
   [LinkActionTypes.FETCH_LIST]({ commit, rootGetters }) {
     return axios.get(`http://localhost:3000/links`).then(({ data }) => {
       const ports: PortWrapper[] = rootGetters['nodes/PORTS'];
-      console.log(ports);
       data.forEach((link: ILinkDetails) => {
         const from: PortWrapper|undefined = ports.find((p: PortWrapper) => p.id === link.from);
         const to: PortWrapper|undefined = ports.find((p: PortWrapper) => p.id === link.to);

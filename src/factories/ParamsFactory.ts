@@ -6,7 +6,6 @@ import { ParamPortWrapper } from "@/interfaces/wrappers/PortWrapper";
 export default class ParamsFactory {
     public static create(node: NodeWrapper, details: IParam): ParamWrapper {
         let param: ParamWrapper;
-        console.log(details);
         if (details.type === 'NumberParameter') {
             param = new NumberParameter(node, details);
             param.inputs = details.inputs.map((port: IPort) => {
