@@ -9,6 +9,7 @@ import { NODE_PADDING, PARAM_WIDTH, NODE_CLOSE_SIZE, NODE_TITLE_HEIGHT, NODE_TIT
 import OutputNode from './nodes/OutputNode.vue';
 import { portsHeight, portsY } from '@/utils/geometry/ports';
 import NodeWrapper from '@/interfaces/wrappers/NodeWrapper';
+import NodePortComponent from './PortComponent.vue';
 
 
 /**
@@ -18,7 +19,7 @@ import NodeWrapper from '@/interfaces/wrappers/NodeWrapper';
  * @author Vincent Courtois <courtois.vincent@outlook.com>
  */
 @Component({
-  components: { GainNode, OscillatorNode, ChannelMergerNode, OutputNode }
+  components: { GainNode, OscillatorNode, ChannelMergerNode, OutputNode, NodePortComponent }
 })
 export default class NodeComponent extends Vue {
   @Prop() readonly node!: NodeWrapper;
@@ -70,10 +71,10 @@ export default class NodeComponent extends Vue {
     :transform="`translate(${node.x} ${node.y})`"
   >
     <g :transform="`translate(0 ${portsY(node.inputs.length)})`">
-      <InputPort v-for="port in node.inputs" :port="port" :key="`port.${port.id}`" />
+      <NodePortComponent v-for="port in node.inputs" :port="port" :key="`port.${port.id}`" />
     </g>
     <g :transform="`translate(${node.width} ${portsY(node.outputs.length)})`">
-      <OutputPort v-for="port in node.outputs" :port="port" :key="`port.${port.id}`" />
+      <NodePortComponent v-for="port in node.outputs" :port="port" :key="`port.${port.id}`" />
     </g>
     <foreignObject
       :width="node.width"
