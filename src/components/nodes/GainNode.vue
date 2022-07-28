@@ -1,6 +1,6 @@
 <script lang="ts">
-import INode from '@/interfaces/INode';
-import IParam from '@/interfaces/IParam';
+import NodeWrapper from '@/interfaces/wrappers/NodeWrapper';
+import ParamWrapper from '@/interfaces/wrappers/ParamWrapper';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import NumberParameter from '../params/NumberParameter.vue';
 
@@ -8,7 +8,7 @@ import NumberParameter from '../params/NumberParameter.vue';
   components: { NumberParameter }
 })
 export default class GainNode extends Vue {
-  @Prop() node!: INode;
+  @Prop() node!: NodeWrapper;
 
   public mounted() {
     this.node.height = 125;
@@ -16,7 +16,7 @@ export default class GainNode extends Vue {
     console.log(`Loading gain node with UUID ${this.node.id}`)
   }
 
-  public get gain(): IParam | undefined {
+  public get gain(): ParamWrapper | undefined {
     return this.node.params.find(p => p.name == 'gain')
   }
 }
@@ -24,7 +24,7 @@ export default class GainNode extends Vue {
 
 <template>
   <div>
-    <NumberParameter :node="node" paramName="gain" :param="gain" :increment=".1" :superIncrement="1" title="params.titles.gain"
+    <NumberParameter :param="gain" :increment=".1" :superIncrement="1" title="params.titles.gain"
       :dy="79" />
   </div>
 </template>

@@ -1,9 +1,8 @@
 <script lang="ts">
-import INode from '@/interfaces/INode';
-import IParam from '@/interfaces/IParam';
+import ParamWrapper from '@/interfaces/wrappers/ParamWrapper';
 import { NodeActionTypes } from '@/store/nodes/enums';
 import ns from '@/utils/ns';
-import { Component, Vue, Prop, PropSync } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
 /**
  * This wrapper wraps a numeric value corresponding to a parameter on a node.
@@ -20,19 +19,11 @@ export default class NumberParameter extends Vue {
    * links coordinates easier by setting it in a dedicated place.
    */
   @Prop({ default: 0 }) dy!: number;
-
-  @Prop() node!: INode;
-
   /**
    * The node the parameter is declared on. The parameter is not directly given
    * because we'd still need his name and we need the inner wrapped WAA node.
    */
-  @Prop() param!: IParam;
-  /**
-   * The string name of the parameter, used to find it in the parameters object
-   * and in the parameters of the wrapped AudioNode.
-   */
-  @Prop() paramName!: keyof AudioNode;
+  @Prop() param!: ParamWrapper;
   /**
    * The amount the value will be increased or decreased with when pressing the
    * inner buttons in the controls. This SHOULD be lower than superIncrement.
@@ -62,17 +53,13 @@ export default class NumberParameter extends Vue {
 
   @ns.nodes.Action(NodeActionTypes.SAVE_PARAMS) saveParams: any;
 
-  public mounted() {
-    this.param.dy = this.dy
-  }
-
   public get value() {
     return this.param.value
   }
 
   public set value(val: any) {
     this.param.value = Math.max(Math.min(val, this.max), this.min)
-    this.saveParams(this.node);
+    this.saveParams(this.param.node);
   }
 }
 </script>

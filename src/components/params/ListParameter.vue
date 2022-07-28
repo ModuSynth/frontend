@@ -1,18 +1,12 @@
 <script lang="ts">
-import INode from '@/interfaces/INode';
-import IParam from '@/interfaces/IParam';
+import ParamWrapper from '@/interfaces/wrappers/ParamWrapper';
 import { NodeActionTypes } from '@/store/nodes/enums';
 import ns from '@/utils/ns';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class ListParameter extends Vue {
-
-  @Prop() node!: INode;
-  
-  @Prop() param!: IParam;
-
-  @Prop() paramName!: string;
+  @Prop() param!: ParamWrapper;
 
   @Prop({ default: () => [] }) values!: string[]
 
@@ -24,7 +18,7 @@ export default class ListParameter extends Vue {
 
   public set value(newValue: string) {
     this.param.value = newValue;
-    this.saveParams();
+    this.saveParams(this.param.node);
   }
 }
 </script>

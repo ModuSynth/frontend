@@ -1,16 +1,16 @@
 <script lang="ts">
-import INode from '@/interfaces/INode';
 import ns from '@/utils/ns';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import NumberParameter from '../params/NumberParameter.vue';
 import ListParameter from '../params/ListParameter.vue';
-import IParam from '@/interfaces/IParam';
+import NodeWrapper from '@/interfaces/wrappers/NodeWrapper';
+import ParamWrapper from '@/interfaces/wrappers/ParamWrapper';
 
 @Component({
   components: { ListParameter, NumberParameter }
 })
 export default class OscillatorNodeComponent extends Vue {
-  @Prop() node!: INode;
+  @Prop() node!: NodeWrapper;
 
   @ns.stages.State("context") context!: AudioContext;
 
@@ -23,15 +23,15 @@ export default class OscillatorNodeComponent extends Vue {
     return (this.node.waaNode as unknown as OscillatorNode);
   }
 
-  public get frequency(): IParam | undefined {
+  public get frequency(): ParamWrapper | undefined {
     return this.node.params.find(p => p.name == "frequency")
   }
 
-  public get detune(): IParam | undefined {
+  public get detune(): ParamWrapper | undefined {
     return this.node.params.find(p => p.name == "detune")
   }
 
-  public get type(): IParam | undefined {
+  public get type(): ParamWrapper | undefined {
     return this.node.params.find(p => p.name == "type")
   }
 }
@@ -39,10 +39,8 @@ export default class OscillatorNodeComponent extends Vue {
 
 <template>
   <div @mousedown.stop>
-    <ListParameter :node="node" paramName="type" :values="['sine', 'triangle', 'square', 'sawtooth']" :param="type" />
+    <ListParameter :values="['sine', 'triangle', 'square', 'sawtooth']" :param="type" />
     <NumberParameter
-      :node="node"
-      paramName="frequency"
       :param="frequency"
       :increment="1"
       :superIncrement="10"
@@ -51,8 +49,6 @@ export default class OscillatorNodeComponent extends Vue {
       title="params.titles.frequency"
     />
     <NumberParameter
-      :node="node"
-      paramName="detune"
       :param="detune"
       :increment="10"
       :superIncrement="100"
