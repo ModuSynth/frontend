@@ -1,5 +1,5 @@
-import INode from "@/interfaces/INode";
+import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 
-export default function createChannelMergerNode(context: AudioContext, node: INode): ChannelMergerNode {
-    return context.createChannelMerger()
+export default function createChannelMergerNode(context: AudioContext, node: NodeWrapper) {
+    node.waaNode = context.createChannelMerger()
 }

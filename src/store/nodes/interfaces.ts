@@ -1,8 +1,8 @@
 import INode from "@/interfaces/INode";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
-import { NodeMutationTypes, NodeActionTypes } from "./enums";
+import { NodeMutationTypes, NodeActionTypes, NodeGetterTypes } from "./enums";
 import Node from '@/interfaces/implementations/Node'
-import { INodeDetails } from "@/interfaces/api/INodeDetails";
+import { INodeDetails, IPort } from "@/interfaces/api/INodeDetails";
 import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 
 export interface INodeState {
@@ -31,4 +31,8 @@ export type NodeActions = {
   [NodeActionTypes.SAVE_POSITION](context: any, payload: MouseEvent): any;
   [NodeActionTypes.SAVE_PARAMS](context: any, payload: INode): any;
   [NodeActionTypes.DELETE](context: any, payload: string): Promise<any>;
+}
+
+export type NodeGetters = {
+  [NodeGetterTypes.NODES](state: INodeState): IPort[]
 }

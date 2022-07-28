@@ -11,8 +11,9 @@ export default class GainNode extends Vue {
   @Prop() node!: INode;
 
   public mounted() {
-    this.node.height = 120;
+    this.node.height = 125;
     this.node.width = 174;
+    console.log(`Loading gain node with UUID ${this.node.id}`)
   }
 
   public get gain(): IParam | undefined {

@@ -15,3 +15,7 @@ export enum NodeActionTypes {
   SAVE_PARAMS = 'SAVE_PARAMS',
   DELETE = 'DELETE',
 }
+
+export enum NodeGetterTypes {
+  NODES
+}

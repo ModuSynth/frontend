@@ -1,8 +1,6 @@
-import INode from "@/interfaces/INode";
+import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 
-export default function createGainNode(context: AudioContext, node: INode) {
-  const gain: GainNode = context.createGain();
-  const gValue: number = Number(node.params.find(p => p.name == 'gain')?.value)
-  gain.gain.setValueAtTime(gValue, context.currentTime);
-  return gain
+export default function createGainNode(context: AudioContext, node: NodeWrapper) {
+  node.waaNode = context.createGain();
+  node.initParams("gain");
 }

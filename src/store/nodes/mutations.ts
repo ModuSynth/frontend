@@ -1,4 +1,4 @@
-import { NodesFactory, wrapNode } from "@/factories/NodesFactory";
+import { NodesFactory } from "@/factories/NodesFactory";
 import { INodeDetails } from "@/interfaces/api/INodeDetails";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
 import { reject } from "lodash";
@@ -13,6 +13,7 @@ const mutations: MutationTree<INodeState> & NodeMutations = {
       const stage: IStageDetails = (this.state as any).stages.stage
       state.nodes.push(NodesFactory.create(stage, node));
     });
+    console.log(`Nodes list have been loaded, ${state.nodes.length} elements now in list`)
     state.loaded = true;
   },
   [NodeMutationTypes.START_DRAG](state, {node, $event}) {

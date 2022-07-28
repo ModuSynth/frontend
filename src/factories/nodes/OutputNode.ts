@@ -1,5 +1,5 @@
-import INode from "@/interfaces/INode";
+import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 
-export default function createOutputNode(context: AudioContext, node: INode): AudioDestinationNode {
-  return context.destination;
+export default function createOutputNode(context: AudioContext, node: NodeWrapper) {
+  node.waaNode = context.destination;
 }

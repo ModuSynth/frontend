@@ -1,10 +1,7 @@
-import INode from "@/interfaces/INode";
+import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
+import { cloneDeep } from "lodash";
 
-export default function createOscillatorNode(context: AudioContext, node: INode) {
-  const oscillator: OscillatorNode = context.createOscillator();
-  oscillator.frequency.setValueAtTime(Number(node.params.find(p => p.name == 'frequency')?.value), context.currentTime);
-  oscillator.detune.setValueAtTime(Number(node.params.find(p => p.name == 'detune')?.value), context.currentTime);
-  oscillator.type = `${node.params.find(p => p.name == 'type')?.value}` as OscillatorType;
-  oscillator.start();
-  return oscillator;
+export default function createOscillatorNode(context: AudioContext, node: NodeWrapper) {
+  node.waaNode = context.createOscillator();
+  node.initParams("frequency", "detune", "type");
 }

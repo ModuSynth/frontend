@@ -9,6 +9,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class ListParameter extends Vue {
 
   @Prop() node!: INode;
+  
+  @Prop() param!: IParam;
 
   @Prop() paramName!: string;
 
@@ -16,21 +18,13 @@ export default class ListParameter extends Vue {
 
   @ns.nodes.Action(NodeActionTypes.SAVE_PARAMS) saveParams: any;
 
-  public get innerNode(): any {
-    return this.node.waaNode as unknown as AudioNode;
-  }
-
   public get value(): string {
-    return this.innerNode[this.paramName] as unknown as string
+    return `${this.param.value}`
   }
 
   public set value(newValue: string) {
-    const param: IParam | undefined = this.node.params.find(p => p.name == this.paramName)
-    if (param !== undefined)  {
-      param.value = newValue;
-    }
-    this.innerNode[this.paramName] = newValue;
-    this.saveParams(this.node);
+    this.param.value = newValue;
+    this.saveParams();
   }
 }
 </script>

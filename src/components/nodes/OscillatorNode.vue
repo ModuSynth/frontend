@@ -30,12 +30,16 @@ export default class OscillatorNodeComponent extends Vue {
   public get detune(): IParam | undefined {
     return this.node.params.find(p => p.name == "detune")
   }
+
+  public get type(): IParam | undefined {
+    return this.node.params.find(p => p.name == "type")
+  }
 }
 </script>
 
 <template>
   <div @mousedown.stop>
-    <ListParameter :node="node" paramName="type" :values="['sine', 'triangle', 'square', 'sawtooth']" />
+    <ListParameter :node="node" paramName="type" :values="['sine', 'triangle', 'square', 'sawtooth']" :param="type" />
     <NumberParameter
       :node="node"
       paramName="frequency"

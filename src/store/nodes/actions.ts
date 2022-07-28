@@ -4,12 +4,8 @@ import MainState from "../utils/MainState";
 import { NodeActionTypes, NodeMutationTypes } from "./enums";
 import { INodeState, NodeActions } from "./interfaces";
 import { LinkActionTypes } from "../links/enums";
-import Node from '@/interfaces/implementations/Node'
-import { NodeType } from "@/interfaces/enums/NodeType";
-import createNode, { wrapNode } from "@/factories/NodesFactory";
-import ILink from "@/interfaces/ILink";
-import { find } from "lodash";
 import { INodeDetails } from "@/interfaces/api/INodeDetails";
+import { NodesFactory } from "@/factories/NodesFactory";
 
 const actions: ActionTree<INodeState, MainState> & NodeActions = {
   [NodeActionTypes.FETCH_LIST]({ commit, dispatch }, stageId) {
@@ -27,7 +23,7 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
       type: type
     }
     return axios.post('http://localhost:3000/nodes', payload).then(({ data }) => {
-      commit(NodeMutationTypes.ADD_NODE, wrapNode(rootState.stages.stage, data));
+      commit(NodeMutationTypes.ADD_NODE, NodesFactory.create(rootState.stages.stage, data));
     });
   },
   [NodeActionTypes.SAVE_POSITION]({ state }) {
@@ -44,12 +40,6 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
   },
   [NodeActionTypes.DELETE]({ commit, state, dispatch }, id) {
     return axios.delete(`http://localhost:3000/nodes/${id}`).then(() => {
-      //const node: Node = find(state.nodes, {id: nodeId});
-      // node.links.forEach((link: ILink) => {
-      //   dispatch(`links/${LinkActionTypes.DELETE_LINK}`, link, {root: true});
-      // })
-      // dispatch(`links/${LinkActionTypes.DELETE_PARAM_LINKS}`, node, {root: true})
-      // console.log(node);
       commit(NodeMutationTypes.REMOVE_NODE, id);
     })
   }

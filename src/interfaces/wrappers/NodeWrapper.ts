@@ -2,6 +2,11 @@ import { IStageDetails } from "../IStage";
 import { INodeDetails, IParam, IPort } from "../api/INodeDetails";
 import ILink from "../ILink";
 import ParamWrapper from "./ParamWrapper";
+import ParamsFactory from "@/factories/ParamsFactory";
+import factories from "@/factories/nodes";
+import { NodeType } from "../enums/NodeType";
+import { AUDIO_CONTEXT } from "@/utils/constants";
+import { cloneDeep } from "lodash";
 
 export default class NodeWrapper implements INodeDetails {
 
@@ -31,14 +36,18 @@ export default class NodeWrapper implements INodeDetails {
 
     public constructor(stage: IStageDetails, details: INodeDetails) {
         this._type = details.type;
-        this._inputs = [];
-        this._outputs = [];
+        this._inputs = details.inputs;
+        this._outputs = details.outputs;
         this._stage = stage;
         this.id = details.id;
-        this.position = {x: 50, y: 50}
+        this.position = {
+            x: details.x,
+            y: details.y
+        }
         this.params = details.params.map((p: IParam) => {
-            return new ParamWrapper(p);
+            return ParamsFactory.create(this, p)
         });
+        factories[this.type as NodeType](AUDIO_CONTEXT, this);
     }
 
     public get type(): string {
@@ -84,14 +93,41 @@ export default class NodeWrapper implements INodeDetails {
         ports.forEach((output: IPort) => this.outputs.push(output));
     }
 
+    public get ports(): IPort[] {
+        let nodePorts: IPort[] = [ ...this.inputs, ...this.outputs ];
+        this.params.forEach((p: ParamWrapper) => {
+            p.inputs.forEach((port: IPort) => {
+                nodePorts.push(port)
+            });
+        });
+        return nodePorts;
+    }
+
+    public setParam(name: string, value: any) {
+        this.params.forEach((p: IParam) => {
+            if (p.name === name) p.value = value;
+        })
+    }
+
+    public getParam(name: string): any {
+        const p: IParam | undefined = this.params.find((p: IParam) => p.name === name);
+        return p === undefined ? undefined : p.value
+    }
+
+    public initParams(...params: string[]) {
+        params.forEach((name: string) => {
+            this.setParam(name, this.getParam(name));
+        })
+    }
+
     public get links(): ILink[] {
         return []
     //     return [... this.inputLinks, ...this.outputLinks];
     }
 
-    // public get inputLinks(): ILink[] {
-    //     return this.inputs.map((i: IPort) => i.links || []).flat();
-    // }
+    public get inputLinks(): ILink[] {
+        return this.inputs.map((i: IPort) => i.links || []).flat();
+    }
 
     // public get outputLinks(): ILink[] {
     //     return this.outputs.map((o: IPort) => o.links || []).flat();
