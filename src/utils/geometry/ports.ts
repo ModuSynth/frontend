@@ -1,5 +1,5 @@
-import INode from "@/interfaces/INode";
 import IPort from "@/interfaces/IPort";
+import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 import { PORT_RADIUS, PORT_TOP_MARGIN } from "../constants";
 
 /**
@@ -9,7 +9,7 @@ import { PORT_RADIUS, PORT_TOP_MARGIN } from "../constants";
  * @param numberOfPorts the number of ports in this ports group.
  * @returns the Y coordinates for the ports group.
  */
-export function portsY(node: INode, numberOfPorts: number): number {
+export function portsY(node: NodeWrapper, numberOfPorts: number): number {
     return (node.height - portsHeight(numberOfPorts)) / 2 + PORT_RADIUS
 }
 
@@ -22,11 +22,13 @@ export function portY(port: IPort): number {
 }
 
 export function yInput(port: IPort) {
-    return yLinkPort(port, port.node.waaNode.numberOfInputs);
+    return 0
+    //return yLinkPort(port, port.node.waaNode.numberOfInputs);
 }
 
 export function yOutput(port: IPort) {
-    return yLinkPort(port, port.node.waaNode.numberOfOutputs);
+    return 0
+    //return yLinkPort(port, port.node.waaNode.numberOfOutputs);
 }
 
 /**
@@ -40,5 +42,5 @@ export function yOutput(port: IPort) {
  * @returns the number of pixels for the Y coordinate of the corresponding link's end.
  */
 export function yLinkPort(port: IPort, numberOfPort: number) {
-    return port.node.y + portsY(port.node, numberOfPort) + portY(port)
+    return 0 //port.node.y + portsY(port.node, numberOfPort) + portY(port)
 }

@@ -1,4 +1,4 @@
-import INode from "./INode";
+import { INodeDetails } from "./api/INodeDetails";
 
 /**
  * A stage
@@ -15,5 +15,5 @@ export interface IStageDetails {
   name: string;
   x: number;
   y: number;
-  nodes: INode[];
+  nodes: INodeDetails[];
 }

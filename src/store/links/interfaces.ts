@@ -1,6 +1,6 @@
 import ILink, { IApiLink, IParamLink } from "@/interfaces/ILink";
 import { LinkActionTypes, LinkMutationTypes } from "./enums";
-import Node from '@/interfaces/implementations/Node'
+import NodeWrapper from '@/interfaces/wrappers/NodeWrapper'
 
 export interface ILinkState {
   links: ILink[];
@@ -11,7 +11,7 @@ export type LinkActions = {
   [LinkActionTypes.FETCH_LIST](context: any): any;
   [LinkActionTypes.DELETE_LINK](context: any, link: ILink): any;
   [LinkActionTypes.DELETE_PARAM_LINK](context: any, link: IParamLink): any;
-  [LinkActionTypes.DELETE_PARAM_LINKS](context: any, node: Node): any;
+  [LinkActionTypes.DELETE_PARAM_LINKS](context: any, node: NodeWrapper): any;
 }
 
 export type LinkMutations<S = ILinkState> = {

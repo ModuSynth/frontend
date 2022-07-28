@@ -5,9 +5,9 @@ import Toolbar from '@/components/Toolbar.vue'
 import { IStageDetails } from '@/interfaces/IStage';
 import NodeComponent from '@/components/NodeComponent.vue'
 import ns from '@/utils/ns';
-import INode from '@/interfaces/INode'
 import { NodeActionTypes, NodeMutationTypes } from '@/store/nodes/enums';
 import ILink from '@/interfaces/ILink';
+import { INodeDetails } from '@/interfaces/api/INodeDetails';
 
 @Component({
   components: { NodeComponent, Toolbar }
@@ -18,7 +18,7 @@ export default class StagesList extends Vue {
 
   @ns.stages.State('scale') scale!: number;
 
-  @ns.nodes.State('nodes') nodes!: INode[];
+  @ns.nodes.State('nodes') nodes!: INodeDetails[];
 
   @ns.nodes.State('loaded') loaded!: boolean;
 

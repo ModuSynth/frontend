@@ -8,7 +8,7 @@ import ChannelMergerNode from './nodes/ChannelMergerNode.vue';
 import { NODE_PADDING, PARAM_WIDTH, NODE_CLOSE_SIZE, NODE_TITLE_HEIGHT, NODE_TITLE_WIDTH, PORT_RADIUS, PORT_TOP_MARGIN } from '@/utils/constants';
 import OutputNode from './nodes/OutputNode.vue';
 import { portsHeight, portsY } from '@/utils/geometry/ports';
-import Node from '@/interfaces/implementations/Node'
+import NodeWrapper from '@/interfaces/wrappers/NodeWrapper';
 
 
 /**
@@ -20,8 +20,8 @@ import Node from '@/interfaces/implementations/Node'
 @Component({
   components: { GainNode, OscillatorNode, ChannelMergerNode, OutputNode }
 })
-export default class NodeWrapper extends Vue {
-  @Prop() readonly node!: Node;
+export default class NodeComponent extends Vue {
+  @Prop() readonly node!: NodeWrapper;
 
   @ns.nodes.Mutation(NodeMutationTypes.START_DRAG) startDrag: any;
 
@@ -70,10 +70,10 @@ export default class NodeWrapper extends Vue {
     :transform="`translate(${node.x} ${node.y})`"
   >
     <g :transform="`translate(0 ${portsY(node.inputs.length)})`">
-      <InputPort v-for="port in node.inputs" :port="port" :key="`input-${node.id}.${port.index}`" />
+      <InputPort v-for="port in node.inputs" :port="port" :key="`port.${port.id}`" />
     </g>
     <g :transform="`translate(${node.width} ${portsY(node.outputs.length)})`">
-      <OutputPort v-for="port in node.outputs" :port="port" :key="`output-${node.id}.${port.index}`" />
+      <OutputPort v-for="port in node.outputs" :port="port" :key="`port.${port.id}`" />
     </g>
     <foreignObject
       :width="node.width"

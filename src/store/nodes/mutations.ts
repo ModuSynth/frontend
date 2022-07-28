@@ -1,11 +1,11 @@
 import { NodesFactory } from "@/factories/NodesFactory";
 import { INodeDetails } from "@/interfaces/api/INodeDetails";
-import ICoordinates from "@/interfaces/utils/ICoordinates";
 import { reject } from "lodash";
 import { MutationTree } from "vuex";
 import { NodeMutationTypes } from "./enums";
 import { INodeState, NodeMutations } from "./interfaces";
 import { IStageDetails } from "@/interfaces/IStage";
+import ICoordinates from "@/interfaces/utils/ICoordinates";
 
 const mutations: MutationTree<INodeState> & NodeMutations = {
   [NodeMutationTypes.SET_NODES_LIST](state, payload) {
