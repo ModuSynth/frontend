@@ -6,8 +6,8 @@ import { IStageDetails } from '@/interfaces/IStage';
 import NodeComponent from '@/components/NodeComponent.vue'
 import ns from '@/utils/ns';
 import { NodeActionTypes, NodeMutationTypes } from '@/store/nodes/enums';
-import ILink from '@/interfaces/ILink';
 import { INodeDetails } from '@/interfaces/api/INodeDetails';
+import ILinkDetails from '@/interfaces/api/ILinkDetails';
 
 @Component({
   components: { NodeComponent, Toolbar }
@@ -22,9 +22,7 @@ export default class StagesList extends Vue {
 
   @ns.nodes.State('loaded') loaded!: boolean;
 
-  @ns.links.State('links') links!: ILink[];
-
-  @ns.links.State('paramLinks') paramLinks!: ILink[];
+  @ns.links.State('links') links!: ILinkDetails[];
 
   @ns.nodes.Action(NodeActionTypes.FETCH_LIST) fetchNodes: any;
 

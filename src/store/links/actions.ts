@@ -26,18 +26,6 @@ const actions: ActionTree<ILinkState, MainState> & LinkActions = {
       commit(LinkMutationTypes.REMOVE_LINK, link.id);
     })
   },
-  [LinkActionTypes.DELETE_PARAM_LINK]({ commit }, link) {
-    return axios.delete(`http://localhost:3000/links/${link.id}`).then(() => {
-      commit(LinkMutationTypes.REMOVE_PARAM_LINK, link);
-    })
-  },
-  [LinkActionTypes.DELETE_PARAM_LINKS]({ dispatch }, node) {
-    // state.paramLinks.forEach((l: IParamLink) => {
-    //   if (l.to.node.id === node.id) {
-    //     dispatch(LinkActionTypes.DELETE_PARAM_LINK, l)
-    //   }
-    // })
-  }
 }
 
 export default actions;
