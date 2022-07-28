@@ -6,6 +6,8 @@ import { INodeState, NodeActions } from "./interfaces";
 import { LinkActionTypes } from "../links/enums";
 import { INodeDetails } from "@/interfaces/api/INodeDetails";
 import { NodesFactory } from "@/factories/NodesFactory";
+import IParam from "@/interfaces/IParam";
+import ParamWrapper from "@/interfaces/wrappers/ParamWrapper";
 
 const actions: ActionTree<INodeState, MainState> & NodeActions = {
   [NodeActionTypes.FETCH_LIST]({ commit, dispatch }, stageId) {
@@ -34,9 +36,12 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
       state.dragged = undefined;
     })
   },
-  [NodeActionTypes.SAVE_PARAMS](_context, payload) {
-    const uri: string = `http://localhost:3000/nodes/${payload.id}`;
-    return axios.patch(uri, { params: payload.params })
+  [NodeActionTypes.SAVE_PARAMS](_context, node) {
+    const uri: string = `http://localhost:3000/nodes/${node.id}`;
+    const params: IParam[] = node.params.map((p: ParamWrapper): IParam => {
+      return {name: p.name, value: p.value, dy: 0}
+    })
+    return axios.patch(uri, { params })
   },
   [NodeActionTypes.DELETE]({ commit, state, dispatch }, id) {
     return axios.delete(`http://localhost:3000/nodes/${id}`).then(() => {

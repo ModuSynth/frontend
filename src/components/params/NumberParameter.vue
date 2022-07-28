@@ -66,28 +66,13 @@ export default class NumberParameter extends Vue {
     this.param.dy = this.dy
   }
 
-  /**
-   * Applies the current value of the parameter wrapper to the wrapped Audio
-   * Parameter by using the correct mutation method. The context we use here MUST be
-   * the same context that created the node.
-   */
-  public applyValue() {
-    this.innerParam.setValueAtTime(Number(this.param.value), this.context.currentTime);
+  public get value() {
+    return this.param.value
+  }
+
+  public set value(val: any) {
+    this.param.value = Math.max(Math.min(val, this.max), this.min)
     this.saveParams(this.node);
-  }
-
-  public get innerParam(): AudioParam {
-    return this.node.waaNode[this.param.name as unknown as keyof AudioNode] as unknown as AudioParam
-  }
-
-  /**
-   * Changes the value of the parameter wrapper and applies this change to the wrapped
-   * Audio Parameter afterhand.
-   * @param increment The amount the value will be changed of.
-   */
-  public changeValue(increment: number) {
-    this.param.value = Math.max(Math.min(Number(this.param.value) + increment, this.max), this.min);
-    this.applyValue();
   }
 }
 </script>
@@ -97,11 +82,11 @@ export default class NumberParameter extends Vue {
     <div class="param-port"></div>
     <div class="param-container">
       <div class="param-title">{{ $t(title) }}</div>
-      <a class="param-button margin-right" @click="changeValue(-superIncrement)"><v-icon small>mdi-chevron-double-left</v-icon></a>
-      <a class="param-button margin-right" @click="changeValue(-increment)"><v-icon small>mdi-chevron-left</v-icon></a>
-      <input type="text" class="param-input" v-model="param.value" @change="applyValue" />
-      <a class="param-button margin-left" @click="changeValue(increment)"><v-icon small>mdi-chevron-right</v-icon></a>
-      <a class="param-button margin-left" @click="changeValue(superIncrement)"><v-icon small>mdi-chevron-double-right</v-icon></a>
+      <a class="param-button margin-right" @click="value -= superIncrement"><v-icon small>mdi-chevron-double-left</v-icon></a>
+      <a class="param-button margin-right" @click="value -= increment"><v-icon small>mdi-chevron-left</v-icon></a>
+      <input type="text" class="param-input" v-model="value" />
+      <a class="param-button margin-left" @click="value += increment"><v-icon small>mdi-chevron-right</v-icon></a>
+      <a class="param-button margin-left" @click="value += superIncrement"><v-icon small>mdi-chevron-double-right</v-icon></a>
     </div>
   </div>
 </template>
