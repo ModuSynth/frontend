@@ -13,7 +13,6 @@ export default class GainNode extends Vue {
   public mounted() {
     this.node.height = 125;
     this.node.width = 174;
-    console.log(`Loading gain node with UUID ${this.node.id}`)
   }
 
   public get gain(): ParamWrapper | undefined {

@@ -32,5 +32,5 @@ export type NodeActions = {
 }
 
 export type NodeGetters = {
-  [NodeGetterTypes.NODES](state: INodeState): IPort[]
+  [NodeGetterTypes.PORTS](state: INodeState): IPort[]
 }

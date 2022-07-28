@@ -1,4 +1,5 @@
-import { IApiLink, IParamLink } from "@/interfaces/ILink";
+import ILinkDetails from "@/interfaces/api/ILinkDetails";
+import { IParamLink } from "@/interfaces/ILink";
 import axios from "axios";
 import { ActionTree } from "vuex";
 import MainState from "../utils/MainState";
@@ -7,15 +8,11 @@ import { ILinkState, LinkActions } from "./interfaces";
 import state from "./state";
 
 const actions: ActionTree<ILinkState, MainState> & LinkActions = {
-  [LinkActionTypes.FETCH_LIST]({ commit }) {
+  [LinkActionTypes.FETCH_LIST]({ commit, rootGetters }) {
+    console.log(rootGetters['nodes/PORTS'])
     return axios.get(`http://localhost:3000/links`).then(({ data }) => {
-      data.forEach((link: IApiLink) => {
-        if (link.to.id.indexOf('::') === -1) {
-          commit(LinkMutationTypes.ADD_LINK, link);
-        }
-        else {
-          commit(LinkMutationTypes.ADD_PARAM_LINK, link);
-        }
+      data.forEach((link: ILinkDetails) => {
+        commit(LinkMutationTypes.ADD_LINK, link);
       });
     });
   },

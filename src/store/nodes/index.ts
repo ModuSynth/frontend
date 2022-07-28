@@ -4,12 +4,14 @@ import { INodeState } from './interfaces';
 import mutations from './mutations';
 import state from './state';
 import actions from './actions'
+import getters from './getters'
 
 const nodes: Module<INodeState, MainState> = {
   namespaced: true,
   mutations,
   state,
-  actions
+  actions,
+  getters
 }
 
 export default nodes;

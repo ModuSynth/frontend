@@ -4,10 +4,7 @@ import { ILinkState, LinkMutations } from "./interfaces";
 
 const mutations: MutationTree<ILinkState> & LinkMutations = {
   [LinkMutationTypes.ADD_LINK](state, link) {
-    // const nodes: NodeWrapper[] = (this.state as any).nodes.nodes;
-    // const from: NodeWrapper = findNode(nodes, link.from.id);
-    // const to: NodeWrapper = findNode(nodes, link.to.id);
-    //state.links.push(from.connect(to, link.id));
+    state.links.push(link);
   },
   [LinkMutationTypes.ADD_PARAM_LINK](state, link) {
     // const nodes: NodeWrapper[] = (this.state as any).nodes.nodes;

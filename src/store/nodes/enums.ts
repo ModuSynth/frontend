@@ -17,5 +17,5 @@ export enum NodeActionTypes {
 }
 
 export enum NodeGetterTypes {
-  NODES
+  PORTS = 'PORTS'
 }
