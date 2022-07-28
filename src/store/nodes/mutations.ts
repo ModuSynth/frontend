@@ -1,5 +1,5 @@
 import { NodesFactory } from "@/factories/NodesFactory";
-import { INodeDetails } from "@/interfaces/api/INodeDetails";
+import { INode } from "@/interfaces/api/INode";
 import { reject } from "lodash";
 import { MutationTree } from "vuex";
 import { NodeMutationTypes } from "./enums";
@@ -9,7 +9,7 @@ import ICoordinates from "@/interfaces/utils/ICoordinates";
 
 const mutations: MutationTree<INodeState> & NodeMutations = {
   [NodeMutationTypes.SET_NODES_LIST](state, payload) {
-    payload.forEach((node: INodeDetails) => {
+    payload.forEach((node: INode) => {
       const stage: IStageDetails = (this.state as any).stages.stage
       state.nodes.push(NodesFactory.create(stage, node));
     });

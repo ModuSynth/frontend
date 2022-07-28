@@ -1,4 +1,4 @@
-export default interface ILinkDetails {
+export default interface ILink {
     id: string;
     // This is the UUID of the output port from where the link extends.
     from: string,

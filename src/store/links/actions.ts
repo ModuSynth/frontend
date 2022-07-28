@@ -1,4 +1,4 @@
-import ILinkDetails from "@/interfaces/api/ILinkDetails";
+import ILink from "@/interfaces/api/ILink";
 import LinkWrapper from "@/interfaces/wrappers/LinkWrapper";
 import PortWrapper, { NodePortWrapper } from "@/interfaces/wrappers/PortWrapper";
 import axios from "axios";
@@ -11,7 +11,7 @@ const actions: ActionTree<ILinkState, MainState> & LinkActions = {
   [LinkActionTypes.FETCH_LIST]({ commit, rootGetters }) {
     return axios.get(`http://localhost:3000/links`).then(({ data }) => {
       const ports: PortWrapper[] = rootGetters['nodes/PORTS'];
-      data.forEach((link: ILinkDetails) => {
+      data.forEach((link: ILink) => {
         const from: PortWrapper|undefined = ports.find((p: PortWrapper) => p.id === link.from);
         const to: PortWrapper|undefined = ports.find((p: PortWrapper) => p.id === link.to);
         if (from !== undefined && to !== undefined) {

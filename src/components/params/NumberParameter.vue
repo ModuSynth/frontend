@@ -125,6 +125,6 @@ export default class NumberParameter extends Vue {
   border: 2px solid #00FF00;
   border-right: none;
   position: absolute;
-  top: 15px;
+  top: 20px;
 }
 </style>

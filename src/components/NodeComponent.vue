@@ -140,8 +140,4 @@ export default class NodeComponent extends Vue {
   user-select: none;
   vertical-align: center;
 }
-
-.node-title {
-
-}
 </style>

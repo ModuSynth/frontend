@@ -4,16 +4,17 @@ import MainState from "../utils/MainState";
 import { NodeActionTypes, NodeMutationTypes } from "./enums";
 import { INodeState, NodeActions } from "./interfaces";
 import { LinkActionTypes } from "../links/enums";
-import { INodeDetails, IParam } from "@/interfaces/api/INodeDetails";
+import { INode } from "@/interfaces/api/INode";
+import { IParam } from "@/interfaces/api/IParam";
 import { NodesFactory } from "@/factories/NodesFactory";
 import ParamWrapper from "@/interfaces/wrappers/ParamWrapper";
-import PortWrapper, { ParamPortWrapper } from "@/interfaces/wrappers/PortWrapper";
+import { ParamPortWrapper } from "@/interfaces/wrappers/PortWrapper";
 
 const actions: ActionTree<INodeState, MainState> & NodeActions = {
   [NodeActionTypes.FETCH_LIST]({ commit, dispatch }, stageId) {
     return axios.get(`http://localhost:3000/nodes?stage_id=${stageId}`)
       .then((response: any) => response.data)
-      .then((data: INodeDetails[]) => {
+      .then((data: INode[]) => {
         commit(NodeMutationTypes.SET_NODES_LIST, data);
         dispatch(`links/${LinkActionTypes.FETCH_LIST}`, null, {root: true})
       });

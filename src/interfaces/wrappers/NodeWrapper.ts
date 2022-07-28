@@ -1,5 +1,7 @@
 import { IStageDetails } from "../api/IStage";
-import { INodeDetails, IParam, IPort } from "../api/INodeDetails";
+import { INode } from "../api/INode";
+import { IParam } from "../api/IParam";
+import { IPort } from "../api/IPort";
 import ParamWrapper from "./ParamWrapper";
 import ParamsFactory from "@/factories/ParamsFactory";
 import factories from "@/factories/nodes";
@@ -7,7 +9,7 @@ import { NodeType } from "../enums/NodeType";
 import { AUDIO_CONTEXT } from "@/utils/constants";
 import { NodePortWrapper } from "./PortWrapper";
 
-export default class NodeWrapper implements INodeDetails {
+export default class NodeWrapper implements INode {
 
     // The audio node from the Web Aduio API linked to this node.
     private _waaNode!: AudioNode;
@@ -33,7 +35,7 @@ export default class NodeWrapper implements INodeDetails {
     // THe number of pixels from the top side to the bottom side of the node.
     public height: number = 0;
 
-    public constructor(stage: IStageDetails, details: INodeDetails) {
+    public constructor(stage: IStageDetails, details: INode) {
         this._type = details.type;
         this._stage = stage;
         this.id = details.id;

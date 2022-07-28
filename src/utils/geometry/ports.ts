@@ -1,4 +1,4 @@
-import { IPort } from "@/interfaces/api/INodeDetails";
+import { IPort } from "@/interfaces/api/IPort";
 import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 import { PORT_RADIUS, PORT_TOP_MARGIN } from "../constants";
 

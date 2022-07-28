@@ -1,4 +1,4 @@
-import { IPort } from "../api/INodeDetails";
+import { IPort } from "../api/IPort";
 import NodeWrapper from "./NodeWrapper";
 import { NumberParameter } from "./ParamWrapper";
 

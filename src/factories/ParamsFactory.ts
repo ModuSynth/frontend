@@ -1,4 +1,5 @@
-import { IParam, IPort } from "@/interfaces/api/INodeDetails";
+import { IParam } from "@/interfaces/api/IParam";
+import { IPort } from "@/interfaces/api/IPort";
 import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 import ParamWrapper, { ListParameter,NumberParameter } from "@/interfaces/wrappers/ParamWrapper";
 import { ParamPortWrapper } from "@/interfaces/wrappers/PortWrapper";
