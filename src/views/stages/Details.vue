@@ -2,7 +2,7 @@
 import { StageActionTypes, StageMutationTypes } from '@/store/stages/enums';
 import { Component, Vue } from 'vue-property-decorator';
 import Toolbar from '@/components/Toolbar.vue'
-import { IStageDetails } from '@/interfaces/IStage';
+import { IStageDetails } from '@/interfaces/api/IStage';
 import NodeComponent from '@/components/NodeComponent.vue'
 import ns from '@/utils/ns';
 import { NodeActionTypes, NodeMutationTypes } from '@/store/nodes/enums';

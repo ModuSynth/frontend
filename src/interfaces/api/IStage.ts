@@ -1,4 +1,4 @@
-import { INodeDetails } from "./api/INodeDetails";
+import { INodeDetails } from "./INodeDetails";
 
 /**
  * A stage

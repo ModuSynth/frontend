@@ -1,4 +1,4 @@
-import { IStageDetails } from "../IStage";
+import { IStageDetails } from "../api/IStage";
 import { INodeDetails, IParam, IPort } from "../api/INodeDetails";
 import ParamWrapper from "./ParamWrapper";
 import ParamsFactory from "@/factories/ParamsFactory";

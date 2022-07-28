@@ -1,4 +1,4 @@
-import { IStageDetails } from "@/interfaces/IStage";
+import { IStageDetails } from "@/interfaces/api/IStage";
 
 export default class StagesFactory {
   public static empty(): IStageDetails {

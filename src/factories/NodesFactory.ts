@@ -1,4 +1,4 @@
-import { IStageDetails } from "@/interfaces/IStage";
+import { IStageDetails } from "@/interfaces/api/IStage";
 import { INodeDetails, IPort } from "@/interfaces/api/INodeDetails";
 import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 import { NodePortWrapper } from "@/interfaces/wrappers/PortWrapper";

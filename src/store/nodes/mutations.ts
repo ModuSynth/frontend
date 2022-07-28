@@ -4,7 +4,7 @@ import { reject } from "lodash";
 import { MutationTree } from "vuex";
 import { NodeMutationTypes } from "./enums";
 import { INodeState, NodeMutations } from "./interfaces";
-import { IStageDetails } from "@/interfaces/IStage";
+import { IStageDetails } from "@/interfaces/api/IStage";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
 
 const mutations: MutationTree<INodeState> & NodeMutations = {

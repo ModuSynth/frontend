@@ -1,5 +1,5 @@
 <script lang="ts">
-import IStage from '@/interfaces/IStage';
+import IStage from '@/interfaces/api/IStage';
 import { StageActionTypes } from '@/store/stages/enums';
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class'

@@ -1,4 +1,4 @@
-import IStage, { IStageDetails } from "@/interfaces/IStage";
+import IStage, { IStageDetails } from "@/interfaces/api/IStage";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
 import { MAX_ZOOM_IN, MAX_ZOOM_OUT, ZOOM_RATIO } from "@/utils/constants";
 import { MutationTree } from "vuex";

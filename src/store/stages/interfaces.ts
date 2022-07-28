@@ -1,4 +1,4 @@
-import IStage, { IStageDetails } from "@/interfaces/IStage";
+import IStage, { IStageDetails } from "@/interfaces/api/IStage";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
 import { StageActionTypes as ActionTypes, StageMutationTypes as MutationTypes } from "./enums";
 

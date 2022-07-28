@@ -3,8 +3,7 @@ import NodeWrapper from "../wrappers/NodeWrapper";
 export interface IParam {
     name: string;
     value: any;
-    inputs: IPort[]
-    node: NodeWrapper;
+    inputs: IPort[];
     type: string;
 }
 

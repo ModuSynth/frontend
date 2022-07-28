@@ -4,9 +4,8 @@ import MainState from "../utils/MainState";
 import { NodeActionTypes, NodeMutationTypes } from "./enums";
 import { INodeState, NodeActions } from "./interfaces";
 import { LinkActionTypes } from "../links/enums";
-import { INodeDetails, IPort } from "@/interfaces/api/INodeDetails";
+import { INodeDetails, IParam } from "@/interfaces/api/INodeDetails";
 import { NodesFactory } from "@/factories/NodesFactory";
-import IParam from "@/interfaces/IParam";
 import ParamWrapper from "@/interfaces/wrappers/ParamWrapper";
 import PortWrapper, { ParamPortWrapper } from "@/interfaces/wrappers/PortWrapper";
 
@@ -43,7 +42,6 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
       return {
         name: p.name,
         value: p.value,
-        dy: 0,
         type: p.type,
         inputs: p.inputs.map((port: ParamPortWrapper) => {
           return {id: port.id }

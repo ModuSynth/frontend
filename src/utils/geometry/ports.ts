@@ -1,4 +1,4 @@
-import IPort from "@/interfaces/IPort";
+import { IPort } from "@/interfaces/api/INodeDetails";
 import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 import { PORT_RADIUS, PORT_TOP_MARGIN } from "../constants";
 
@@ -18,7 +18,7 @@ export function portsHeight(numberOfPorts: number): number {
 }
 
 export function portY(port: IPort): number {
-    return port.index * ((2 * PORT_RADIUS) + PORT_TOP_MARGIN)
+    return ((2 * PORT_RADIUS) + PORT_TOP_MARGIN)
 }
 
 export function yInput(port: IPort) {
