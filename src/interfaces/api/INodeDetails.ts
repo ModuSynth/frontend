@@ -1,4 +1,3 @@
-import ILink from "../ILink";
 import NodeWrapper from "../wrappers/NodeWrapper";
 
 export interface IParam {
@@ -11,7 +10,6 @@ export interface IParam {
 
 export interface IPort {
     id: string
-    links: ILink[];
 }
 
 export interface INodeDetails {

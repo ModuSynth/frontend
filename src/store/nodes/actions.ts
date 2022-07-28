@@ -4,10 +4,11 @@ import MainState from "../utils/MainState";
 import { NodeActionTypes, NodeMutationTypes } from "./enums";
 import { INodeState, NodeActions } from "./interfaces";
 import { LinkActionTypes } from "../links/enums";
-import { INodeDetails } from "@/interfaces/api/INodeDetails";
+import { INodeDetails, IPort } from "@/interfaces/api/INodeDetails";
 import { NodesFactory } from "@/factories/NodesFactory";
 import IParam from "@/interfaces/IParam";
 import ParamWrapper from "@/interfaces/wrappers/ParamWrapper";
+import PortWrapper from "@/interfaces/wrappers/PortWrapper";
 
 const actions: ActionTree<INodeState, MainState> & NodeActions = {
   [NodeActionTypes.FETCH_LIST]({ commit, dispatch }, stageId) {
@@ -39,7 +40,12 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
   [NodeActionTypes.SAVE_PARAMS](_context, node) {
     const uri: string = `http://localhost:3000/nodes/${node.id}`;
     const params: IParam[] = node.params.map((p: ParamWrapper): IParam => {
-      return {name: p.name, value: p.value, dy: 0}
+      return {
+        name: p.name,
+        value: p.value,
+        dy: 0,
+        inputs: p.inputs.map((port: PortWrapper): IPort => ({id: port.id }))
+      };
     })
     return axios.patch(uri, { params })
   },

@@ -1,3 +1,5 @@
+import { IPort } from "./api/INodeDetails";
+
 export default interface IParam {
   name: string,
   value: string | number;
@@ -7,4 +9,5 @@ export default interface IParam {
    * value as all parameters are not the exact same height
    */
   dy: number;
+  inputs: IPort[];
 }

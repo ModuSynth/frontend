@@ -1,21 +1,20 @@
 import { IStageDetails } from "../IStage";
 import { INodeDetails, IParam, IPort } from "../api/INodeDetails";
-import ILink from "../ILink";
 import ParamWrapper from "./ParamWrapper";
 import ParamsFactory from "@/factories/ParamsFactory";
 import factories from "@/factories/nodes";
 import { NodeType } from "../enums/NodeType";
 import { AUDIO_CONTEXT } from "@/utils/constants";
-import { cloneDeep } from "lodash";
+import { NodePortWrapper } from "./PortWrapper";
 
 export default class NodeWrapper implements INodeDetails {
 
     // The audio node from the Web Aduio API linked to this node.
     private _waaNode!: AudioNode;
     // The ports you can bring sound content to the node from.
-    private _inputs: IPort[];
+    private _inputs: NodePortWrapper[] = [];
     // The ports outputing the sound content of the node.
-    private _outputs: IPort[];
+    private _outputs: NodePortWrapper[] = [];
     // The type of the node, representing the class it's wrapping in the Web Audio API.
     private _type: string;
 
@@ -36,8 +35,6 @@ export default class NodeWrapper implements INodeDetails {
 
     public constructor(stage: IStageDetails, details: INodeDetails) {
         this._type = details.type;
-        this._inputs = details.inputs;
-        this._outputs = details.outputs;
         this._stage = stage;
         this.id = details.id;
         this.position = {
@@ -119,33 +116,4 @@ export default class NodeWrapper implements INodeDetails {
             this.setParam(name, this.getParam(name));
         })
     }
-
-    public get links(): ILink[] {
-        return []
-    //     return [... this.inputLinks, ...this.outputLinks];
-    }
-
-    public get inputLinks(): ILink[] {
-        return this.inputs.map((i: IPort) => i.links || []).flat();
-    }
-
-    // public get outputLinks(): ILink[] {
-    //     return this.outputs.map((o: IPort) => o.links || []).flat();
-    // }
-
-    /**
-     * Connects another node following the current one.
-     * @param to the node to connect in the outputs of the current node.
-     */
-    // public connect(to: NodeWrapper, linkId: string, fromIndex: number = 0, toIndex: number = 0): ILink {
-    //     const link: ILink = {
-    //         id: linkId,
-    //         from: this.outputs[fromIndex],
-    //         to: to.inputs[toIndex]
-    //     }
-    //     this._outputs[fromIndex].links.push(link);
-    //     to._inputs[toIndex].links.push(link)
-    //     this.waaNode.connect(to.waaNode)
-    //     return link;
-    // }
 }

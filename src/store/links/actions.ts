@@ -27,11 +27,11 @@ const actions: ActionTree<ILinkState, MainState> & LinkActions = {
     })
   },
   [LinkActionTypes.DELETE_PARAM_LINKS]({ dispatch }, node) {
-    state.paramLinks.forEach((l: IParamLink) => {
-      if (l.to.node.id === node.id) {
-        dispatch(LinkActionTypes.DELETE_PARAM_LINK, l)
-      }
-    })
+    // state.paramLinks.forEach((l: IParamLink) => {
+    //   if (l.to.node.id === node.id) {
+    //     dispatch(LinkActionTypes.DELETE_PARAM_LINK, l)
+    //   }
+    // })
   }
 }
 
