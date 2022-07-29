@@ -19,11 +19,11 @@ export default class LinkComponent extends Vue {
     }
 
     public get y1(): number {
-        return this.link.from.y(this.link.from.node.outputs.length)
+        return this.link.from.y;
     }
 
     public get y2(): number {
-        return this.link.to.y(this.toNode?.inputs.length || 1);
+        return this.link.to.y;
     }
 
     public get x2(): number {

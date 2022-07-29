@@ -3,6 +3,7 @@ import { portsY } from "@/utils/geometry/ports";
 import { IPort } from "../api/IPort";
 import NodeWrapper from "./NodeWrapper";
 import { NumberParameter } from "./ParamWrapper";
+import PortGroupWrapper from "./PortGroupWrapper";
 
 export default abstract class PortWrapper implements IPort {
 
@@ -19,15 +20,19 @@ export default abstract class PortWrapper implements IPort {
 
     public abstract get x(): number;
 
-    public abstract y(numberOfPorts: number): number;
+    public abstract get y(): number;
 }
 
 export class NodePortWrapper extends PortWrapper {
-    public readonly node: NodeWrapper;
+    public readonly group: PortGroupWrapper;
 
-    public constructor(node: NodeWrapper, details: IPort) {
+    public constructor(group: PortGroupWrapper, details: IPort) {
         super(details);
-        this.node = node;
+        this.group = group;
+    }
+
+    public get node(): NodeWrapper {
+        return this.group.node;
     }
 
     public connectInput(port: NodePortWrapper): void {
@@ -38,8 +43,9 @@ export class NodePortWrapper extends PortWrapper {
         return this.node.x;
     }
 
-    public y(numberOfPorts: number): number {
-        const baseY = this.node.y + portsY(this.node, numberOfPorts);
+    public get y(): number {
+        const nbPorts: number = (this.group.isInputs ? this.node.inputs : this.node.outputs).length
+        const baseY = this.node.y + portsY(this.node, nbPorts);
         const dy = this.index * FULL_PORT_DIAMETER
         return baseY + dy;
     }
@@ -58,10 +64,10 @@ export class ParamPortWrapper extends PortWrapper {
     }
 
     public get x(): number {
-        return this.param.node.x + 20;
+        return this.param.node.x + 22;
     }
 
-    public y(numberOfPorts: number = 0): number {
-        return this.param.node.y;
+    public get y(): number {
+        return this.param.node.y + this.param.dy;
     }
 }

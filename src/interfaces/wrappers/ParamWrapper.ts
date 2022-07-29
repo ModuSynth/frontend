@@ -11,6 +11,8 @@ export default abstract class ParamWrapper implements IParam {
     node: NodeWrapper;
     type: string;
 
+    public dy: number = 0;
+
     public constructor(node: NodeWrapper, details: IParam) {
         this.name = details.name;
         this._value = details.value;

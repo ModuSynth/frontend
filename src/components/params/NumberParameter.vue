@@ -1,5 +1,5 @@
 <script lang="ts">
-import ParamWrapper from '@/interfaces/wrappers/ParamWrapper';
+import { NumberParameter } from '@/interfaces/wrappers/ParamWrapper';
 import { NodeActionTypes } from '@/store/nodes/enums';
 import ns from '@/utils/ns';
 import { Component, Vue, Prop } from 'vue-property-decorator';
@@ -11,7 +11,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
  * @author Vincent Courtois <courtois.vincent@outlook.com>
  */
 @Component
-export default class NumberParameter extends Vue {
+export default class NumberParameterComponent extends Vue {
 
   /**
    * The number of pixel, in the Y axis, from the top of the node to the middle
@@ -23,7 +23,7 @@ export default class NumberParameter extends Vue {
    * The node the parameter is declared on. The parameter is not directly given
    * because we'd still need his name and we need the inner wrapped WAA node.
    */
-  @Prop() param!: ParamWrapper;
+  @Prop() param!: NumberParameter;
   /**
    * The amount the value will be increased or decreased with when pressing the
    * inner buttons in the controls. This SHOULD be lower than superIncrement.
@@ -60,6 +60,10 @@ export default class NumberParameter extends Vue {
   public set value(val: any) {
     this.param.value = Math.max(Math.min(val, this.max), this.min)
     this.saveParams(this.param.node);
+  }
+
+  public mounted() {
+    this.param.dy = this.dy;
   }
 }
 </script>

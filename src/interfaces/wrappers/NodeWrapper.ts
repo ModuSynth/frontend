@@ -8,15 +8,16 @@ import factories from "@/factories/nodes";
 import { NodeType } from "../enums/NodeType";
 import { AUDIO_CONTEXT } from "@/utils/constants";
 import { NodePortWrapper } from "./PortWrapper";
+import PortGroupWrapper from "./PortGroupWrapper";
 
 export default class NodeWrapper implements INode {
 
     // The audio node from the Web Aduio API linked to this node.
     private _waaNode!: AudioNode;
     // The ports you can bring sound content to the node from.
-    private _inputs: NodePortWrapper[] = [];
+    private _inputs: PortGroupWrapper;
     // The ports outputing the sound content of the node.
-    private _outputs: NodePortWrapper[] = [];
+    private _outputs: PortGroupWrapper;
     // The type of the node, representing the class it's wrapping in the Web Audio API.
     private _type: string;
 
@@ -46,6 +47,8 @@ export default class NodeWrapper implements INode {
         this.params = details.params.map((p: IParam) => {
             return ParamsFactory.create(this, p)
         });
+        this._inputs = new PortGroupWrapper(this, details.inputs);
+        this._outputs = new PortGroupWrapper(this, details.outputs);
         factories[this.type as NodeType](AUDIO_CONTEXT, this);
     }
 
@@ -58,11 +61,11 @@ export default class NodeWrapper implements INode {
     }
 
     public get inputs(): IPort[] {
-        return this._inputs;
+        return this._inputs.ports;
     }
 
     public get outputs(): IPort[] {
-        return this._outputs;
+        return this._outputs.ports;
     }
 
     public set waaNode(value: AudioNode) {

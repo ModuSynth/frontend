@@ -23,7 +23,6 @@ export default class GainNode extends Vue {
 
 <template>
   <div>
-    <NumberParameter :param="gain" :increment=".1" :superIncrement="1" title="params.titles.gain"
-      :dy="79" />
+    <NumberParameter :param="gain" :increment=".1" :superIncrement="1" :dy="85" title="params.titles.gain" />
   </div>
 </template>
