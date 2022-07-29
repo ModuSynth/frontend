@@ -9,10 +9,10 @@ export interface ILinkState {
 
 export type LinkActions = {
   [LinkActionTypes.FETCH_LIST](context: any): Promise<any>;
-  [LinkActionTypes.DELETE_LINK](context: any, link: ILink): any;
+  [LinkActionTypes.DELETE_LINK](context: any, link: LinkWrapper): any;
 }
 
 export type LinkMutations<S = ILinkState> = {
-  [LinkMutationTypes.ADD_LINK](state: S, payload: ILink): void;
+  [LinkMutationTypes.ADD_LINK](state: S, payload: LinkWrapper): void;
   [LinkMutationTypes.REMOVE_LINK](state: S, payload: string): void;
 }

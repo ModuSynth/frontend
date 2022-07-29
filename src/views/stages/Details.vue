@@ -7,10 +7,11 @@ import NodeComponent from '@/components/NodeComponent.vue'
 import ns from '@/utils/ns';
 import { NodeActionTypes, NodeMutationTypes } from '@/store/nodes/enums';
 import { INode } from '@/interfaces/api/INode';
-import ILinkDetails from '@/interfaces/api/ILink';
+import LinkComponent from '@/components/LinkComponent.vue';
+import ILink from '@/interfaces/api/ILink';
 
 @Component({
-  components: { NodeComponent, Toolbar }
+  components: { LinkComponent, NodeComponent, Toolbar }
 })
 export default class StagesList extends Vue {
 
@@ -20,9 +21,9 @@ export default class StagesList extends Vue {
 
   @ns.nodes.State('nodes') nodes!: INode[];
 
-  @ns.nodes.State('loaded') loaded!: boolean;
+  @ns.links.State('links') links!: ILink[];
 
-  @ns.links.State('links') links!: ILinkDetails[];
+  @ns.nodes.State('loaded') loaded!: boolean;
 
   @ns.nodes.Action(NodeActionTypes.FETCH_LIST) fetchNodes: any;
 
@@ -74,6 +75,7 @@ export default class StagesList extends Vue {
       >
         <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
           <NodeComponent :node="node" v-for="node in nodes" :key="`node-${node.id}`" />
+          <LinkComponent  v-for="link in links" :link="link" :key="`link-${link.id}`" />
         </g>
       </svg>
     </div>

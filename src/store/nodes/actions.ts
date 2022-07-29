@@ -45,7 +45,7 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
         value: p.value,
         type: p.type,
         inputs: p.inputs.map((port: ParamPortWrapper) => {
-          return {id: port.id }
+          return {id: port.id, index: port.index }
         })
       };
     })

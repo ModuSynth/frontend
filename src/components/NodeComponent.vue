@@ -10,6 +10,7 @@ import OutputNode from './nodes/OutputNode.vue';
 import { portsHeight, portsY } from '@/utils/geometry/ports';
 import NodeWrapper from '@/interfaces/wrappers/NodeWrapper';
 import NodePortComponent from './PortComponent.vue';
+import { cloneDeep } from 'lodash';
 
 
 /**
@@ -69,6 +70,7 @@ export default class NodeComponent extends Vue {
 <template>
   <g
     :transform="`translate(${node.x} ${node.y})`"
+    ref="node"
   >
     <g :transform="`translate(0 ${portsY(node.inputs.length)})`">
       <NodePortComponent v-for="port in node.inputs" :port="port" :key="`port.${port.id}`" />

@@ -27,5 +27,6 @@ export const NODE_TITLE_WIDTH = PARAM_WIDTH - NODE_CLOSE_SIZE;
 
 export const PORT_RADIUS = 10;
 export const PORT_TOP_MARGIN = 5;
+export const FULL_PORT_DIAMETER = 2 * PORT_RADIUS + PORT_TOP_MARGIN
 
 export const AUDIO_CONTEXT = new AudioContext();

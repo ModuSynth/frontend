@@ -8,12 +8,16 @@ import { LinkActionTypes, LinkMutationTypes } from "./enums";
 import { ILinkState, LinkActions } from "./interfaces";
 
 const actions: ActionTree<ILinkState, MainState> & LinkActions = {
-  [LinkActionTypes.FETCH_LIST]({ commit, rootGetters }) {
+  [LinkActionTypes.FETCH_LIST]({ state, commit, rootGetters }) {
     return axios.get(`http://localhost:3000/links`).then(({ data }) => {
+      console.log(data);
       const ports: PortWrapper[] = rootGetters['nodes/PORTS'];
       data.forEach((link: ILink) => {
+        console.log(link);
+        console.log(ports);
         const from: PortWrapper|undefined = ports.find((p: PortWrapper) => p.id === link.from);
         const to: PortWrapper|undefined = ports.find((p: PortWrapper) => p.id === link.to);
+        console.log(from, to);
         if (from !== undefined && to !== undefined) {
           commit(LinkMutationTypes.ADD_LINK, new LinkWrapper(link.id, from as NodePortWrapper, to));
         }
