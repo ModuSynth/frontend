@@ -36,7 +36,7 @@ export class NodePortWrapper extends PortWrapper {
     }
 
     public connectInput(port: NodePortWrapper): void {
-        port.node.waaNode.connect(this.node.waaNode);
+        port.node.waaNode.connect(this.node.waaNode, port.index, this.index);
     }
 
     public get x(): number {
