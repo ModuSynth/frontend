@@ -20,6 +20,8 @@ export default abstract class PortWrapper implements IPort {
 
     public abstract connectInput(port: NodePortWrapper): void;
 
+    public abstract disconnectInput(port: NodePortWrapper): void;
+
     public abstract get x(): number;
 
     public abstract get y(): number;
@@ -39,6 +41,10 @@ export class NodePortWrapper extends PortWrapper {
 
     public connectInput(port: NodePortWrapper): void {
         port.node.waaNode.connect(this.node.waaNode, port.index, this.index);
+    }
+    
+    public disconnectInput(port: NodePortWrapper): void {
+        port.node.waaNode.disconnect(this.node.waaNode, port.index, this.index);
     }
 
     public get x(): number {
@@ -60,6 +66,10 @@ export class ParamPortWrapper extends PortWrapper {
 
     public connectInput(port: NodePortWrapper): void {
         port.node.waaNode.connect(this.param.waaParam);
+    }
+    
+    public disconnectInput(port: NodePortWrapper): void {
+        port.node.waaNode.disconnect(this.param.waaParam);
     }
 
     public get x(): number {

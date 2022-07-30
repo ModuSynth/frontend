@@ -8,6 +8,7 @@ const mutations: MutationTree<ILinkState> & LinkMutations = {
     state.links.push(link);
   },
   [LinkMutationTypes.REMOVE_LINK](state, link) {
+    link.disconnect();
     state.links = reject(state.links, { id: link.id });
   },
   [LinkMutationTypes.START_LINK](state, payload) {

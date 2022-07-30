@@ -15,4 +15,8 @@ export default class LinkWrapper {
         this.from.links.push(this);
         this.to.links.push(this);
     }
+
+    public disconnect() {
+        this.to.disconnectInput(this.from);
+    }
 }
