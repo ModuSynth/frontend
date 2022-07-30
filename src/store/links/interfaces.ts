@@ -13,6 +13,7 @@ export interface ILinkState {
 export type LinkActions = {
   [LinkActionTypes.FETCH_LIST](context: any): Promise<any>;
   [LinkActionTypes.DELETE_LINK](context: any, link: LinkWrapper): any;
+  [LinkActionTypes.END_LINK](context: any, payload: PortWrapper): void;
 }
 
 export type LinkMutations<S = ILinkState> = {
@@ -20,5 +21,4 @@ export type LinkMutations<S = ILinkState> = {
   [LinkMutationTypes.REMOVE_LINK](state: S, payload: LinkWrapper): void;
   [LinkMutationTypes.START_LINK](state: S, payload: PortWrapper): void;
   [LinkMutationTypes.CANCEL_LINK](state: S): void;
-  [LinkMutationTypes.END_LINK](state: S, payload: PortWrapper): void;
 }

@@ -11,6 +11,7 @@ import LinkComponent from '@/components/LinkComponent.vue';
 import ILink from '@/interfaces/api/ILink';
 import PortComponent from '../../components/PortComponent.vue';
 import PortWrapper from '@/interfaces/wrappers/PortWrapper';
+import { LinkMutationTypes } from '@/store/links/enums';
 
 @Component({
   components: { LinkComponent, NodeComponent, PortComponent, Toolbar }
@@ -47,8 +48,11 @@ export default class StagesList extends Vue {
 
   @ns.stages.Mutation(StageMutationTypes.CREATE_CONTEXT) createContext: any;
 
+  @ns.links.Mutation(LinkMutationTypes.CANCEL_LINK) cancelLink: any;
+
   public endDrags($event: MouseEvent) {
     this.endDrag({x: $event.clientX, y: $event.clientY});
+    this.cancelLink();
     this.endNodeDrag($event)
   }
 
