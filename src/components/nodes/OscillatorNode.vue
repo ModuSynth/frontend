@@ -46,6 +46,7 @@ export default class OscillatorNodeComponent extends Vue {
       :superIncrement="10"
       :max="context.sampleRate / 2"
       :min="0"
+      :dy="110"
       title="params.titles.frequency"
     />
     <NumberParameter
@@ -54,6 +55,7 @@ export default class OscillatorNodeComponent extends Vue {
       :superIncrement="100"
       :max="153600"
       :min="-153600"
+      :dy="175"
       title="params.titles.detune"
     />
   </div>

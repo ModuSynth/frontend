@@ -70,7 +70,6 @@ export default class NumberParameterComponent extends Vue {
 
 <template>
   <div class="param-wrapper">
-    <div class="param-port"></div>
     <div class="param-container">
       <div class="param-title">{{ $t(title) }}</div>
       <a class="param-button margin-right" @click="value -= superIncrement"><v-icon small>mdi-chevron-double-left</v-icon></a>
@@ -119,16 +118,5 @@ export default class NumberParameterComponent extends Vue {
 
 .param-wrapper {
   position: relative;
-}
-
-.param-port {
-  height: 20px;
-  width: 10px;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  border: 2px solid #00FF00;
-  border-right: none;
-  position: absolute;
-  top: 20px;
 }
 </style>

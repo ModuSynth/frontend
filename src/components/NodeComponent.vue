@@ -72,12 +72,6 @@ export default class NodeComponent extends Vue {
     :transform="`translate(${node.x} ${node.y})`"
     ref="node"
   >
-    <g :transform="`translate(0 ${portsY(node.inputs.length)})`">
-      <NodePortComponent v-for="port in node.inputs" :port="port" :key="`port.${port.id}`" />
-    </g>
-    <g :transform="`translate(${node.width} ${portsY(node.outputs.length)})`">
-      <NodePortComponent v-for="port in node.outputs" :port="port" :key="`port.${port.id}`" />
-    </g>
     <foreignObject
       :width="node.width"
       :height="node.height"

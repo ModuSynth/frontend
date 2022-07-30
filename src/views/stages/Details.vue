@@ -5,13 +5,15 @@ import Toolbar from '@/components/Toolbar.vue'
 import { IStageDetails } from '@/interfaces/api/IStage';
 import NodeComponent from '@/components/NodeComponent.vue'
 import ns from '@/utils/ns';
-import { NodeActionTypes, NodeMutationTypes } from '@/store/nodes/enums';
+import { NodeActionTypes, NodeGetterTypes, NodeMutationTypes } from '@/store/nodes/enums';
 import { INode } from '@/interfaces/api/INode';
 import LinkComponent from '@/components/LinkComponent.vue';
 import ILink from '@/interfaces/api/ILink';
+import PortComponent from '../../components/PortComponent.vue';
+import PortWrapper from '@/interfaces/wrappers/PortWrapper';
 
 @Component({
-  components: { LinkComponent, NodeComponent, Toolbar }
+  components: { LinkComponent, NodeComponent, PortComponent, Toolbar }
 })
 export default class StagesList extends Vue {
 
@@ -20,6 +22,8 @@ export default class StagesList extends Vue {
   @ns.stages.State('scale') scale!: number;
 
   @ns.nodes.State('nodes') nodes!: INode[];
+
+  @ns.nodes.Getter(NodeGetterTypes.PORTS) ports!: PortWrapper[];
 
   @ns.links.State('links') links!: ILink[];
 
@@ -76,6 +80,7 @@ export default class StagesList extends Vue {
         <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
           <NodeComponent :node="node" v-for="node in nodes" :key="`node-${node.id}`" />
           <LinkComponent  v-for="link in links" :link="link" :key="`link-${link.id}`" />
+          <PortComponent :port="port" v-for="port in ports" />
         </g>
       </svg>
     </div>

@@ -8,7 +8,7 @@ import factories from "@/factories/nodes";
 import { NodeType } from "../enums/NodeType";
 import { AUDIO_CONTEXT } from "@/utils/constants";
 import { NodePortWrapper } from "./PortWrapper";
-import PortGroupWrapper from "./PortGroupWrapper";
+import PortGroupWrapper, { PortGroupType } from "./PortGroupWrapper";
 
 export default class NodeWrapper implements INode {
 
@@ -48,7 +48,7 @@ export default class NodeWrapper implements INode {
             return ParamsFactory.create(this, p)
         });
         this._inputs = new PortGroupWrapper(this, details.inputs);
-        this._outputs = new PortGroupWrapper(this, details.outputs);
+        this._outputs = new PortGroupWrapper(this, details.outputs, PortGroupType.OUTPUT);
         factories[this.type as NodeType](AUDIO_CONTEXT, this);
     }
 

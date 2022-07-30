@@ -1,4 +1,4 @@
-import { FULL_PORT_DIAMETER } from "@/utils/constants";
+import { FULL_PORT_DIAMETER, PORT_RADIUS, PORT_TOP_MARGIN } from "@/utils/constants";
 import { portsY } from "@/utils/geometry/ports";
 import { IPort } from "../api/IPort";
 import NodeWrapper from "./NodeWrapper";
@@ -40,14 +40,11 @@ export class NodePortWrapper extends PortWrapper {
     }
 
     public get x(): number {
-        return this.node.x;
+        return this.group.x;
     }
 
     public get y(): number {
-        const nbPorts: number = (this.group.isInputs ? this.node.inputs : this.node.outputs).length
-        const baseY = this.node.y + portsY(this.node, nbPorts);
-        const dy = this.index * FULL_PORT_DIAMETER
-        return baseY + dy;
+        return this.group.y + this.index * FULL_PORT_DIAMETER;
     }
 }
 

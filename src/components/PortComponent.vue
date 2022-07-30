@@ -28,5 +28,5 @@ export default class NodePortComponent extends Vue {
 </script>
 
 <template>
-    <circle :cx="0" :cy="cy" :r="r" stroke="#00FF00" stroke-width="2" />
+    <circle :cx="port.x" :cy="port.y" :r="r" stroke="#00FF00" stroke-width="2" />
 </template>
