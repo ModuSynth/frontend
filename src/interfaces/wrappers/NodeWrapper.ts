@@ -121,4 +121,12 @@ export default class NodeWrapper implements INode {
             this.setParam(name, this.getParam(name));
         })
     }
+
+    public get inputsGroup(): PortGroupWrapper {
+        return this._inputs;
+    }
+
+    public get outputsGroup(): PortGroupWrapper {
+        return this._outputs;
+    }
 }

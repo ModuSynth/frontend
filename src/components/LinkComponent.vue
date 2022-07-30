@@ -3,7 +3,6 @@ import LinkWrapper from "@/interfaces/wrappers/LinkWrapper";
 import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 import { NodePortWrapper, ParamPortWrapper } from "@/interfaces/wrappers/PortWrapper";
 import { PORT_RADIUS, PORT_TOP_MARGIN } from "@/utils/constants";
-import { portsY } from "@/utils/geometry/ports";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
