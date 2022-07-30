@@ -6,4 +6,7 @@ export enum LinkActionTypes {
 export enum LinkMutationTypes {
   ADD_LINK = 'ADD_LINK',
   REMOVE_LINK = 'REMOVE_LINK',
+  START_LINK = 'START_LINK',
+  END_LINK = 'END_LINK',
+  CANCEL_LINK = 'CANCEL_LINK',
 }

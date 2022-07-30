@@ -26,7 +26,7 @@ const actions: ActionTree<ILinkState, MainState> & LinkActions = {
   },
   [LinkActionTypes.DELETE_LINK]({ commit }, link) {
     return axios.delete(`http://localhost:3000/links/${link.id}`).then(() => {
-      commit(LinkMutationTypes.REMOVE_LINK, link.id);
+      commit(LinkMutationTypes.REMOVE_LINK, link);
     })
   },
 }

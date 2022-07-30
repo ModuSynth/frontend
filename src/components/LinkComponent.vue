@@ -2,12 +2,16 @@
 import LinkWrapper from "@/interfaces/wrappers/LinkWrapper";
 import NodeWrapper from "@/interfaces/wrappers/NodeWrapper";
 import { NodePortWrapper, ParamPortWrapper } from "@/interfaces/wrappers/PortWrapper";
+import { LinkActionTypes } from "@/store/links/enums";
 import { PORT_RADIUS, PORT_TOP_MARGIN } from "@/utils/constants";
+import ns from "@/utils/ns";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class LinkComponent extends Vue {
     @Prop() link!: LinkWrapper;
+
+    @ns.links.Action(LinkActionTypes.DELETE_LINK) deleteLink: any;
 
     public get x1(): number {
         return this.link.from.node.x + this.link.from.node.width;
@@ -37,5 +41,5 @@ export default class LinkComponent extends Vue {
 </script>
 
 <template>
-    <line :x1="x1" :x2="x2" :y1="y1" :y2="y2" stroke="#00FF00" stroke-width="3" />
+    <line :x1="x1" :x2="x2" :y1="y1" :y2="y2" stroke="#00FF00" stroke-width="3" @click="deleteLink(link)" />
 </template>
