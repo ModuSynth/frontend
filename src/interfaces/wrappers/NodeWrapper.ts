@@ -7,8 +7,10 @@ import ParamsFactory from "@/factories/ParamsFactory";
 import factories from "@/factories/nodes";
 import { NodeType } from "../enums/NodeType";
 import { AUDIO_CONTEXT } from "@/utils/constants";
-import { NodePortWrapper } from "./PortWrapper";
+import PortWrapper, { NodePortWrapper } from "./PortWrapper";
 import PortGroupWrapper, { PortGroupType } from "./PortGroupWrapper";
+import { map } from "lodash";
+import LinkWrapper from "./LinkWrapper";
 
 export default class NodeWrapper implements INode {
 
@@ -60,11 +62,11 @@ export default class NodeWrapper implements INode {
         return this._waaNode;
     }
 
-    public get inputs(): IPort[] {
+    public get inputs(): PortWrapper[] {
         return this._inputs.ports;
     }
 
-    public get outputs(): IPort[] {
+    public get outputs(): PortWrapper[] {
         return this._outputs.ports;
     }
 
@@ -87,18 +89,18 @@ export default class NodeWrapper implements INode {
         return { x: this.x, y: this.y, params: this.params, type: this.type, stage_id: this._stage.id}
     }
 
-    public set inputs(ports: IPort[]) {
-        ports.forEach((input: IPort) => this.inputs.push(input));
+    public set inputs(ports: PortWrapper[]) {
+        ports.forEach((input: PortWrapper) => this.inputs.push(input));
     }
 
-    public set outputs(ports: IPort[]) {
-        ports.forEach((output: IPort) => this.outputs.push(output));
+    public set outputs(ports: PortWrapper[]) {
+        ports.forEach((output: PortWrapper) => this.outputs.push(output));
     }
 
-    public get ports(): IPort[] {
-        let nodePorts: IPort[] = [ ...this.inputs, ...this.outputs ];
+    public get ports(): PortWrapper[] {
+        let nodePorts: PortWrapper[] = [ ...this.inputs, ...this.outputs ];
         this.params.forEach((p: ParamWrapper) => {
-            p.inputs.forEach((port: IPort) => {
+            p.inputs.forEach((port: PortWrapper) => {
                 nodePorts.push(port)
             });
         });
@@ -128,5 +130,9 @@ export default class NodeWrapper implements INode {
 
     public get outputsGroup(): PortGroupWrapper {
         return this._outputs;
+    }
+
+    public get links(): LinkWrapper[] {
+        return this.ports.map((p: PortWrapper) => p.links).flat();
     }
 }

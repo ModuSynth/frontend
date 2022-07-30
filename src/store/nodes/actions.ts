@@ -9,6 +9,7 @@ import { IParam } from "@/interfaces/api/IParam";
 import { NodesFactory } from "@/factories/NodesFactory";
 import ParamWrapper from "@/interfaces/wrappers/ParamWrapper";
 import { ParamPortWrapper } from "@/interfaces/wrappers/PortWrapper";
+import LinkWrapper from "@/interfaces/wrappers/LinkWrapper";
 
 const actions: ActionTree<INodeState, MainState> & NodeActions = {
   [NodeActionTypes.FETCH_LIST]({ commit, dispatch }, stageId) {
@@ -51,9 +52,12 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
     })
     return axios.patch(uri, { params })
   },
-  [NodeActionTypes.DELETE]({ commit }, id) {
-    return axios.delete(`http://localhost:3000/nodes/${id}`).then(() => {
-      commit(NodeMutationTypes.REMOVE_NODE, id);
+  [NodeActionTypes.DELETE]({ commit, dispatch }, node) {
+    return axios.delete(`http://localhost:3000/nodes/${node.id}`).then(() => {
+      commit(NodeMutationTypes.REMOVE_NODE, node);
+      node.links.forEach((link: LinkWrapper) => {
+        dispatch(`links/${LinkActionTypes.DELETE_LINK}`, link, { root: true })
+      });
     })
   }
 }

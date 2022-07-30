@@ -1,5 +1,6 @@
-import { FULL_PORT_DIAMETER, PORT_RADIUS, PORT_TOP_MARGIN } from "@/utils/constants";
+import { FULL_PORT_DIAMETER } from "@/utils/constants";
 import { IPort } from "../api/IPort";
+import LinkWrapper from "./LinkWrapper";
 import NodeWrapper from "./NodeWrapper";
 import { NumberParameter } from "./ParamWrapper";
 import PortGroupWrapper from "./PortGroupWrapper";
@@ -9,6 +10,8 @@ export default abstract class PortWrapper implements IPort {
     public readonly id: string
 
     public readonly index: number;
+
+    public readonly links: LinkWrapper[] = []
 
     public constructor(details: IPort) {
         this.id = details.id;

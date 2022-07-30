@@ -69,7 +69,7 @@ export default class NodeComponent extends Vue {
       <div class="node-container" @mousedown.left.stop="startDrag({node, $event})">
         <div class="node-element node-topbar" :style="containerStyle">
           <div :style="titleStyle" class="node-title text-truncate">{{ $t(`nodes.types.${node.type}`) }}</div>
-          <a :style="closeButtonStyle" class="node-close" @click.stop="deleteNode(node.id)" @mousedown.stop>&times;</a>
+          <a :style="closeButtonStyle" class="node-close" @click.stop="deleteNode(node)" @mousedown.stop>&times;</a>
         </div>
         <div class="node-element" :style="containerStyle">
           <component :is="node.type" :node="node"></component>

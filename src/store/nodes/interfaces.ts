@@ -21,7 +21,7 @@ export type NodeMutations<S = INodeState> = {
   [NodeMutationTypes.MOVE_DRAG](state: S, payload: MouseEvent): void;
   [NodeMutationTypes.END_DRAG](state: S): void;
   [NodeMutationTypes.ADD_NODE](state: S, payload: INode): void;
-  [NodeMutationTypes.REMOVE_NODE](state: S, payload: string): void;
+  [NodeMutationTypes.REMOVE_NODE](state: S, payload: NodeWrapper): void;
 }
 
 export type NodeActions = {
@@ -29,7 +29,7 @@ export type NodeActions = {
   [NodeActionTypes.CREATE](context: any, type: string): Promise<any>;
   [NodeActionTypes.SAVE_POSITION](context: any, payload: MouseEvent): any;
   [NodeActionTypes.SAVE_PARAMS](context: any, payload: NodeWrapper): any;
-  [NodeActionTypes.DELETE](context: any, payload: string): Promise<any>;
+  [NodeActionTypes.DELETE](context: any, payload: NodeWrapper): Promise<any>;
 }
 
 export type NodeGetters = {

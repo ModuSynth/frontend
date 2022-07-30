@@ -11,5 +11,8 @@ export default class LinkWrapper {
         this.from = from;
         this.to = to;
         to.connectInput(from);
+
+        this.from.links.push(this);
+        this.to.links.push(this);
     }
 }

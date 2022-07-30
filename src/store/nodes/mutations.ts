@@ -41,8 +41,8 @@ const mutations: MutationTree<INodeState> & NodeMutations = {
     const stage: IStageDetails = (this.state as any).stages.stage
     state.nodes.push(NodesFactory.create(stage, details));
   },
-  [NodeMutationTypes.REMOVE_NODE](state, id) {
-    state.nodes = reject(state.nodes, { id })
+  [NodeMutationTypes.REMOVE_NODE](state, node) {
+    state.nodes = reject(state.nodes, { id: node.id })
   },
 }
 
