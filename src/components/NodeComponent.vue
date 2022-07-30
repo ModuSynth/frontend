@@ -7,6 +7,7 @@ import OscillatorNode from './nodes/OscillatorNode.vue';
 import ChannelMergerNode from './nodes/ChannelMergerNode.vue';
 import { NODE_PADDING, PARAM_WIDTH, NODE_CLOSE_SIZE, NODE_TITLE_HEIGHT, NODE_TITLE_WIDTH, PORT_RADIUS, PORT_TOP_MARGIN } from '@/utils/constants';
 import OutputNode from './nodes/OutputNode.vue';
+import DelayNode from './nodes/DelayNode.vue';
 import NodeWrapper from '@/interfaces/wrappers/NodeWrapper';
 import NodePortComponent from './PortComponent.vue';
 
@@ -18,7 +19,7 @@ import NodePortComponent from './PortComponent.vue';
  * @author Vincent Courtois <courtois.vincent@outlook.com>
  */
 @Component({
-  components: { GainNode, OscillatorNode, ChannelMergerNode, OutputNode, NodePortComponent }
+  components: { GainNode, OscillatorNode, ChannelMergerNode, OutputNode, NodePortComponent, DelayNode }
 })
 export default class NodeComponent extends Vue {
   @Prop() readonly node!: NodeWrapper;

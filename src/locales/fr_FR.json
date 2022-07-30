@@ -1,6 +1,7 @@
 {
   "nodes": {
     "types": {
+      "DelayNode": "Délai",
       "GainNode": "Volume",
       "OscillatorNode": "Oscillateur",
       "OutputNode": "Sortie",
@@ -12,7 +13,8 @@
       "unknown": "Inconnu",
       "gain": "Volume",
       "frequency": "Fréquence",
-      "detune": "Désaccord"
+      "detune": "Désaccord",
+      "delayTime": "Délai"
     }
   },
   "stages": {
