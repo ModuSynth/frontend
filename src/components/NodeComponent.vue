@@ -7,10 +7,8 @@ import OscillatorNode from './nodes/OscillatorNode.vue';
 import ChannelMergerNode from './nodes/ChannelMergerNode.vue';
 import { NODE_PADDING, PARAM_WIDTH, NODE_CLOSE_SIZE, NODE_TITLE_HEIGHT, NODE_TITLE_WIDTH, PORT_RADIUS, PORT_TOP_MARGIN } from '@/utils/constants';
 import OutputNode from './nodes/OutputNode.vue';
-import { portsHeight, portsY } from '@/utils/geometry/ports';
 import NodeWrapper from '@/interfaces/wrappers/NodeWrapper';
 import NodePortComponent from './PortComponent.vue';
-import { cloneDeep } from 'lodash';
 
 
 /**
@@ -55,14 +53,6 @@ export default class NodeComponent extends Vue {
 
   public get radius() {
     return PORT_RADIUS
-  }
-
-  public portsHeight(numberOfPorts: number): number {
-    return portsHeight(numberOfPorts)
-  }
-
-  public portsY(numberOfPorts: number): number {
-    return portsY(this.node, numberOfPorts);
   }
 }
 </script>

@@ -21,12 +21,12 @@ export default class Toolbar extends Vue {
 
 <template>
   <div class="toolbar-wrapper">
-    <v-menu bottom v-for="(tool, name) in tools">
+    <v-menu bottom v-for="(tool, name) in tools" :key="name">
       <template v-slot:activator="{ on, attrs }">
         <a v-bind="attrs" v-on="on" class="toolbar-tool">{{ name }}</a>
       </template>
       <div class="toolbar-popdown">
-        <a class="toolbar-option" v-for="type in tool" @click="createNode(type)">
+        <a class="toolbar-option" v-for="type in tool" @click="createNode(type)" :key="type">
           {{ $t(`nodes.types.${type}`) }}
         </a>
       </div>

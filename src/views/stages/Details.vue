@@ -80,7 +80,7 @@ export default class StagesList extends Vue {
         <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
           <NodeComponent :node="node" v-for="node in nodes" :key="`node-${node.id}`" />
           <LinkComponent  v-for="link in links" :link="link" :key="`link-${link.id}`" />
-          <PortComponent :port="port" v-for="port in ports" />
+          <PortComponent :port="port" v-for="port in ports" :key="`port-${port.id}`" />
         </g>
       </svg>
     </div>

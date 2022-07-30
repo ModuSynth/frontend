@@ -1,5 +1,4 @@
 import { FULL_PORT_DIAMETER, PORT_RADIUS, PORT_TOP_MARGIN } from "@/utils/constants";
-import { portsY } from "@/utils/geometry/ports";
 import { IPort } from "../api/IPort";
 import NodeWrapper from "./NodeWrapper";
 import { NumberParameter } from "./ParamWrapper";
