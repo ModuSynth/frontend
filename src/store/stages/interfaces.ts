@@ -24,12 +24,12 @@ export type StageMutations<S = IStageState> = {
   [MutationTypes.MOVE_DRAG](state: S, payload: ICoordinates): void;
   [MutationTypes.END_DRAG](state: S): void;
   [MutationTypes.ADD_STAGE](state: S, payload: IStage): void;
-  [MutationTypes.CREATE_CONTEXT](state: S): void;
 }
 
 export interface StageActions {
   [ActionTypes.FETCH_LIST](context: any): Promise<any>;
   [ActionTypes.FETCH_ONE](context: any, stageId: number): Promise<any>;
   [ActionTypes.CREATE](context: any, payload: any): Promise<any>;
-  [ActionTypes.SAVE_POSITION](context: any): any
+  [ActionTypes.SAVE_POSITION](context: any): any;
+  [ActionTypes.CREATE_CONTEXT](context: any): any;
 }

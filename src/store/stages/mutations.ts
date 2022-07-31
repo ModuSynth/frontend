@@ -1,6 +1,6 @@
 import IStage, { IStageDetails } from "@/interfaces/api/IStage";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
-import { MAX_ZOOM_IN, MAX_ZOOM_OUT, ZOOM_RATIO } from "@/utils/constants";
+import { MAX_ZOOM_IN, MAX_ZOOM_OUT, resetContext, ZOOM_RATIO } from "@/utils/constants";
 import { MutationTree } from "vuex";
 import { StageMutationTypes } from "./enums";
 import { IStageState, StageMutations } from "./interfaces";
@@ -37,9 +37,6 @@ const mutations : MutationTree<IStageState> & StageMutations = {
   },
   [StageMutationTypes.ADD_STAGE](state, stage) {
     state.list.push(stage);
-  },
-  [StageMutationTypes.CREATE_CONTEXT](state) {
-    state.context = new AudioContext();
   }
 }
 

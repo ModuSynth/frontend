@@ -5,14 +5,13 @@ import NumberParameter from '../params/NumberParameter.vue';
 import ListParameter from '../params/ListParameter.vue';
 import NodeWrapper from '@/interfaces/wrappers/NodeWrapper';
 import ParamWrapper from '@/interfaces/wrappers/ParamWrapper';
+import { AUDIO_CONTEXT } from '@/utils/constants';
 
 @Component({
   components: { ListParameter, NumberParameter }
 })
 export default class OscillatorNodeComponent extends Vue {
   @Prop() node!: NodeWrapper;
-
-  @ns.stages.State("context") context!: AudioContext;
 
   public mounted() {
     this.node.height = 210;
@@ -33,6 +32,10 @@ export default class OscillatorNodeComponent extends Vue {
 
   public get type(): ParamWrapper | undefined {
     return this.node.params.find(p => p.name == "type")
+  }
+
+  public get context(): AudioContext {
+    return AUDIO_CONTEXT;
   }
 }
 </script>

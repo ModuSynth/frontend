@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "API_URL=http://localhost:3000 vue-cli-service serve",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "start": "node server.js"
   },

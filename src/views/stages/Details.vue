@@ -30,8 +30,6 @@ export default class StagesList extends Vue {
 
   @ns.nodes.State('loaded') loaded!: boolean;
 
-  @ns.nodes.Action(NodeActionTypes.FETCH_LIST) fetchNodes: any;
-
   @ns.stages.Action(StageActionTypes.FETCH_ONE) fetchOne: any;
 
   @ns.stages.Mutation(StageMutationTypes.START_DRAG) startDrag: any;
@@ -46,7 +44,7 @@ export default class StagesList extends Vue {
 
   @ns.stages.Mutation(StageMutationTypes.SET_SCALE) setScale: any;
 
-  @ns.stages.Mutation(StageMutationTypes.CREATE_CONTEXT) createContext: any;
+  @ns.stages.Action(StageActionTypes.CREATE_CONTEXT) createContext: any;
 
   @ns.links.Mutation(LinkMutationTypes.CANCEL_LINK) cancelLink: any;
 
@@ -88,7 +86,7 @@ export default class StagesList extends Vue {
         </g>
       </svg>
     </div>
-    <div v-else class="fit-screen loading-screen" @click="createContext(); fetchNodes($route.params.id)">
+    <div v-else class="fit-screen loading-screen" @click="createContext">
       Click anywhere to start
     </div>
   </div>
