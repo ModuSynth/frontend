@@ -24,7 +24,8 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
     const payload: any = {
       x: 50 - rootState.stages.stage.x,
       y: 50 - rootState.stages.stage.y,
-      type: type
+      type: type,
+      stage_id: rootState.stages.stage.id
     }
     return axios.post('http://localhost:3000/nodes', payload).then(({ data }) => {
       commit(NodeMutationTypes.ADD_NODE, NodesFactory.create(rootState.stages.stage, data));
