@@ -10,10 +10,11 @@ import { NodesFactory } from "@/factories/NodesFactory";
 import ParamWrapper from "@/interfaces/wrappers/ParamWrapper";
 import { ParamPortWrapper } from "@/interfaces/wrappers/PortWrapper";
 import LinkWrapper from "@/interfaces/wrappers/LinkWrapper";
+import { API_URL } from "@/utils/constants";
 
 const actions: ActionTree<INodeState, MainState> & NodeActions = {
   [NodeActionTypes.FETCH_LIST]({ commit, dispatch }, stageId) {
-    return axios.get(`http://localhost:3000/nodes?stage_id=${stageId}`)
+    return axios.get(`${API_URL}/nodes?stage_id=${stageId}`)
       .then((response: any) => response.data)
       .then((data: INode[]) => {
         commit(NodeMutationTypes.SET_NODES_LIST, data);
@@ -27,20 +28,20 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
       type: type,
       stage_id: rootState.stages.stage.id
     }
-    return axios.post('http://localhost:3000/nodes', payload).then(({ data }) => {
+    return axios.post(`${API_URL}/nodes`, payload).then(({ data }) => {
       commit(NodeMutationTypes.ADD_NODE, NodesFactory.create(rootState.stages.stage, data));
     });
   },
   [NodeActionTypes.SAVE_POSITION]({ state }) {
     if (state.dragged === undefined) return;
 
-    const uri: string = `http://localhost:3000/nodes/${state.dragged.id}`;
+    const uri: string = `${API_URL}/nodes/${state.dragged.id}`;
     return axios.patch(uri, { x: state.dragged.x, y: state.dragged.y }).then(() => {
       state.dragged = undefined;
     })
   },
   [NodeActionTypes.SAVE_PARAMS](_context, node) {
-    const uri: string = `http://localhost:3000/nodes/${node.id}`;
+    const uri: string = `${API_URL}/nodes/${node.id}`;
     const params: IParam[] = node.params.map((p: ParamWrapper): IParam => {
       return {
         name: p.name,
@@ -54,7 +55,7 @@ const actions: ActionTree<INodeState, MainState> & NodeActions = {
     return axios.patch(uri, { params })
   },
   [NodeActionTypes.DELETE]({ commit, dispatch }, node) {
-    return axios.delete(`http://localhost:3000/nodes/${node.id}`).then(() => {
+    return axios.delete(`${API_URL}/nodes/${node.id}`).then(() => {
       commit(NodeMutationTypes.REMOVE_NODE, node);
       node.links.forEach((link: LinkWrapper) => {
         dispatch(`links/${LinkActionTypes.DELETE_LINK}`, link, { root: true })

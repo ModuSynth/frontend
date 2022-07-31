@@ -1,5 +1,6 @@
 <script lang="ts">
 import { NodeActionTypes } from '@/store/nodes/enums';
+import { API_URL } from '@/utils/constants';
 import ns from '@/utils/ns';
 import axios from 'axios';
 import { Component, Vue } from 'vue-property-decorator';
@@ -10,7 +11,7 @@ export default class Toolbar extends Vue {
   public tools: any = {}
 
   public mounted() {
-    axios.get('http://localhost:3000/tools').then(({ data }) => {
+    axios.get(`${API_URL}/tools`).then(({ data }) => {
       this.tools = data
     })
   }

@@ -3,26 +3,27 @@ import MainState from "../utils/MainState";
 import { StageActionTypes, StageMutationTypes } from "./enums";
 import { IStageState, StageActions } from "./interfaces";
 import axios from "axios";
+import { API_URL } from "@/utils/constants";
 
 const actions: ActionTree<IStageState, MainState> & StageActions = {
   [StageActionTypes.FETCH_LIST]({ commit }) {
-    return axios.get("http://localhost:3000/stages").then(({ data }) => {
+    return axios.get(`${API_URL}/stages`).then(({ data }) => {
       commit(StageMutationTypes.SET_LIST, data);
     });
   },
   [StageActionTypes.FETCH_ONE]({ commit }, stageId) {
-    return axios.get(`http://localhost:3000/stages/${stageId}`).then(({ data }) => {
+    return axios.get(`${API_URL}/stages/${stageId}`).then(({ data }) => {
       commit(StageMutationTypes.SET_DETAILS, data);
     });
   },
   [StageActionTypes.CREATE]({ commit }, payload) {
-    return axios.post('http://localhost:3000/stages', payload).then((response) => {
+    return axios.post('${API_URL}/stages', payload).then((response) => {
       payload.id = response.data.id;
       commit(StageMutationTypes.ADD_STAGE, payload);
     })
   },
   [StageActionTypes.SAVE_POSITION]({ state }) {
-    return axios.patch(`http://localhost:3000/stages/${state.stage.id}`, state.stage).then(() => {
+    return axios.patch(`${API_URL}/stages/${state.stage.id}`, state.stage).then(() => {
       state.dragging = false;
     })
   }
