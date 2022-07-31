@@ -4,15 +4,18 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "start": "vue-cli-service build && node server.js"
   },
   "dependencies": {
     "@types/lodash": "^4.14.182",
     "@types/uuid": "^8.3.4",
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
+    "express": "^4.18.1",
     "lodash": "^4.17.21",
     "register-service-worker": "^1.7.2",
+    "serve-static": "^1.15.0",
     "uuid": "^8.3.2",
     "vue": "^2.6.14",
     "vue-class-component": "^7.2.3",
