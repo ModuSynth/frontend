@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "start": "vue-cli-service build && node server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "@types/lodash": "^4.14.182",
