@@ -31,4 +31,4 @@ export const FULL_PORT_DIAMETER = 2 * PORT_RADIUS + PORT_TOP_MARGIN
 
 export const AUDIO_CONTEXT = new AudioContext();
 
-export const API_URL = process.env.API_URL || 'http://localhost:3000'
+export const API_URL = process.env.API_URL || 'https://modusynth-api.herokuapp.com'
