@@ -17,6 +17,7 @@ export default class ListParameter extends Vue {
   }
 
   public set value(newValue: string) {
+    console.log(newValue);
     this.param.value = newValue;
     this.saveParams(this.param.node);
   }

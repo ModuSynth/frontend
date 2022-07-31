@@ -3,9 +3,6 @@ import MainState from "../utils/MainState";
 import { StageActionTypes, StageMutationTypes } from "./enums";
 import { IStageState, StageActions } from "./interfaces";
 import axios from "axios";
-import { NodeMutationTypes } from "../nodes/enums";
-import ICoordinates from "@/interfaces/utils/ICoordinates";
-import stages from ".";
 
 const actions: ActionTree<IStageState, MainState> & StageActions = {
   [StageActionTypes.FETCH_LIST]({ commit }) {
@@ -24,7 +21,7 @@ const actions: ActionTree<IStageState, MainState> & StageActions = {
       commit(StageMutationTypes.ADD_STAGE, payload);
     })
   },
-  [StageActionTypes.SAVE_POSITION]({ commit, state }) {
+  [StageActionTypes.SAVE_POSITION]({ state }) {
     return axios.patch(`http://localhost:3000/stages/${state.stage.id}`, state.stage).then(() => {
       state.dragging = false;
     })

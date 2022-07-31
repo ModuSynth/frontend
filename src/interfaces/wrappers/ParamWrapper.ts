@@ -58,5 +58,6 @@ export class ListParameter extends ParamWrapper {
 
     public set value(val: any) {
         this._value = val;
+        (this.node.waaNode as any)[this.name] = val
     }
 }
