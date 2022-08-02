@@ -39,3 +39,7 @@ export async function resetContext() {
         resolve();
     });
 }
+
+export const SLOT_COUNT = 20;
+export const RACK_HEIGHT = 400;
+export const SLOT_SIZE = RACK_HEIGHT / 10;

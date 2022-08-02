@@ -12,9 +12,10 @@ import ILink from '@/interfaces/api/ILink';
 import PortComponent from '../../components/PortComponent.vue';
 import PortWrapper from '@/interfaces/wrappers/PortWrapper';
 import { LinkMutationTypes } from '@/store/links/enums';
+import Rack from '@/components/Rack.vue'
 
 @Component({
-  components: { LinkComponent, NodeComponent, PortComponent, Toolbar }
+  components: { LinkComponent, NodeComponent, PortComponent, Toolbar, Rack }
 })
 export default class StagesList extends Vue {
 
@@ -80,9 +81,10 @@ export default class StagesList extends Vue {
         @wheel.prevent="setScale($event.deltaY)"
       >
         <g :transform="`translate(${stage.x} ${stage.y}) scale(${scale} ${scale})`">
-          <NodeComponent :node="node" v-for="node in nodes" :key="`node-${node.id}`" />
+          <Rack />
+          <!--NodeComponent :node="node" v-for="node in nodes" :key="`node-${node.id}`" />
           <LinkComponent  v-for="link in links" :link="link" :key="`link-${link.id}`" />
-          <PortComponent :port="port" v-for="port in ports" :key="`port-${port.id}`" />
+          <PortComponent :port="port" v-for="port in ports" :key="`port-${port.id}`" /-->
         </g>
       </svg>
     </div>
