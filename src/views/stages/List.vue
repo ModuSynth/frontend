@@ -18,7 +18,7 @@ export default class StagesList extends Vue {
     {text: 'Actions', value: 'actions'},
   ]
 
-  public creation = { name: '', nodes_count: 0, links_count: 0, x: 0, y: 0 }
+  public stageName: string = "";
 
   @ns.State('list') stages!: IStage[];
 
@@ -45,9 +45,9 @@ export default class StagesList extends Vue {
           <v-container>
             <v-row>
               <v-col col="6">
-                <v-text-field outlined dense :label="$t('stages.creation.fields.name')" v-model="creation.name" />
+                <v-text-field outlined dense :label="$t('stages.creation.fields.name')" v-model="stageName" />
                 </v-col>
-              <v-col col="6"><v-btn @click="createStage(creation)">Create</v-btn></v-col>
+              <v-col col="6"><v-btn @click="createStage(stageName)">Create</v-btn></v-col>
             </v-row>
           </v-container>
         </template>

@@ -1,5 +1,4 @@
 <script lang="ts">
-import ns from '@/utils/ns';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import NumberParameter from '../params/NumberParameter.vue';
 import ListParameter from '../params/ListParameter.vue';

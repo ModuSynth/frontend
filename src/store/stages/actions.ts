@@ -17,10 +17,12 @@ const actions: ActionTree<IStageState, MainState> & StageActions = {
       commit(StageMutationTypes.SET_DETAILS, data);
     });
   },
-  [StageActionTypes.CREATE]({ commit }, payload) {
-    return axios.post('${API_URL}/stages', payload).then((response) => {
-      payload.id = response.data.id;
-      commit(StageMutationTypes.ADD_STAGE, payload);
+  [StageActionTypes.CREATE]({ commit }, stageName) {
+    const payload: any = {
+      x: 0, y: 0, slots: 50, racks: 2, name: stageName
+    }
+    return axios.post(`${API_URL}/stages`, payload).then(({ data }) => {
+      commit(StageMutationTypes.ADD_STAGE, data);
     })
   },
   [StageActionTypes.SAVE_POSITION]({ state }) {

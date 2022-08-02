@@ -16,4 +16,6 @@ export interface IStageDetails {
   x: number;
   y: number;
   nodes: INode[];
+  racks: number;
+  slots: number;
 }
