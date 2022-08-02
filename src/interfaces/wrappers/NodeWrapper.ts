@@ -1,16 +1,14 @@
 import { IStageDetails } from "../api/IStage";
 import { INode } from "../api/INode";
 import { IParam } from "../api/IParam";
-import { IPort } from "../api/IPort";
 import ParamWrapper from "./ParamWrapper";
 import ParamsFactory from "@/factories/ParamsFactory";
 import factories from "@/factories/nodes";
 import { NodeType } from "../enums/NodeType";
 import { AUDIO_CONTEXT } from "@/utils/constants";
-import PortWrapper, { NodePortWrapper } from "./PortWrapper";
 import PortGroupWrapper, { PortGroupType } from "./PortGroupWrapper";
-import { map } from "lodash";
 import LinkWrapper from "./LinkWrapper";
+import PortWrapper from "./PortWrapper";
 
 export default class NodeWrapper implements INode {
 

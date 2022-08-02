@@ -5,7 +5,6 @@ import { IStageState, StageActions } from "./interfaces";
 import axios from "axios";
 import { API_URL, AUDIO_CONTEXT, resetContext } from "@/utils/constants";
 import { NodeActionTypes } from "../nodes/enums";
-import { cloneDeep } from "lodash";
 
 const actions: ActionTree<IStageState, MainState> & StageActions = {
   [StageActionTypes.FETCH_LIST]({ commit }) {

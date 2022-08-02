@@ -1,6 +1,5 @@
 import { AUDIO_CONTEXT } from "@/utils/constants";
 import { IParam } from "../api/IParam";
-import { IPort } from "../api/IPort";
 import NodeWrapper from "./NodeWrapper";
 import { ParamPortWrapper } from "./PortWrapper";
 

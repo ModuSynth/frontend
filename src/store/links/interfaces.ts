@@ -2,7 +2,6 @@ import { LinkActionTypes, LinkMutationTypes } from "./enums";
 import LinkWrapper from "@/interfaces/wrappers/LinkWrapper";
 import PortWrapper from "@/interfaces/wrappers/PortWrapper";
 import ICoordinates from "@/interfaces/utils/ICoordinates";
-import { VNodeChildrenArrayContents } from "vue";
 
 export interface ILinkState {
   links: LinkWrapper[];
